@@ -4,10 +4,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.jdbc.core.JdbcTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mybatis.spring.annotation.MapperScan;
+import com.hengaikj.ai.persistence.mapper.ApiKeyMapper;
+import com.hengaikj.ai.persistence.mapper.AttemptMapper;
+import com.hengaikj.ai.persistence.mapper.LogicalModelMapper;
+import com.hengaikj.ai.persistence.mapper.ProjectPolicyMapper;
+import com.hengaikj.ai.persistence.mapper.RequestMapper;
 
 @SpringBootApplication
+@MapperScan("com.hengaikj.ai.persistence.mapper")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -16,7 +22,11 @@ public class Application {
     @Bean
     GatewayService gatewayService(ObjectProvider<PersistentApiKeyStore> store,
                                   ObjectProvider<RedisApiKeyCache> cache,
-                                  ObjectProvider<JdbcTemplate> jdbc,
+                                  ObjectProvider<ApiKeyMapper> apiKeyMapper,
+                                  ObjectProvider<ProjectPolicyMapper> policyMapper,
+                                  ObjectProvider<LogicalModelMapper> logicalModelMapper,
+                                  ObjectProvider<RequestMapper> requestMapper,
+                                  ObjectProvider<AttemptMapper> attemptMapper,
                                   ObjectProvider<ObjectMapper> mapper,
                                   org.springframework.core.env.Environment env) {
         if (!env.getProperty("ha.gateway.persistence.enabled", Boolean.class, false)) {
@@ -27,7 +37,8 @@ public class Application {
         var keys = new ApiKeyService(persistent, cache.getIfAvailable());
         keys.register(new ApiKey("1001", "1001", 1001L, "m01-demo-key",
                 ApiKeyStatus.ENABLED, null));
-        var policies = new ModelPolicyService();
+        var policies = new ModelPolicyService(policyMapper.getIfAvailable(),
+                logicalModelMapper.getIfAvailable());
         policies.allow("1001", "ha-gpt-4o-mini");
         var registry = new ProviderRegistry();
         registry.register(new LogicalModel("ha-gpt-4o-mini", "ha-gpt-4o-mini", true));
@@ -46,6 +57,8 @@ public class Application {
                     mapper.getIfAvailable(ObjectMapper::new)));
         }
         return new GatewayService(keys, policies, registry,
-                new RequestRepository(jdbc.getIfAvailable()), java.time.Clock.systemUTC());
+                new RequestRepository(requestMapper.getIfAvailable(),
+                        attemptMapper.getIfAvailable(), logicalModelMapper.getIfAvailable()),
+                java.time.Clock.systemUTC());
     }
 }

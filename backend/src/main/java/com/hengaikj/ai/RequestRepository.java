@@ -1,82 +1,162 @@
 package com.hengaikj.ai;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.hengaikj.ai.persistence.entity.AttemptEntity;
+import com.hengaikj.ai.persistence.entity.LogicalModelEntity;
+import com.hengaikj.ai.persistence.entity.RequestEntity;
+import com.hengaikj.ai.persistence.mapper.AttemptMapper;
+import com.hengaikj.ai.persistence.mapper.LogicalModelMapper;
+import com.hengaikj.ai.persistence.mapper.RequestMapper;
+
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 public final class RequestRepository {
-    private final AtomicLong sequence = new AtomicLong(1000);
-    private final JdbcTemplate jdbc;
+    private final AtomicLong sequence = new AtomicLong(System.currentTimeMillis() * 1000L);
+    private final RequestMapper requestMapper;
+    private final AttemptMapper attemptMapper;
+    private final LogicalModelMapper logicalModelMapper;
     private final Map<String, RequestRecord> requestRecords = new ConcurrentHashMap<>();
     private final Map<Long, AttemptRecord> attempts = new ConcurrentHashMap<>();
-    public RequestRepository() { this(null); }
-    public RequestRepository(JdbcTemplate jdbc) { this.jdbc = jdbc; }
+
+    public RequestRepository() {
+        this(null, null, null);
+    }
+
+    public RequestRepository(RequestMapper requestMapper, AttemptMapper attemptMapper,
+                             LogicalModelMapper logicalModelMapper) {
+        this.requestMapper = requestMapper;
+        this.attemptMapper = attemptMapper;
+        this.logicalModelMapper = logicalModelMapper;
+    }
 
     RequestRecord start(String requestId, String clientRequestId, String projectId, String apiKeyId,
                         String model, Instant startedAt) {
-        var record = new RequestRecord(sequence.incrementAndGet(), requestId, clientRequestId,
-                projectId, apiKeyId, model, startedAt, null, RequestStatus.STARTED);
+        return start(requestId, clientRequestId, 0L, projectId, apiKeyId, model, startedAt);
+    }
+
+    RequestRecord start(String requestId, String clientRequestId, long enterpriseId,
+                        String projectId, String apiKeyId, String model, Instant startedAt) {
+        long id = sequence.incrementAndGet();
+        if (requestMapper != null) {
+            var entity = new RequestEntity();
+            entity.requestId = id;
+            entity.enterpriseId = enterpriseId;
+            entity.projectId = Long.parseLong(projectId);
+            entity.apiKeyId = Long.parseLong(apiKeyId);
+            entity.logicalModelId = resolveLogicalModelId(model);
+            entity.clientRequestId = clientRequestId;
+            entity.stream = false;
+            entity.executionResult = "STARTED";
+            entity.deliveryResult = "NOT_STARTED";
+            entity.billingResult = "NOT_CHARGEABLE";
+            entity.startedAt = toLocalDateTime(startedAt);
+            entity.createdAt = entity.startedAt;
+            requestMapper.insert(entity);
+        }
+        var record = new RequestRecord(id, requestId, clientRequestId, projectId, apiKeyId,
+                model, startedAt, null, RequestStatus.STARTED);
         requestRecords.put(requestId, record);
-        if (jdbc != null) jdbc.update("""
-          INSERT INTO ha_ai_request(request_id,enterprise_id,project_id,api_key_id,logical_model_id,
-          client_request_id,stream,execution_result,delivery_result,billing_result,started_at,created_at)
-          VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
-          """, record.id(), 0L, Long.parseLong(projectId), Long.parseLong(apiKeyId), 0L,
-          clientRequestId, false, "STARTED", "NOT_STARTED", "NOT_CHARGEABLE",
-          java.sql.Timestamp.from(startedAt), java.sql.Timestamp.from(startedAt));
         return record;
     }
 
     AttemptRecord attempt(long requestId, String providerId, String channelId, Instant startedAt) {
-        var record = new AttemptRecord(sequence.incrementAndGet(), requestId, providerId, channelId,
-                startedAt, null, AttemptStatus.STARTED, null);
+        int attemptNo = (int) attempts.values().stream()
+                .filter(attempt -> attempt.requestId() == requestId)
+                .count() + 1;
+        long id = sequence.incrementAndGet();
+        if (attemptMapper != null) {
+            var entity = new AttemptEntity();
+            entity.attemptId = id;
+            entity.requestId = requestId;
+            entity.attemptNo = attemptNo;
+            entity.providerId = Long.parseLong(providerId);
+            entity.channelId = Long.parseLong(channelId);
+            entity.executionResult = "STARTED";
+            entity.startedAt = toLocalDateTime(startedAt);
+            entity.createdAt = entity.startedAt;
+            attemptMapper.insert(entity);
+            id = entity.attemptId;
+        }
+        var record = new AttemptRecord(id, requestId, providerId, channelId, startedAt,
+                null, AttemptStatus.STARTED, null);
         attempts.put(record.attemptId(), record);
-        if (jdbc != null) jdbc.update("""
-          INSERT INTO ha_ai_routing_attempt(attempt_id,request_id,attempt_no,provider_id,channel_id,
-          execution_result,started_at,created_at) VALUES(?,?,?,?,?,?,?,?)
-          """, record.attemptId(), requestId, 1, Long.parseLong(providerId), Long.parseLong(channelId),
-          "STARTED", java.sql.Timestamp.from(startedAt), java.sql.Timestamp.from(startedAt));
         return record;
     }
 
-    void succeed(long id, Instant finishedAt, String ignoredProviderRequestId) {
+    void succeed(long id, Instant finishedAt, String providerRequestId) {
         var attempt = attempts.get(id);
         if (attempt != null) {
-            attempts.put(id, attempt.finished(finishedAt, AttemptStatus.SUCCESS,
-                    ignoredProviderRequestId));
-            if (jdbc != null) jdbc.update("UPDATE ha_ai_routing_attempt SET execution_result='SUCCESS',provider_request_id=?,finished_at=? WHERE attempt_id=?",
-                    ignoredProviderRequestId, java.sql.Timestamp.from(finishedAt), id);
+            attempts.put(id, attempt.finished(finishedAt, AttemptStatus.SUCCESS, providerRequestId));
+            if (attemptMapper != null) {
+                attemptMapper.update(null, new UpdateWrapper<AttemptEntity>()
+                        .eq("attempt_id", id)
+                        .set("execution_result", "SUCCESS")
+                        .set("provider_request_id", providerRequestId)
+                        .set("finished_at", toLocalDateTime(finishedAt)));
+            }
             return;
         }
-        var request = requestRecords.values().stream().filter(r -> r.id() == id).findFirst().orElseThrow();
+        var request = requestRecords.values().stream()
+                .filter(record -> record.id() == id).findFirst().orElseThrow();
         requestRecords.put(request.requestId(), request.finished(finishedAt, RequestStatus.SUCCESS));
-        if (jdbc != null) jdbc.update("UPDATE ha_ai_request SET execution_result='SUCCESS',finished_at=? WHERE request_id=?",
-                java.sql.Timestamp.from(finishedAt), id);
+        if (requestMapper != null) {
+            requestMapper.update(null, new UpdateWrapper<RequestEntity>()
+                    .eq("request_id", id)
+                    .set("execution_result", "SUCCESS")
+                    .set("finished_at", toLocalDateTime(finishedAt)));
+        }
     }
 
-    void fail(long id, Instant finishedAt, String ignoredErrorCode) {
+    void fail(long id, Instant finishedAt, String errorCode) {
         var attempt = attempts.get(id);
         if (attempt != null) {
-            attempts.put(id, attempt.finished(finishedAt, AttemptStatus.FAILED, ignoredErrorCode));
-            if (jdbc != null) jdbc.update("UPDATE ha_ai_routing_attempt SET execution_result='FAILED',normalized_error_code=?,finished_at=? WHERE attempt_id=?",
-                    ignoredErrorCode, java.sql.Timestamp.from(finishedAt), id);
+            attempts.put(id, attempt.finished(finishedAt, AttemptStatus.FAILED, errorCode));
+            if (attemptMapper != null) {
+                attemptMapper.update(null, new UpdateWrapper<AttemptEntity>()
+                        .eq("attempt_id", id)
+                        .set("execution_result", "FAILED")
+                        .set("normalized_error_code", errorCode)
+                        .set("finished_at", toLocalDateTime(finishedAt)));
+            }
             return;
         }
-        var request = requestRecords.values().stream().filter(r -> r.id() == id).findFirst().orElseThrow();
+        var request = requestRecords.values().stream()
+                .filter(record -> record.id() == id).findFirst().orElseThrow();
         requestRecords.put(request.requestId(), request.finished(finishedAt, RequestStatus.FAILED));
-        if (jdbc != null) jdbc.update("UPDATE ha_ai_request SET execution_result='FAILED',finished_at=? WHERE request_id=?",
-                java.sql.Timestamp.from(finishedAt), id);
+        if (requestMapper != null) {
+            requestMapper.update(null, new UpdateWrapper<RequestEntity>()
+                    .eq("request_id", id)
+                    .set("execution_result", "FAILED")
+                    .set("finished_at", toLocalDateTime(finishedAt)));
+        }
     }
 
     RequestSnapshot find(String requestId) {
         var request = Optional.ofNullable(requestRecords.get(requestId))
                 .orElseThrow(() -> new IllegalArgumentException("请求不存在"));
         var requestAttempts = attempts.values().stream()
-                .filter(a -> a.requestId() == request.id()).toList();
+                .filter(attempt -> attempt.requestId() == request.id()).toList();
         return new RequestSnapshot(request, requestAttempts);
+    }
+
+    private long resolveLogicalModelId(String model) {
+        if (logicalModelMapper == null) return 0L;
+        return Optional.ofNullable(logicalModelMapper.selectOne(new QueryWrapper<LogicalModelEntity>()
+                        .eq("model_code", model)
+                        .last("LIMIT 1")))
+                .map(entity -> entity.logicalModelId)
+                .orElse(0L);
+    }
+
+    private static LocalDateTime toLocalDateTime(Instant value) {
+        return LocalDateTime.ofInstant(value, ZoneOffset.UTC);
     }
 }
 

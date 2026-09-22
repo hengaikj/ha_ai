@@ -64,8 +64,8 @@ public final class GatewayService {
         }
 
         Instant started = clock.instant();
-        var record = requests.start(requestId, clientRequestId, context.projectId(),
-                context.apiKeyId(), request.model(), started);
+        var record = requests.start(requestId, clientRequestId, context.enterpriseId(),
+                context.projectId(), context.apiKeyId(), request.model(), started);
         var route = providers.route(request.model());
         var attempt = requests.attempt(record.id(), route.providerId(), route.channelId(), started);
         try {
