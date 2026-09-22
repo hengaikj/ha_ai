@@ -1,0 +1,14 @@
+{
+  "version": "m01-ui-v0.1",
+  "mode": "BROWNFIELD_UI",
+  "pages": {
+    "PAGE-PROJECTS": {"layout":"AppLayout","header":"BasePageHeader","table":"BaseDataTable","actions":"PermissionButton","empty":"BaseEmpty","error":"TraceErrorAlert"},
+    "PAGE-PROJECT-DETAIL": {"layout":"AppLayout","header":"BasePageHeader"},
+    "PAGE-API-KEYS": {"layout":"AppLayout","header":"BasePageHeader","table":"BaseDataTable","actions":"PermissionButton","empty":"BaseEmpty","error":"TraceErrorAlert"},
+    "PAGE-MODEL-POLICY": {"layout":"AppLayout","header":"BasePageHeader","table":"BaseDataTable","actions":"PermissionButton"},
+    "PAGE-USAGE": {"layout":"AppLayout","header":"BasePageHeader","table":"BaseDataTable","error":"TraceErrorAlert"},
+    "PAGE-LOGICAL-MODELS": {"layout":"AppLayout","header":"BasePageHeader","table":"BaseDataTable","actions":"PermissionButton"},
+    "PAGE-PROVIDERS": {"layout":"AppLayout","header":"BasePageHeader","table":"BaseDataTable","actions":"PermissionButton"},
+    "PAGE-CHANNELS": {"layout":"AppLayout","header":"BasePageHeader","table":"BaseDataTable","actions":"PermissionButton"}
+  }
+}
