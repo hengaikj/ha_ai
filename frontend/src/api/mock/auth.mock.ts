@@ -1112,5 +1112,12 @@ export function mockFetchCurrentUser(): Promise<CurrentUser> {
 }
 
 export function mockFetchCurrentMenus(): Promise<MenuNode[]> {
+  if (import.meta.env.VITE_ENABLE_AI_MOCK === "true") {
+    return Promise.resolve([
+      { id: "ai-projects", code: "AiProjects", title: "项目/应用", path: "/ai/projects" },
+      { id: "ai-keys", code: "AiProjectApiKeys", title: "API Key", path: "/ai/projects/:projectId/api-keys", hidden: true },
+      { id: "ai-usage", code: "AiUsage", title: "调用记录", path: "/ai/usage" },
+    ]);
+  }
   return Promise.resolve(mockBackendMenus.map(mapMockMenuNode));
 }
