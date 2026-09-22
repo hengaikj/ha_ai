@@ -137,9 +137,7 @@ const PurchaseBomDiffAnalysisPage = () =>
 const NewProjectCostPage = () =>
   import("@/pages/cost/research/project-cost/NewProjectCostPage.vue");
 const ProductionNewProjectCostPage = () =>
-  import(
-    "@/pages/cost/production/production-project/NewProjectCostPage.vue"
-  );
+  import("@/pages/cost/production/production-project/NewProjectCostPage.vue");
 const ProjectCostViewPage = () =>
   import("@/pages/cost/research/project-cost/ProjectCostViewPage.vue");
 const NewProjectCostViewPage = () =>
@@ -2138,19 +2136,66 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: "/ai", name: "AiShell", component: AppLayout, redirect: "/ai/projects",
+    path: "/ai",
+    name: "AiShell",
+    component: AppLayout,
+    redirect: "/ai/projects",
     meta: { title: "智行官" },
     children: [
-      { path: "projects", name: "AiProjects", component: () => import("@/pages/ai/AiManagementPage.vue"), meta: { title: "项目" } },
+      {
+        path: "projects",
+        name: "AiProjects",
+        component: () => import("@/pages/ai/AiManagementPage.vue"),
+        meta: { title: "项目" },
+      },
       // 项目详情能力沿用 Wave1 管理页的数据端口，待正式项目详情契约落地后再拆分页面。
-      { path: "projects/:projectId/api-keys", name: "AiProjectApiKeys", component: () => import("@/pages/ai/AiManagementPage.vue"), meta: { title: "API Key", hidden: true } },
-      { path: "projects/:projectId/models", name: "AiProjectModels", component: () => import("@/pages/ai/ProjectModelsPage.vue"), meta: { title: "项目模型权限", hidden: true } },
-      { path: "usage", name: "AiUsage", component: () => import("@/pages/ai/AiManagementPage.vue"), meta: { title: "调用记录" } },
+      {
+        path: "projects/:projectId/api-keys",
+        name: "AiProjectApiKeys",
+        component: () => import("@/pages/ai/AiManagementPage.vue"),
+        meta: { title: "API Key", hidden: true },
+      },
+      {
+        path: "projects/:projectId/models",
+        name: "AiProjectModels",
+        component: () => import("@/pages/ai/ProjectModelsPage.vue"),
+        meta: { title: "项目模型权限", hidden: true },
+      },
+      {
+        path: "usage",
+        name: "AiUsage",
+        component: () => import("@/pages/ai/AiManagementPage.vue"),
+        meta: { title: "调用记录" },
+      },
+      {
+        path: "error-states",
+        name: "AiErrorStates",
+        component: () => import("@/pages/ai/AiErrorStatesPage.vue"),
+        meta: { title: "错误状态", hidden: true },
+      },
     ],
   },
-  { path: "/platform/ai/models", name: "AiModels", component: () => import("@/pages/ai/PlatformAiListPage.vue"), props: { title: "模型", kind: "models" }, meta: { title: "模型" } },
-  { path: "/platform/ai/providers", name: "AiProviders", component: () => import("@/pages/ai/PlatformAiListPage.vue"), props: { title: "Provider", kind: "providers" }, meta: { title: "Provider" } },
-  { path: "/platform/ai/channels", name: "AiChannels", component: () => import("@/pages/ai/PlatformAiListPage.vue"), props: { title: "渠道", kind: "channels" }, meta: { title: "渠道" } },
+  {
+    path: "/platform/ai/models",
+    name: "AiModels",
+    component: () => import("@/pages/ai/PlatformAiListPage.vue"),
+    props: { title: "模型", kind: "models" },
+    meta: { title: "模型" },
+  },
+  {
+    path: "/platform/ai/providers",
+    name: "AiProviders",
+    component: () => import("@/pages/ai/PlatformAiListPage.vue"),
+    props: { title: "Provider", kind: "providers" },
+    meta: { title: "Provider" },
+  },
+  {
+    path: "/platform/ai/channels",
+    name: "AiChannels",
+    component: () => import("@/pages/ai/PlatformAiListPage.vue"),
+    props: { title: "渠道", kind: "channels" },
+    meta: { title: "渠道" },
+  },
   {
     path: "/403",
     name: "forbidden",

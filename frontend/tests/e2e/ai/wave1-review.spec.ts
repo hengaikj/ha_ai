@@ -87,6 +87,30 @@ for (const viewport of [
       page.getByText("mock-request-001", { exact: true }),
     ).toBeVisible();
     await shot("调用记录");
+    await page.goto("/ai/error-states");
+    await expect(
+      page.getByRole("main").getByText("错误状态", { exact: true }),
+    ).toBeVisible();
+    await expect(page.getByText("Loading", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "Empty", exact: true }).click();
+    await expect(page.getByText("暂无数据", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "400", exact: true }).click();
+    await expect(
+      page.getByText("请求参数不合法", { exact: true }),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "403", exact: true }).click();
+    await expect(page.getByText("无权限访问", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "404", exact: true }).click();
+    await expect(page.getByText("资源不存在", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "409", exact: true }).click();
+    await expect(
+      page.getByText("资源状态冲突，请检查输入后重试", { exact: true }),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "500", exact: true }).click();
+    await expect(
+      page.getByText("服务暂时不可用", { exact: true }),
+    ).toBeVisible();
+    await shot("错误状态");
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
