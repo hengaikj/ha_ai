@@ -54,4 +54,25 @@ class GatewayControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error.code").value("invalid_request"));
     }
+    @Test
+    void modelPolicyCanBeReadAndReplaced() throws Exception {
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/api/projects/9001/models")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"models\":[\"model-a\",\"model-b\"]}"))
+                .andExpect(status().isOk())
+                .andExpect(header().exists("x-request-id"))
+                .andExpect(jsonPath("$.data.models[0]").value("model-a"));
+        mvc.perform(get("/api/projects/9001/models"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.models").isArray())
+                .andExpect(jsonPath("$.data.models.length()").value(2));
+    }
+
+    @Test
+    void modelPolicyRejectsNonPositiveProjectId() throws Exception {
+        mvc.perform(get("/api/projects/0/models"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error.code").value("invalid_request"));
+    }
+
 }
