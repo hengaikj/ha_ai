@@ -32,7 +32,11 @@ public final class ModelPolicyService {
 
     public void allow(String projectId, String model) {
         if (policyMapper == null || logicalModelMapper == null) {
-            policies.computeIfAbsent(projectId, ignored -> ConcurrentHashMap.newKeySet()).add(model);
+            policies.compute(projectId, (ignored, current) -> {
+                var next = new java.util.HashSet<>(current == null ? Set.<String>of() : current);
+                next.add(model);
+                return Set.copyOf(next);
+            });
             return;
         }
         var logicalModel = findOrCreateModel(model);
@@ -63,21 +67,16 @@ public final class ModelPolicyService {
             throw GatewayException.badRequest("项目模型权限参数无效");
         }
         if (policyMapper == null || logicalModelMapper == null) {
-            policies.put(projectId, ConcurrentHashMap.newKeySet());
-            policies.get(projectId).addAll(Set.copyOf(models));
+            policies.put(projectId, Set.copyOf(models));
             return;
         }
-        var current = allowed(projectId);
-        current.stream().filter(model -> !models.contains(model)).forEach(model -> {
-            var entity = logicalModelMapper.selectOne(new QueryWrapper<LogicalModelEntity>()
-                    .eq("model_code", model).last("LIMIT 1"));
-            if (entity != null) policyMapper.update(null,
-                    new com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper<ProjectPolicyEntity>()
-                            .eq("project_id", Long.parseLong(projectId))
-                            .eq("logical_model_id", entity.logicalModelId)
-                            .set("status", "DISABLED")
-                            .set("updated_at", LocalDateTime.now(ZoneOffset.UTC)));
-        });
+        // 按项目撤销所有旧授权，包括逻辑模型暂时停用或不存在的记录。
+        // 不能从 allowed() 反推旧授权，否则模型恢复后会重新获得权限。
+        policyMapper.update(null,
+                new com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper<ProjectPolicyEntity>()
+                        .eq("project_id", Long.parseLong(projectId))
+                        .set("status", "DISABLED")
+                        .set("updated_at", LocalDateTime.now(ZoneOffset.UTC)));
         models.forEach(model -> allow(projectId, model));
     }
 
