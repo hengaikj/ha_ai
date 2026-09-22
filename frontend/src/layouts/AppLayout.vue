@@ -1972,6 +1972,7 @@ onBeforeUnmount(() => {
   box-sizing: border-box;
   height: 100vh;
   overflow: auto;
+  padding-top: calc(var(--bq-header-height) + var(--bq-tags-height));
   padding-left:  var(--bq-space-page-x);
   padding-right:  var(--bq-space-page-x);
   scrollbar-gutter: auto;
