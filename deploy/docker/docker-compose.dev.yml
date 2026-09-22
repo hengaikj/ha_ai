@@ -19,6 +19,25 @@ services:
     volumes:
       - ha_redis_data:/data
 
+  backend:
+    build:
+      context: ../..
+      dockerfile: backend/Dockerfile
+    container_name: ha-ai-backend
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/ha_ai?useSSL=false&serverTimezone=UTC
+      DB_USER: root
+      DB_PASSWORD: ${HA_MYSQL_ROOT_PASSWORD:-dev_only_change_me}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      FLYWAY_ENABLED: "true"
+      HENGAI_BASE_URL: ${HENGAI_BASE_URL:-https://api.hengaikj.com/v1}
+    ports:
+      - "${HA_BACKEND_PORT:-18081}:8080"
+
 volumes:
   ha_mysql_data:
   ha_redis_data:
