@@ -1,0 +1,22 @@
+# Secret / env
+.env
+.env.*
+!.env.example
+
+# Java
+**/target/
+
+# Node
+**/node_modules/
+**/dist/
+**/.vite/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Local evidence/logs
+logs/
+evidence/
+*.log

@@ -1,0 +1,14 @@
+project: 智行官企业AI聚合服务平台
+repository: hengaikj/ha_ai
+stage: IMPLEMENTATION
+current_milestone: M01
+formal_development_ready: true
+language: zh-CN
+human_approval_required_for:
+  - baseline_change
+  - scope_change
+  - billing_rule_change
+  - entitlement_rule_change
+  - permission_rule_change
+  - production_release
+  - production_secret_usage
