@@ -1,5 +1,21 @@
 SET NAMES utf8mb4;
 
+-- 企业项目主表：Project Management 的 MyBatis-Plus 持久化入口。
+CREATE TABLE IF NOT EXISTS ha_ai_project (
+  project_id BIGINT NOT NULL COMMENT '项目/应用ID',
+  enterprise_id BIGINT NOT NULL COMMENT '所属企业ID',
+  project_code VARCHAR(64) NOT NULL COMMENT '企业内唯一项目编码',
+  project_name VARCHAR(128) NOT NULL COMMENT '项目/应用名称',
+  entitlement_mode VARCHAR(32) NOT NULL COMMENT '权益模式：BALANCE或SUBSCRIPTION',
+  status VARCHAR(32) NOT NULL COMMENT '项目状态：ACTIVE、QUOTA_EXHAUSTED、SUBSCRIPTION_EXPIRED、DISABLED',
+  version BIGINT NOT NULL DEFAULT 0 COMMENT '乐观锁版本号',
+  created_at DATETIME(3) NOT NULL,
+  updated_at DATETIME(3) NOT NULL,
+  PRIMARY KEY (project_id),
+  UNIQUE KEY uk_ai_project_code (enterprise_id, project_code),
+  KEY idx_ai_project_enterprise_status (enterprise_id, status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='企业AI项目/应用表';
+
 CREATE TABLE IF NOT EXISTS ha_ai_logical_model (
   logical_model_id BIGINT NOT NULL AUTO_INCREMENT COMMENT '逻辑模型ID',
   model_code VARCHAR(128) NOT NULL COMMENT '对企业暴露的模型编码',

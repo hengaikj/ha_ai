@@ -11,6 +11,7 @@ import com.hengaikj.ai.persistence.mapper.AttemptMapper;
 import com.hengaikj.ai.persistence.mapper.LogicalModelMapper;
 import com.hengaikj.ai.persistence.mapper.ProjectPolicyMapper;
 import com.hengaikj.ai.persistence.mapper.RequestMapper;
+import com.hengaikj.ai.persistence.mapper.ProjectMapper;
 
 @SpringBootApplication
 @MapperScan("com.hengaikj.ai.persistence.mapper")
@@ -25,9 +26,10 @@ public class Application {
                                   ObjectProvider<ApiKeyMapper> apiKeyMapper,
                                   ObjectProvider<ProjectPolicyMapper> policyMapper,
                                   ObjectProvider<LogicalModelMapper> logicalModelMapper,
-                                  ObjectProvider<RequestMapper> requestMapper,
-                                  ObjectProvider<AttemptMapper> attemptMapper,
-                                  ObjectProvider<ObjectMapper> mapper,
+                ObjectProvider<RequestMapper> requestMapper,
+                ObjectProvider<AttemptMapper> attemptMapper,
+                ObjectProvider<ProjectMapper> projectMapper,
+                ObjectProvider<ObjectMapper> mapper,
                                   org.springframework.core.env.Environment env) {
         if (!env.getProperty("ha.gateway.persistence.enabled", Boolean.class, false)) {
             return GatewayService.demo();
@@ -60,5 +62,15 @@ public class Application {
                 new RequestRepository(requestMapper.getIfAvailable(),
                         attemptMapper.getIfAvailable(), logicalModelMapper.getIfAvailable()),
                 java.time.Clock.systemUTC());
+    }
+
+    @Bean
+    ProjectApplicationService projectApplicationService(ObjectProvider<ProjectMapper> mapper,
+                                                        org.springframework.core.env.Environment env) {
+        if (env.getProperty("ha.gateway.persistence.enabled", Boolean.class, false)
+                && mapper.getIfAvailable() != null) {
+            return new ProjectApplicationService(new MybatisProjectRepository(mapper.getIfAvailable()));
+        }
+        return new ProjectApplicationService(new InMemoryProjectRepository());
     }
 }

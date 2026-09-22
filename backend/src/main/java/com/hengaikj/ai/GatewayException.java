@@ -22,6 +22,14 @@ public final class GatewayException extends RuntimeException {
         return new GatewayException(HttpStatus.BAD_REQUEST, "invalid_request", message);
     }
 
+    static GatewayException conflict(String message) {
+        return new GatewayException(HttpStatus.CONFLICT, "resource_conflict", message);
+    }
+
+    static GatewayException notFound(String message) {
+        return new GatewayException(HttpStatus.NOT_FOUND, "resource_not_found", message);
+    }
+
     static GatewayException upstream(String message) {
         return new GatewayException(HttpStatus.BAD_GATEWAY, "provider_error", message);
     }
