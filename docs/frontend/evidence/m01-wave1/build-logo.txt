@@ -1,0 +1,693 @@
+
+> frontend@0.0.0 build /data/soft/docker/hengaikj/ha_ai/frontend
+> vue-tsc -b && vite build
+
+sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+vite v8.0.16 building client environment for production...
+[2Ktransforming...[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+[1m[33m[@vue/compiler-sfc][0m[33m ::v-deep usage as a combinator has been deprecated. Use :deep(<inner-selector>) instead of ::v-deep <inner-selector>.[0m
+
+✓ 3452 modules transformed.
+rendering chunks...
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+108 |    margin-right: 4px;
+109 |  }
+110 |  .bq-rich-editor__select :deep(.el-input__wrapper) {
+    |                                ^
+111 |    padding: 0 8px;
+112 |    height: 28px;
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+117 |    position: relative;
+118 |  }
+119 |  .bq-rich-editor__color-picker :deep(.el-color-picker) {
+    |                                      ^
+120 |    height: 28px;
+121 |  }
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+120 |    height: 28px;
+121 |  }
+122 |  .bq-rich-editor__color-picker :deep(.el-color-picker) .el-color-picker__trigger {
+    |                                      ^
+123 |    width: 28px;
+124 |    height: 28px;
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+127 |    border-radius: var(--bq-radius-control);
+128 |  }
+129 |  .bq-rich-editor__color-picker :deep(.el-color-picker) .el-color-picker__trigger:hover {
+    |                                      ^
+130 |    border-color: var(--bq-color-border);
+131 |  }
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+224 |    margin-right: 4px;
+225 |  }
+226 |  .bq-rich-editor__select :deep(.el-input__wrapper) {
+    |                                ^
+227 |    padding: 0 8px;
+228 |    height: 28px;
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+233 |    position: relative;
+234 |  }
+235 |  .bq-rich-editor__color-picker :deep(.el-color-picker) {
+    |                                      ^
+236 |    height: 28px;
+237 |  }
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+236 |    height: 28px;
+237 |  }
+238 |  .bq-rich-editor__color-picker :deep(.el-color-picker) .el-color-picker__trigger {
+    |                                      ^
+239 |    width: 28px;
+240 |    height: 28px;
+[lightningcss minify] 'deep' is not recognized as a valid pseudo-class. Did you mean '::deep' (pseudo-element) or is this a typo?
+243 |    border-radius: var(--bq-radius-control);
+244 |  }
+245 |  .bq-rich-editor__color-picker :deep(.el-color-picker) .el-color-picker__trigger:hover {
+    |                                      ^
+246 |    border-color: var(--bq-color-border);
+247 |  }
+computing gzip size...
+dist/version.json                                                    0.03 kB │ gzip:   0.05 kB
+dist/index.html                                                      2.62 kB │ gzip:   0.81 kB
+dist/assets/logo-white-D68DhJBo.png                                  6.21 kB
+dist/assets/WA-DrjKWOLf.png                                         10.84 kB
+dist/assets/baic-group-logo-7BdYHqEE.png                            21.04 kB
+dist/assets/home-title-D4CwQ6oh.png                                 35.58 kB
+dist/assets/home-hero-car-BJU7c0zr.png                              84.66 kB
+dist/assets/group-meeting-backdrop-D2kpq2pV.png                    121.52 kB
+dist/assets/car-DNgIko6z.png                                       546.39 kB
+dist/assets/img-DQAvCm5X.png                                       923.09 kB
+dist/assets/StageModeSwitch-DAsJMy2y.css                             0.05 kB │ gzip:   0.07 kB
+dist/assets/SchedulerJobFormDialog-CoDvOjAl.css                      0.07 kB │ gzip:   0.07 kB
+dist/assets/CommitteeDate-W-OJpPWW.css                               0.08 kB │ gzip:   0.09 kB
+dist/assets/DataImportDialog-rTwcNuV4.css                            0.08 kB │ gzip:   0.10 kB
+dist/assets/GovernanceLineagePage-Bn9-9YLn.css                       0.08 kB │ gzip:   0.10 kB
+dist/assets/TemplateCenterPage-CmnRy0CB.css                          0.09 kB │ gzip:   0.10 kB
+dist/assets/task-center-CYCCMvfg.css                                 0.10 kB │ gzip:   0.11 kB
+dist/assets/CommitteePageStack-D7H6uxHC.css                          0.11 kB │ gzip:   0.12 kB
+dist/assets/ToolTip-DZMiH2Sr.css                                     0.13 kB │ gzip:   0.09 kB
+dist/assets/SystemRoleAuthUserPage-CGLsxesR.css                      0.13 kB │ gzip:   0.10 kB
+dist/assets/BudgetAttachmentsPage-Ch5rwELw.css                       0.14 kB │ gzip:   0.14 kB
+dist/assets/CommitteeConfigPage-DsHX6BsO.css                         0.19 kB │ gzip:   0.17 kB
+dist/assets/SystemOperationLogPage-7GK1pC2K.css                      0.20 kB │ gzip:   0.17 kB
+dist/assets/TableDataSourcePage-DsdaZpKL.css                         0.20 kB │ gzip:   0.16 kB
+dist/assets/SchedulerManagementPage-BoeCnsof.css                     0.21 kB │ gzip:   0.16 kB
+dist/assets/CostCategoryPage-CwVtKDoZ.css                            0.21 kB │ gzip:   0.15 kB
+dist/assets/CommitteeRectificationPage-DSunTBme.css                  0.21 kB │ gzip:   0.16 kB
+dist/assets/CommitteeReviewListPage-Q-kwFORH.css                     0.22 kB │ gzip:   0.17 kB
+dist/assets/TraceErrorAlert-BSB1_IbY.css                             0.25 kB │ gzip:   0.18 kB
+dist/assets/DesignerStatusBar-DfCHpwfZ.css                           0.28 kB │ gzip:   0.21 kB
+dist/assets/CustTableRuntimeView-DvAps1qi.css                        0.31 kB │ gzip:   0.22 kB
+dist/assets/UploadTips-CqusZbWu.css                                  0.33 kB │ gzip:   0.19 kB
+dist/assets/BaseEmpty-DY_MNgB_.css                                   0.34 kB │ gzip:   0.19 kB
+dist/assets/DruidMonitorPage-DjdrdKrg.css                            0.36 kB │ gzip:   0.24 kB
+dist/assets/list-page-CugANvlA.css                                   0.37 kB │ gzip:   0.23 kB
+dist/assets/GovernanceSourcePage-CtKGk1ic.css                        0.37 kB │ gzip:   0.22 kB
+dist/assets/GovernanceJobPage-Dx-JUQhO.css                           0.38 kB │ gzip:   0.23 kB
+dist/assets/meeting-management-CoUFHkSw.css                          0.39 kB │ gzip:   0.20 kB
+dist/assets/BatchAddSubjectDialog-CwdezRVb.css                       0.39 kB │ gzip:   0.25 kB
+dist/assets/list-page-CHCctjE0.css                                   0.39 kB │ gzip:   0.22 kB
+dist/assets/TableTaskPanel-C36dNW1B.css                              0.39 kB │ gzip:   0.24 kB
+dist/assets/EvaluationImportPage-CAsuFAFT.css                        0.40 kB │ gzip:   0.21 kB
+dist/assets/GridDesigner-F8eS5H_P.css                                0.40 kB │ gzip:   0.24 kB
+dist/assets/CostResearchHistoryPage-Dk3xwIyW.css                     0.42 kB │ gzip:   0.24 kB
+dist/assets/NewCostResearchHistoryPage-D_5FNFHB.css                  0.42 kB │ gzip:   0.24 kB
+dist/assets/DesignExtensionPanel-CSXi807Q.css                        0.48 kB │ gzip:   0.25 kB
+dist/assets/DesignerToolbar-BnawV9e0.css                             0.49 kB │ gzip:   0.26 kB
+dist/assets/editBom-JZ00A6sx.css                                     0.50 kB │ gzip:   0.31 kB
+dist/assets/inquiry-7z2VkeBp.css                                     0.51 kB │ gzip:   0.29 kB
+dist/assets/inquiryNew-iryJuZCF.css                                  0.51 kB │ gzip:   0.29 kB
+dist/assets/SheetTabBar-CuwSj9tk.css                                 0.53 kB │ gzip:   0.27 kB
+dist/assets/SheetFormulaBar-CXJVFLGk.css                             0.54 kB │ gzip:   0.28 kB
+dist/assets/CommitteeMeetingListPage-B0Dd26Gy.css                    0.55 kB │ gzip:   0.25 kB
+dist/assets/MeetingImportPage-BQE9Wkw3.css                           0.55 kB │ gzip:   0.26 kB
+dist/assets/FormulaBindDialog-B4qIkSLO.css                           0.59 kB │ gzip:   0.31 kB
+dist/assets/CommitteeFormGrid-BQXWCKsB.css                           0.62 kB │ gzip:   0.22 kB
+dist/assets/SchedulerJobLogDrawer-SbZVTGFr.css                       0.62 kB │ gzip:   0.30 kB
+dist/assets/CommitteeExpandableDecisionText-Cn58Ix1N.css             0.64 kB │ gzip:   0.29 kB
+dist/assets/calculate-BfqkytHo.css                                   0.64 kB │ gzip:   0.34 kB
+dist/assets/SheetDesigner-CxXYTIfU.css                               0.66 kB │ gzip:   0.31 kB
+dist/assets/AuditTimelineCard-BhGh3VjA.css                           0.67 kB │ gzip:   0.33 kB
+dist/assets/BudgetWorkbenchPage-DdLaRywH.css                         0.68 kB │ gzip:   0.32 kB
+dist/assets/BudgetDashboardPage-BEK5BSym.css                         0.68 kB │ gzip:   0.32 kB
+dist/assets/SystemDictPage-D3Z-CGlm.css                              0.69 kB │ gzip:   0.24 kB
+dist/assets/BudgetInitiationCompareWbsDialog-Bgh3GE73.css            0.72 kB │ gzip:   0.36 kB
+dist/assets/BudgetGateReviewCompareWbsDialog-D3zwWz5y.css            0.73 kB │ gzip:   0.36 kB
+dist/assets/BudgetInitiationHistoryPage-BO-m315c.css                 0.78 kB │ gzip:   0.32 kB
+dist/assets/GovernanceScriptPage-BHn-FLfQ.css                        0.78 kB │ gzip:   0.36 kB
+dist/assets/SystemDictDetailPage-kLFFCNd5.css                        0.79 kB │ gzip:   0.27 kB
+dist/assets/CommitteeProjectListPage-DlNUS345.css                    0.82 kB │ gzip:   0.28 kB
+dist/assets/MicroserviceMonitorPage-C3tQFMSi.css                     0.84 kB │ gzip:   0.38 kB
+dist/assets/detail-BtigNbf-.css                                      0.86 kB │ gzip:   0.36 kB
+dist/assets/OnlineUserPage-DbSClzil.css                              0.87 kB │ gzip:   0.30 kB
+dist/assets/CommitteeFilePreviewDialog-C1e6j4fz.css                  0.88 kB │ gzip:   0.45 kB
+dist/assets/AiManagementPage-D-Mvka34.css                            0.91 kB │ gzip:   0.43 kB
+dist/assets/TemplateCategoryPage-EDew5bCM.css                        0.91 kB │ gzip:   0.38 kB
+dist/assets/analyze-rj2XXg_U.css                                     0.93 kB │ gzip:   0.38 kB
+dist/assets/CommitteeSection-DHdErql7.css                            0.94 kB │ gzip:   0.34 kB
+dist/assets/CostBomPartComparePage-DfA_iogO.css                      0.95 kB │ gzip:   0.33 kB
+dist/assets/PurchaseBomSourcePartsPage-CRlFgxtQ.css                  1.00 kB │ gzip:   0.37 kB
+dist/assets/main-table-import-DfNQDPxf.css                           1.03 kB │ gzip:   0.36 kB
+dist/assets/PermissionButton-CikQhQ4_.css                            1.06 kB │ gzip:   0.21 kB
+dist/assets/ProviderFieldPanel-ARmFa0Qz.css                          1.07 kB │ gzip:   0.42 kB
+dist/assets/SystemUserAuthRolePage-DpyZqSh-.css                      1.07 kB │ gzip:   0.37 kB
+dist/assets/checkbom-Dcd4s_qi.css                                    1.07 kB │ gzip:   0.44 kB
+dist/assets/BudgetGateReviewWbsHistoryVersionPage-IONeIc7b.css       1.10 kB │ gzip:   0.40 kB
+dist/assets/CacheListPage-BXwe0C3G.css                               1.15 kB │ gzip:   0.46 kB
+dist/assets/DesignerCommandBar-BIxsL1Ck.css                          1.22 kB │ gzip:   0.46 kB
+dist/assets/ModuleOpinionCard-B0QLJ3xB.css                           1.23 kB │ gzip:   0.45 kB
+dist/assets/SystemMenuPage-CrPoEgko.css                              1.25 kB │ gzip:   0.49 kB
+dist/assets/CostBomVersionComparePage-Ca1QHBMQ.css                   1.28 kB │ gzip:   0.38 kB
+dist/assets/PurchaseBomListPage-BTZYSZ98.css                         1.30 kB │ gzip:   0.44 kB
+dist/assets/bom-Jj26Ubs3.css                                         1.40 kB │ gzip:   0.49 kB
+dist/assets/BudgetGateReviewAttachmentDialog-BXkN7Uzg.css            1.40 kB │ gzip:   0.56 kB
+dist/assets/BudgetGradeVirtualTable-CwrEsmCp.css                     1.40 kB │ gzip:   0.40 kB
+dist/assets/GovernanceOverviewPage-s_aFATLo.css                      1.42 kB │ gzip:   0.53 kB
+dist/assets/CommitteeMeetingFormPage-DpJ0vRUe.css                    1.43 kB │ gzip:   0.47 kB
+dist/assets/look-Cyc-PzKR.css                                        1.48 kB │ gzip:   0.54 kB
+dist/assets/CostAnalysisCategoryGroupedList-CaCK1Yss.css             1.49 kB │ gzip:   0.46 kB
+dist/assets/BudgetGateReviewWorkbenchPage-DJklAmsz.css               1.53 kB │ gzip:   0.51 kB
+dist/assets/CostBomPartHistoryPage-C_dNL12e.css                      1.53 kB │ gzip:   0.44 kB
+dist/assets/BudgetInitiationWorkbenchPage-DtBTPD8p.css               1.53 kB │ gzip:   0.51 kB
+dist/assets/NewProjectCostPage-C80orkhp.css                          1.54 kB │ gzip:   0.47 kB
+dist/assets/history-Jd33myd3.css                                     1.54 kB │ gzip:   0.54 kB
+dist/assets/PresetColumnFormPage-3yPwH94j.css                        1.55 kB │ gzip:   0.45 kB
+dist/assets/SystemMenuVirtualTable-DsVMUx1e.css                      1.57 kB │ gzip:   0.44 kB
+dist/assets/CommitteeReviewRecordPanel-BJao25GW.css                  1.58 kB │ gzip:   0.45 kB
+dist/assets/ServerMonitorPage-CAIdnHQB.css                           1.60 kB │ gzip:   0.53 kB
+dist/assets/NewProjectCostPage-DI_DkR9g.css                          1.62 kB │ gzip:   0.49 kB
+dist/assets/ProjectCostPage-BP5kST9G.css                             1.62 kB │ gzip:   0.49 kB
+dist/assets/WorkbenchHeader-Bw16VFqI.css                             1.63 kB │ gzip:   0.56 kB
+dist/assets/CostBomPartEditorPage-LRsPwX4P.css                       1.70 kB │ gzip:   0.64 kB
+dist/assets/NotificationManagementPage-Jx7JaeQ5.css                  1.71 kB │ gzip:   0.49 kB
+dist/assets/SheetCanvas-CxCuP2-k.css                                 1.78 kB │ gzip:   0.66 kB
+dist/assets/CostAnalysisDifferenceChart-DfETXsl1.css                 1.80 kB │ gzip:   0.53 kB
+dist/assets/TaskStatusPanel-DBbuGfw0.css                             1.88 kB │ gzip:   0.61 kB
+dist/assets/CacheMonitorPage-DAqfFnmF.css                            1.91 kB │ gzip:   0.59 kB
+dist/assets/SystemRolePage-BRZx6qt5.css                              1.97 kB │ gzip:   0.59 kB
+dist/assets/MeetingReviewVisualSummary-BKPaN8RP.css                  2.03 kB │ gzip:   0.65 kB
+dist/assets/CommitteeDashboardPage-D3xSWQcu.css                      2.13 kB │ gzip:   0.66 kB
+dist/assets/ValveManagementPage-Bmq11MqU.css                         2.20 kB │ gzip:   0.63 kB
+dist/assets/CostAnalysisConditionList-BJpzpXjw.css                   2.37 kB │ gzip:   0.65 kB
+dist/assets/CostAnalysisAiSummary-CRq2ilFf.css                       2.39 kB │ gzip:   0.59 kB
+dist/assets/DashboardPage-BGrEcH6G.css                               2.40 kB │ gzip:   0.70 kB
+dist/assets/BudgetReportPage-BQ9sRBqi.css                            2.49 kB │ gzip:   0.66 kB
+dist/assets/CommitteeReviewDetailPage-CkuLe9MD.css                   2.51 kB │ gzip:   0.70 kB
+dist/assets/CommitteeReviewSummaryPanel-MTavCqXC.css                 2.67 kB │ gzip:   0.75 kB
+dist/assets/CostAnalysisPage-B1PiCLiy.css                            2.68 kB │ gzip:   0.72 kB
+dist/assets/CostQueryPage-DxAjJIip.css                               2.69 kB │ gzip:   0.80 kB
+dist/assets/my-todos-BFGD9qGO.css                                    2.69 kB │ gzip:   0.74 kB
+dist/assets/CommitteeAttachmentList-Ce98TAgD.css                     2.71 kB │ gzip:   0.77 kB
+dist/assets/BrandManagementPage-DF07EvGW.css                         2.84 kB │ gzip:   0.83 kB
+dist/assets/CostAnalysisCategoryTree-BjcQ-QLu.css                    2.86 kB │ gzip:   0.78 kB
+dist/assets/CommitteeReviewTaskInfoPanel-NbNS-Ypl.css                2.86 kB │ gzip:   0.72 kB
+dist/assets/SystemUserPage-Dkopa3uL.css                              3.00 kB │ gzip:   0.75 kB
+dist/assets/UserProfilePage-cRFUHvyM.css                             3.09 kB │ gzip:   0.85 kB
+dist/assets/CommitteeProjectOnboardingPage-gG1m9yWo.css              3.16 kB │ gzip:   0.83 kB
+dist/assets/GovernanceAdsResultPage-DNxIPdZ1.css                     3.24 kB │ gzip:   0.80 kB
+dist/assets/PurchaseBomDiffAnalysisPage-DfFro-0Q.css                 3.25 kB │ gzip:   0.74 kB
+dist/assets/list-page-DXVCZUMz.css                                   3.26 kB │ gzip:   0.86 kB
+dist/assets/CostAnalysisWorkbenchPage-DKs_6Y6J.css                   3.38 kB │ gzip:   0.90 kB
+dist/assets/list-page-BpnARUNO.css                                   3.41 kB │ gzip:   0.86 kB
+dist/assets/CostBomQueryPage-CS-x2dsK.css                            3.50 kB │ gzip:   0.81 kB
+dist/assets/SystemUserDataPermissionPage-CHiNurgX.css                3.51 kB │ gzip:   0.78 kB
+dist/assets/CostBomVersionHistoryPage-CLAgHm-2.css                   3.53 kB │ gzip:   0.84 kB
+dist/assets/ProjectManagementPage-D0yUZJNp.css                       3.57 kB │ gzip:   1.02 kB
+dist/assets/CommitteeReviewSummaryGroupTable-BsooCzgS.css            3.59 kB │ gzip:   0.86 kB
+dist/assets/TemplateEditorDialog-BBxge2LD.css                        3.70 kB │ gzip:   0.92 kB
+dist/assets/CommitteeMeetingConclusionReferencePanel-Bx-fSKcv.css    3.83 kB │ gzip:   0.84 kB
+dist/assets/attachment-upload-zfSYjvJA.css                           3.90 kB │ gzip:   1.26 kB
+dist/assets/CommitteeMaterialTemplatePage-Cel0gYtM.css               3.91 kB │ gzip:   0.98 kB
+dist/assets/CostAnalysisDifferenceDrawer-EcNfCLkN.css                3.95 kB │ gzip:   0.87 kB
+dist/assets/CommitteeReviewDepartmentConfigPage-DvHAljvt.css         4.34 kB │ gzip:   0.98 kB
+dist/assets/BudgetGateReviewReportPage-DYKOPMyL.css                  4.43 kB │ gzip:   1.04 kB
+dist/assets/TableDesignerPage-CSdwBEU0.css                           4.44 kB │ gzip:   1.16 kB
+dist/assets/BudgetGateReviewAssessPage-BtwW9XtY.css                  4.80 kB │ gzip:   1.23 kB
+dist/assets/BudgetInitiationAssessPage-D9a3Jkiv.css                  4.88 kB │ gzip:   1.22 kB
+dist/assets/VehicleModelPage-BwkoXdZp.css                            5.40 kB │ gzip:   1.23 kB
+dist/assets/CommitteeGateFormPage-nDSIxDU1.css                       5.77 kB │ gzip:   1.07 kB
+dist/assets/CommitteeAttachmentPanel-COuMku9_.css                    5.77 kB │ gzip:   1.30 kB
+dist/assets/SubjectAuditMatrix-BvI5oqCW.css                          6.16 kB │ gzip:   1.47 kB
+dist/assets/RdCategoryManagementPage-BahuQ9sx.css                    6.38 kB │ gzip:   1.47 kB
+dist/assets/pages-D4WTKUjq.css                                       6.38 kB │ gzip:   1.57 kB
+dist/assets/OnsiteCalculatorDrawer-HXxpyEuk.css                      6.58 kB │ gzip:   1.30 kB
+dist/assets/PurchaseBomReorganizePage-BZgMsS46.css                   6.66 kB │ gzip:   1.26 kB
+dist/assets/CommitteeReviewCollaborationPanel-Ci8NMqbr.css           6.67 kB │ gzip:   1.32 kB
+dist/assets/PurchaseDashboardPage-BDtDpMdS.css                       6.82 kB │ gzip:   1.53 kB
+dist/assets/CostBomDetailPage-DX4q8p3t.css                           6.86 kB │ gzip:   1.25 kB
+dist/assets/detail-D9T8tUYr.css                                      7.15 kB │ gzip:   1.53 kB
+dist/assets/CommitteeMeetingDetailPage-D2r9M-4l.css                  7.22 kB │ gzip:   1.47 kB
+dist/assets/CommitteeAiMaterialPage-DSv4jzgY.css                     7.42 kB │ gzip:   1.39 kB
+dist/assets/BudgetGateReviewDetailPage-nOat47ea.css                  7.74 kB │ gzip:   1.65 kB
+dist/assets/BudgetInitiationDetailPage-RqX3dgsK.css                  8.03 kB │ gzip:   1.69 kB
+dist/assets/ProjectCostViewPage--D5H9dL7.css                         8.18 kB │ gzip:   1.37 kB
+dist/assets/create-_mbjz1b7.css                                      8.43 kB │ gzip:   1.78 kB
+dist/assets/CommitteeReviewAdvicePanel-Dj6-qJzU.css                  8.44 kB │ gzip:   1.47 kB
+dist/assets/detail-BCxPtNgc.css                                      8.50 kB │ gzip:   2.06 kB
+dist/assets/NewProjectCostViewPage-BQ9UY4zN.css                      9.79 kB │ gzip:   1.66 kB
+dist/assets/NewProjectCostViewPage-DhfAYqgA.css                     10.03 kB │ gzip:   1.70 kB
+dist/assets/NewCostResearchHistoryViewPage-By5RBy_m.css             10.07 kB │ gzip:   1.72 kB
+dist/assets/CostResearchHistoryViewPage-D-YcLNRs.css                10.10 kB │ gzip:   1.72 kB
+dist/assets/CommitteeReviewDetailDrawer-C7QUCnOB.css                11.70 kB │ gzip:   1.91 kB
+dist/assets/ProductionDashboardPage-CsvVlv7x.css                    11.83 kB │ gzip:   2.46 kB
+dist/assets/detail-Dbv2Ng0l.css                                     11.88 kB │ gzip:   2.42 kB
+dist/assets/CostAnalysisMatrix-Czkd7Z9J.css                         12.07 kB │ gzip:   2.21 kB
+dist/assets/CommitteeMeetingConclusionPanel-BvXRPj0S.css            12.49 kB │ gzip:   2.40 kB
+dist/assets/VisualDashboardPage-B3h0YZJO.css                        12.79 kB │ gzip:   2.78 kB
+dist/assets/CommitteeProjectDetailPage-DMuoO6-w.css                 13.93 kB │ gzip:   2.11 kB
+dist/assets/BaseRichViewer-CugEsbl4.css                             15.31 kB │ gzip:   3.16 kB
+dist/assets/CommitteeTimeBoard-B4_Uva3c.css                         17.27 kB │ gzip:   2.75 kB
+dist/assets/RevenueAuditWorkbenchDetail-B--IPwNT.css                19.02 kB │ gzip:   3.10 kB
+dist/assets/MainTableComparePanel-BZ_QUUyZ.css                      20.15 kB │ gzip:   3.73 kB
+dist/assets/detail-5k9-XtQS.css                                     24.05 kB │ gzip:   4.41 kB
+dist/assets/CommitteeReviewEditPanel-BZcC9IOg.css                   33.34 kB │ gzip:   5.55 kB
+dist/assets/detail-DVuC0kiq.css                                     54.08 kB │ gzip:   7.93 kB
+dist/assets/CommitteeGroupMaterialPage-BQJma4gB.css                100.98 kB │ gzip:  12.62 kB
+dist/assets/CommitteeGroupMaterialPresentation-DoGwxSsq.css        105.50 kB │ gzip:  15.82 kB
+dist/assets/CommitteeReviewConclusionMatrixDialog-CiLeeXhc.css     108.94 kB │ gzip:  16.38 kB
+dist/assets/CommitteeGroupMaterialDisplayPage-KBXN-RrY.css         130.04 kB │ gzip:  15.53 kB
+dist/assets/CommitteeGroupMaterialEditPage-CDO21PDs.css            130.04 kB │ gzip:  15.53 kB
+dist/assets/index-D-gZCM71.css                                     442.54 kB │ gzip:  61.57 kB
+dist/assets/permissions-wCBenm9v.js                                  0.04 kB │ gzip:   0.06 kB
+dist/assets/baic-group-logo-D3_iaHeA.js                              0.06 kB │ gzip:   0.08 kB
+dist/assets/cost-data-source-B6-XCjIq.js                             0.07 kB │ gzip:   0.08 kB
+dist/assets/_plugin-vue_export-helper-BDNMzG2s.js                    0.08 kB │ gzip:   0.09 kB
+dist/assets/matrix-key-C02t8GuJ.js                                   0.09 kB │ gzip:   0.08 kB
+dist/assets/hasPermi-zDm80SrC.js                                     0.09 kB │ gzip:   0.10 kB
+dist/assets/valve-material-template-Dig4BpET.js                      0.12 kB │ gzip:   0.12 kB
+dist/assets/valve-ioVfktIx.js                                        0.13 kB │ gzip:   0.13 kB
+dist/assets/projectList-Crc0CXaS.js                                  0.13 kB │ gzip:   0.13 kB
+dist/assets/date-range-B1W5mbQs.js                                   0.14 kB │ gzip:   0.13 kB
+dist/assets/committee-attachment-utils-D8PxPvVs.js                   0.15 kB │ gzip:   0.14 kB
+dist/assets/common-BK_VuBdG.js                                       0.18 kB │ gzip:   0.14 kB
+dist/assets/backend-id-BGF_Wckd.js                                   0.18 kB │ gzip:   0.15 kB
+dist/assets/s1-0w_xVhvR.js                                           0.19 kB │ gzip:   0.17 kB
+dist/assets/expenses-qxNcfmNV.js                                     0.19 kB │ gzip:   0.17 kB
+dist/assets/formula-list-1gjRc8Ti.js                                 0.19 kB │ gzip:   0.17 kB
+dist/assets/template-list-CZp_5_9r.js                                0.19 kB │ gzip:   0.17 kB
+dist/assets/flow-6IKRbziP.js                                         0.19 kB │ gzip:   0.19 kB
+dist/assets/AiShellPage-48qpOIqE.js                                  0.20 kB │ gzip:   0.17 kB
+dist/assets/pagination-CoSVztHo.js                                   0.20 kB │ gzip:   0.15 kB
+dist/assets/password-C2qAQIsn.js                                     0.22 kB │ gzip:   0.20 kB
+dist/assets/detail-C8wUX8iK.js                                       0.23 kB │ gzip:   0.19 kB
+dist/assets/download-template-C8lkZQqA.js                            0.23 kB │ gzip:   0.21 kB
+dist/assets/project-list-yT8k88Km.js                                 0.29 kB │ gzip:   0.26 kB
+dist/assets/data-check-BbO13UZG.js                                   0.31 kB │ gzip:   0.28 kB
+dist/assets/s7-BsLSaqh6.js                                           0.31 kB │ gzip:   0.28 kB
+dist/assets/s8-CFhMXpFZ.js                                           0.31 kB │ gzip:   0.28 kB
+dist/assets/s2-BUZQHgpn.js                                           0.32 kB │ gzip:   0.28 kB
+dist/assets/s3-CK0n3RKu.js                                           0.32 kB │ gzip:   0.28 kB
+dist/assets/s5-BUazcEva.js                                           0.32 kB │ gzip:   0.28 kB
+dist/assets/s6-o0ewbBDJ.js                                           0.32 kB │ gzip:   0.28 kB
+dist/assets/AiPlaceholderPage-Bi22G08X.js                            0.32 kB │ gzip:   0.30 kB
+dist/assets/s4-CO4nYkLM.js                                           0.32 kB │ gzip:   0.29 kB
+dist/assets/date-filter-field-DaqoR2kO.js                            0.33 kB │ gzip:   0.23 kB
+dist/assets/meeting-review-BsEBT0--.js                               0.33 kB │ gzip:   0.29 kB
+dist/assets/displayText-CR_wrOZI.js                                  0.34 kB │ gzip:   0.28 kB
+dist/assets/s1-C63WUpKX.js                                           0.38 kB │ gzip:   0.31 kB
+dist/assets/CommitteePageStack-BIGwGoL9.js                           0.39 kB │ gzip:   0.30 kB
+dist/assets/detail-CLWQq1uq.js                                       0.41 kB │ gzip:   0.31 kB
+dist/assets/detail-CUAdg3MY.js                                       0.42 kB │ gzip:   0.31 kB
+dist/assets/detail-BOGZIOB8.js                                       0.44 kB │ gzip:   0.32 kB
+dist/assets/cost-bom-export-DEs8cWlZ.js                              0.44 kB │ gzip:   0.30 kB
+dist/assets/detail-CtXn06UA.js                                       0.45 kB │ gzip:   0.33 kB
+dist/assets/history-version-sort-Bjp2eFIP.js                         0.46 kB │ gzip:   0.29 kB
+dist/assets/CommitteeFormGrid-Bqkg7xVQ.js                            0.47 kB │ gzip:   0.34 kB
+dist/assets/features-CPe_YoT0.js                                     0.49 kB │ gzip:   0.29 kB
+dist/assets/BaseEmpty-DhSIX8sU.js                                    0.54 kB │ gzip:   0.41 kB
+dist/assets/CostUnderDevelopmentPage-VRSmiXmZ.js                     0.58 kB │ gzip:   0.46 kB
+dist/assets/DesignerStatusBar-Db1_XMXc.js                            0.62 kB │ gzip:   0.41 kB
+dist/assets/UploadTips-CP5pAJSh.js                                   0.63 kB │ gzip:   0.46 kB
+dist/assets/TraceErrorAlert-BzPvW1Sg.js                              0.63 kB │ gzip:   0.44 kB
+dist/assets/revenue-helpers-Bb-zoWk_.js                              0.63 kB │ gzip:   0.23 kB
+dist/assets/CommitteeDate-BCQpl1mo.js                                0.67 kB │ gzip:   0.42 kB
+dist/assets/SheetFormulaBar-HtYOxd6U.js                              0.83 kB │ gzip:   0.51 kB
+dist/assets/dimensions-B7HPy9Ze.js                                   0.96 kB │ gzip:   0.51 kB
+dist/assets/committee-material-prefetch-ulb0cZFR.js                  0.96 kB │ gzip:   0.58 kB
+dist/assets/legacy-dashboard-CbHT1JZv.js                             0.98 kB │ gzip:   0.38 kB
+dist/assets/governance-page-utils-8HYrB688.js                        1.00 kB │ gzip:   0.62 kB
+dist/assets/BaseToast-CouK6xLi.js                                    1.01 kB │ gzip:   0.58 kB
+dist/assets/TemplateJsonDrawer-D36FwdHR.js                           1.02 kB │ gzip:   0.62 kB
+dist/assets/monitor-BeXbOkyq.js                                      1.04 kB │ gzip:   0.35 kB
+dist/assets/GridDesigner-ClijcL6s.js                                 1.05 kB │ gzip:   0.72 kB
+dist/assets/file-jDTl7TD5.js                                         1.06 kB │ gzip:   0.85 kB
+dist/assets/StageModeSwitch-B_FeZAc0.js                              1.06 kB │ gzip:   0.62 kB
+dist/assets/chunk-aKtaBQYM.js                                        1.08 kB │ gzip:   0.62 kB
+dist/assets/platform-file-BB_SQmbu.js                                1.23 kB │ gzip:   0.63 kB
+dist/assets/AuditTimelineCard-C4PW55yA.js                            1.24 kB │ gzip:   0.75 kB
+dist/assets/TemplateValidationDrawer-JXMwKF2E.js                     1.24 kB │ gzip:   0.68 kB
+dist/assets/CommitteeSection-BXgVBYcN.js                             1.25 kB │ gzip:   0.62 kB
+dist/assets/DruidMonitorPage-B1ivovON.js                             1.25 kB │ gzip:   0.85 kB
+dist/assets/TemplateVersionDrawer-Bz3bwhzw.js                        1.34 kB │ gzip:   0.75 kB
+dist/assets/WorkbenchHeader-D5JhjnyG.js                              1.45 kB │ gzip:   0.74 kB
+dist/assets/CommitteeExpandableDecisionText-DZntanOC.js              1.47 kB │ gzip:   0.82 kB
+dist/assets/columns-BMXLQlA_.js                                      1.47 kB │ gzip:   0.84 kB
+dist/assets/BaseRichViewer-DOql27HQ.js                               1.62 kB │ gzip:   0.92 kB
+dist/assets/CommitteeFilePreviewDialog-CKFv1g4m.js                   1.62 kB │ gzip:   0.91 kB
+dist/assets/revenue-M92PxhF7.js                                      1.66 kB │ gzip:   0.49 kB
+dist/assets/GovernanceStatusTag-DChDq4wX.js                          1.69 kB │ gzip:   0.85 kB
+dist/assets/user-VMtoZKmX.js                                         1.80 kB │ gzip:   0.85 kB
+dist/assets/ProviderFieldPanel-dLqLw9wH.js                           2.01 kB │ gzip:   1.06 kB
+dist/assets/BudgetReportsPage-D6tY9Psb.js                            2.07 kB │ gzip:   1.11 kB
+dist/assets/GovernanceTriggerDialog-UeTCAUfZ.js                      2.18 kB │ gzip:   1.13 kB
+dist/assets/PermissionButton-BLm6mF8c.js                             2.26 kB │ gzip:   1.15 kB
+dist/assets/DesignerCommandBar-DH1ce2nC.js                           2.26 kB │ gzip:   1.15 kB
+dist/assets/information-vcep6png.js                                  2.32 kB │ gzip:   0.97 kB
+dist/assets/useBasePromptDialog-3hI_Q1wc.js                          2.42 kB │ gzip:   1.11 kB
+dist/assets/CommitteeMeetingHistoryPage-glVagWm-.js                  2.44 kB │ gzip:   1.29 kB
+dist/assets/DataImportDialog-B84d_ClE.js                             2.50 kB │ gzip:   1.30 kB
+dist/assets/export-workbook-DYmcdZbC.js                              2.50 kB │ gzip:   1.27 kB
+dist/assets/GovernanceOverviewPage-RGF09JGD.js                       2.51 kB │ gzip:   1.29 kB
+dist/assets/pages-YiMKusTE.js                                        2.52 kB │ gzip:   0.98 kB
+dist/assets/GovernanceSourceBatchPage-Cy_41-QV.js                    2.67 kB │ gzip:   1.28 kB
+dist/assets/template-DR-i-5Nx.js                                     2.68 kB │ gzip:   1.15 kB
+dist/assets/BudgetGateReviewCompareWbsDialog-Bfl5eC2-.js             2.69 kB │ gzip:   1.35 kB
+dist/assets/TableDataSourcePage-Dbha8Vqo.js                          2.75 kB │ gzip:   1.44 kB
+dist/assets/SheetManagerDialog-fTxki9Rm.js                           2.76 kB │ gzip:   1.22 kB
+dist/assets/GovernanceSourceArrivalsDrawer-BlN-YkkY.js               2.77 kB │ gzip:   1.34 kB
+dist/assets/BudgetInitiationCompareWbsDialog-4JgU-i67.js             2.84 kB │ gzip:   1.32 kB
+dist/assets/CommitteeReviewRecordPanel-7srK_vEY.js                   2.98 kB │ gzip:   1.38 kB
+dist/assets/information-management-uwVviNYw.js                       3.06 kB │ gzip:   0.99 kB
+dist/assets/BudgetDashboardPage-B6wYjKoP.js                          3.14 kB │ gzip:   1.49 kB
+dist/assets/CostAnalysisAiSummary-BlgZZDvL.js                        3.19 kB │ gzip:   1.56 kB
+dist/assets/MicroserviceMonitorPage-CQjae1cS.js                      3.23 kB │ gzip:   1.64 kB
+dist/assets/service-ByZ-Sffx.js                                      3.29 kB │ gzip:   1.43 kB
+dist/assets/SheetTabBar-BPmBPO3o.js                                  3.29 kB │ gzip:   1.50 kB
+dist/assets/CommitteeAttachmentList-HWpHKhMr.js                      3.29 kB │ gzip:   1.37 kB
+dist/assets/BudgetVersionHistoryPage-CYrvqvk-.js                     3.31 kB │ gzip:   1.71 kB
+dist/assets/data-governance-DFuo-XEV.js                              3.35 kB │ gzip:   0.91 kB
+dist/assets/GovernanceCostSummaryPage-BJDz7zAh.js                    3.37 kB │ gzip:   1.36 kB
+dist/assets/MechanizedKanbanPage-BkSfmQkV.js                         3.45 kB │ gzip:   1.58 kB
+dist/assets/CommitteeSnapshotPage-CPFeAC7k.js                        3.46 kB │ gzip:   1.76 kB
+dist/assets/SheetCanvas-BvbPKsIE.js                                  3.48 kB │ gzip:   1.68 kB
+dist/assets/CommitteeMeetingConclusionReferencePanel-z_LgSm2K.js     3.59 kB │ gzip:   1.61 kB
+dist/assets/task-center-CnTrgzXG.js                                  3.59 kB │ gzip:   1.80 kB
+dist/assets/CacheMonitorPage-C0NczTqt.js                             3.67 kB │ gzip:   1.91 kB
+dist/assets/OnlineUserPage-BEFniM80.js                               3.69 kB │ gzip:   1.81 kB
+dist/assets/ModuleOpinionCard-pEz2cTG2.js                            3.70 kB │ gzip:   1.45 kB
+dist/assets/revenue-permissions-ComgmG8L.js                          3.84 kB │ gzip:   1.17 kB
+dist/assets/BudgetGateReviewVersionHistoryPage-BT7xxpJI.js           3.90 kB │ gzip:   1.93 kB
+dist/assets/BatchAddSubjectDialog-BN41-q5B.js                        3.91 kB │ gzip:   1.85 kB
+dist/assets/GovernanceBatchDetailDrawer-BKl9iWuy.js                  3.91 kB │ gzip:   1.42 kB
+dist/assets/InformationKanbanPage-C0HCQqac.js                        4.11 kB │ gzip:   1.69 kB
+dist/assets/CustTableRuntimeView-BlSPVKsS.js                         4.13 kB │ gzip:   1.97 kB
+dist/assets/DesignExtensionPanel-DRzsTkH2.js                         4.13 kB │ gzip:   1.61 kB
+dist/assets/SystemMenuVirtualTable-DupERNef.js                       4.17 kB │ gzip:   1.85 kB
+dist/assets/cust-table-JF-G2gPY.js                                   4.21 kB │ gzip:   1.22 kB
+dist/assets/CostAnalysisCategoryGroupedList-Bj4Lqij0.js              4.25 kB │ gzip:   1.91 kB
+dist/assets/CommitteeDashboardPage-B-3A5Xi_.js                       4.27 kB │ gzip:   2.11 kB
+dist/assets/my-todos-D9UngIuZ.js                                     4.36 kB │ gzip:   2.15 kB
+dist/assets/look-CP9qcXhf.js                                         4.42 kB │ gzip:   2.19 kB
+dist/assets/FormulaBindDialog-D4FD9Qf3.js                            4.47 kB │ gzip:   1.87 kB
+dist/assets/GovernanceQualityRulePage-C8TYGor2.js                    4.48 kB │ gzip:   1.87 kB
+dist/assets/BudgetGradeVirtualTable-CwodUPe8.js                      4.50 kB │ gzip:   2.11 kB
+dist/assets/useBaseConfirmDialog-D_zmAdkQ.js                         4.54 kB │ gzip:   1.36 kB
+dist/assets/CostErrorLogPage-qjnub3GG.js                             4.55 kB │ gzip:   2.03 kB
+dist/assets/inquiryNew-CLR7IOQv.js                                   4.80 kB │ gzip:   1.90 kB
+dist/assets/matrix-view-BUqKdDPL.js                                  4.81 kB │ gzip:   1.94 kB
+dist/assets/list-page-CykcPTW6.js                                    4.85 kB │ gzip:   2.27 kB
+dist/assets/CellInspector-D_keNDRi.js                                5.07 kB │ gzip:   1.65 kB
+dist/assets/DesignerToolbar-CGb-jUvu.js                              5.09 kB │ gzip:   1.54 kB
+dist/assets/ToolTip-oXQ65_w-.js                                      5.17 kB │ gzip:   2.44 kB
+dist/assets/ServerMonitorPage-B9WJPPOJ.js                            5.18 kB │ gzip:   1.82 kB
+dist/assets/CommitteeConfigPage-C4zKzGzr.js                          5.35 kB │ gzip:   1.81 kB
+dist/assets/table-sheet-Byb480ao.js                                  5.36 kB │ gzip:   1.64 kB
+dist/assets/SchedulerJobFormDialog-Dvdo7NFm.js                       5.50 kB │ gzip:   2.10 kB
+dist/assets/GovernanceLineagePage-LGkf_C-s.js                        5.53 kB │ gzip:   2.31 kB
+dist/assets/committee-ui-DFjZWfjm.js                                 5.67 kB │ gzip:   2.41 kB
+dist/assets/PurchaseBomSourcePartsPage-T38oZmrX.js                   5.68 kB │ gzip:   2.22 kB
+dist/assets/detail-fH2n2Oim.js                                       5.68 kB │ gzip:   2.46 kB
+dist/assets/PatternManagementPage-CqcLh23q.js                        5.81 kB │ gzip:   2.46 kB
+dist/assets/SystemUserAuthRolePage-CUUQS6Vo.js                       5.88 kB │ gzip:   2.61 kB
+dist/assets/BudgetAttachmentsPage-C-038yn4.js                        5.92 kB │ gzip:   2.68 kB
+dist/assets/SorManagementPage-DGTohfjU.js                            6.05 kB │ gzip:   2.49 kB
+dist/assets/CommitteeReviewTaskInfoPanel-C6m-MkXl.js                 6.06 kB │ gzip:   2.34 kB
+dist/assets/CostAnalysisCategoryTree-CPRNTNdM.js                     6.06 kB │ gzip:   2.43 kB
+dist/assets/CommitteeRectificationPage-DpYxVD2g.js                   6.13 kB │ gzip:   2.38 kB
+dist/assets/CacheListPage-CclZ6hPT.js                                6.22 kB │ gzip:   2.29 kB
+dist/assets/CommitteeReviewSummaryGroupTable-CJcdhIaC.js             6.29 kB │ gzip:   2.43 kB
+dist/assets/PresetColumnFormPage-GZraygxi.js                         6.44 kB │ gzip:   2.83 kB
+dist/assets/CommitteeAttachmentPanel-DOGIzNGQ.js                     6.76 kB │ gzip:   2.94 kB
+dist/assets/PresetColumnListPage-C-5b2bqF.js                         6.78 kB │ gzip:   2.68 kB
+dist/assets/SystemLoginLogPage-DVI-YtRs.js                           6.80 kB │ gzip:   2.80 kB
+dist/assets/TaskStatusPanel-CFTNkYvh.js                              6.85 kB │ gzip:   3.06 kB
+dist/assets/big-D1pRsUf-.js                                          6.86 kB │ gzip:   2.97 kB
+dist/assets/CommitteeMeetingConclusionPanel-C16tOov0.js              6.91 kB │ gzip:   2.87 kB
+dist/assets/task-center-D3t9VOk2.js                                  7.10 kB │ gzip:   2.96 kB
+dist/assets/GovernanceBatchPage-CUbd-Ofe.js                          7.24 kB │ gzip:   2.83 kB
+dist/assets/CostBomPartComparePage-CYI7sj4F.js                       7.31 kB │ gzip:   3.04 kB
+dist/assets/BudgetGradePage-Bio1AFLH.js                              7.35 kB │ gzip:   3.12 kB
+dist/assets/CommitteeProjectListPage-Bc5p5IM2.js                     7.41 kB │ gzip:   2.74 kB
+dist/assets/CommitteeReviewAdvicePanel-CCp89qAr.js                   7.53 kB │ gzip:   2.75 kB
+dist/assets/TemplateCategoryPage-BOPC9suX.js                         7.54 kB │ gzip:   3.09 kB
+dist/assets/history-DxcS63fs.js                                      7.81 kB │ gzip:   2.48 kB
+dist/assets/committee-material-demo-Bz1ynH41.js                      7.82 kB │ gzip:   3.07 kB
+dist/assets/CostCoefficientPage-Yb8bm0bu.js                          7.94 kB │ gzip:   2.84 kB
+dist/assets/main-table-import-BNjwEroy.js                            7.98 kB │ gzip:   3.16 kB
+dist/assets/SchedulerManagementPage-QfiG0wuU.js                      8.02 kB │ gzip:   3.06 kB
+dist/assets/MeetingReviewVisualSummary-CAGSKNlb.js                   8.03 kB │ gzip:   3.58 kB
+dist/assets/TableTaskPanel-CXgyobyv.js                               8.08 kB │ gzip:   3.06 kB
+dist/assets/domain-config-Dh4_BWjz.js                                8.08 kB │ gzip:   3.16 kB
+dist/assets/CostAnalysisConditionList-Ye840tzS.js                    8.16 kB │ gzip:   2.90 kB
+dist/assets/template-editor-model-Dn3VCVtN.js                        8.40 kB │ gzip:   3.01 kB
+dist/assets/SchedulerJobLogDrawer-82JU8RyM.js                        8.59 kB │ gzip:   3.23 kB
+dist/assets/CostCategoryPage-BuY8nbK4.js                             8.66 kB │ gzip:   3.45 kB
+dist/assets/UserProfilePage-KIvQrztU.js                              8.76 kB │ gzip:   2.77 kB
+dist/assets/DashboardPage-BR7BKwFu.js                                8.81 kB │ gzip:   3.64 kB
+dist/assets/inquiry-DUWHFlJF.js                                      8.92 kB │ gzip:   2.86 kB
+dist/assets/PurchaseBomDiffAnalysisPage-Bov_YDzP.js                  9.02 kB │ gzip:   3.20 kB
+dist/assets/SystemRoleAuthUserPage-BK1g7S6S.js                       9.02 kB │ gzip:   3.03 kB
+dist/assets/NotificationManagementPage-PYmTu3Fn.js                   9.09 kB │ gzip:   3.02 kB
+dist/assets/CostBomVersionComparePage-BeXDf8Y5.js                    9.10 kB │ gzip:   3.11 kB
+dist/assets/BrandManagementPage-DkH3uZfp.js                          9.13 kB │ gzip:   3.63 kB
+dist/assets/SystemPostPage-Q5vx_Dro.js                               9.21 kB │ gzip:   3.46 kB
+dist/assets/CostBomVersionHistoryPage-BABCybSH.js                    9.24 kB │ gzip:   3.47 kB
+dist/assets/CompetitorManagementPage-C6rkz9og.js                     9.32 kB │ gzip:   3.44 kB
+dist/assets/SystemDeptPage-I9HVQTo9.js                               9.53 kB │ gzip:   3.63 kB
+dist/assets/PurchaseBomListPage-WMYRlma8.js                          9.60 kB │ gzip:   3.78 kB
+dist/assets/GovernanceScriptPage-CynXSeSX.js                         9.64 kB │ gzip:   3.44 kB
+dist/assets/TemplateCenterPage-BoS7nufN.js                           9.76 kB │ gzip:   3.64 kB
+dist/assets/analyze-r4CBZM1P.js                                      9.81 kB │ gzip:   3.64 kB
+dist/assets/CommitteeReviewListPage-BXo3CXzP.js                      9.93 kB │ gzip:   3.36 kB
+dist/assets/SystemDictPage-CILGA1I7.js                              10.05 kB │ gzip:   3.69 kB
+dist/assets/BudgetInitiationHistoryPage-U9dKGpr5.js                 10.08 kB │ gzip:   3.19 kB
+dist/assets/BudgetGateReviewWbsHistoryVersionPage-CJdUk2wD.js       10.16 kB │ gzip:   3.30 kB
+dist/assets/calculate-vxfNxSd3.js                                   10.23 kB │ gzip:   3.89 kB
+dist/assets/CostAnalysisDifferenceChart-DNSE_UFF.js                 10.30 kB │ gzip:   4.22 kB
+dist/assets/CommitteeMeetingListPage-C8D8GkHw.js                    10.34 kB │ gzip:   3.59 kB
+dist/assets/SystemOperationLogPage-eKH-GBYn.js                      10.36 kB │ gzip:   3.65 kB
+dist/assets/group-19603-DCjA3O7q.js                                 10.41 kB │ gzip:   7.69 kB
+dist/assets/create-CI6cYDIX.js                                      10.55 kB │ gzip:   3.94 kB
+dist/assets/milestone-normal-DlHObzrf.js                            10.58 kB │ gzip:   7.95 kB
+dist/assets/CostQueryPage-DWmxO4QZ.js                               10.63 kB │ gzip:   3.38 kB
+dist/assets/BudgetGateReviewAttachmentDialog-v-D9GIX-.js            10.65 kB │ gzip:   4.28 kB
+dist/assets/SystemConfigPage-DYbpnywi.js                            10.93 kB │ gzip:   3.96 kB
+dist/assets/CommitteeAiMaterialPage-DCcJjSVC.js                     11.02 kB │ gzip:   4.57 kB
+dist/assets/budget-BsY3Q5ug.js                                      11.12 kB │ gzip:   2.84 kB
+dist/assets/meeting-management-ItKndtWy.js                          11.15 kB │ gzip:   3.97 kB
+dist/assets/list-page-DaejaNze.js                                   11.23 kB │ gzip:   4.10 kB
+dist/assets/CostAnalysisPage-DcYhZSNT.js                            11.39 kB │ gzip:   4.19 kB
+dist/assets/CommitteeReviewDepartmentConfigPage-DrhWy95L.js         11.42 kB │ gzip:   4.06 kB
+dist/assets/CommitteeMaterialTemplatePage-eWTnMWCk.js               11.75 kB │ gzip:   3.79 kB
+dist/assets/SystemDictDetailPage-D1A7kOlB.js                        11.79 kB │ gzip:   4.15 kB
+dist/assets/TemplateEditorDialog-RcChPaTi.js                        11.92 kB │ gzip:   4.63 kB
+dist/assets/ValveManagementPage-DkVHU38F.js                         12.05 kB │ gzip:   4.58 kB
+dist/assets/committee-DwEDab9h.js                                   12.53 kB │ gzip:   3.34 kB
+dist/assets/bom-CkncZ891.js                                         12.55 kB │ gzip:   4.83 kB
+dist/assets/CommitteeReviewCollaborationPanel-2YVb-OR4.js           12.59 kB │ gzip:   4.22 kB
+dist/assets/GovernanceAdsResultPage-6u67JIp0.js                     12.60 kB │ gzip:   4.62 kB
+dist/assets/CommitteeTimeBoard-BMvwg36Y.js                          13.27 kB │ gzip:   4.79 kB
+dist/assets/CommitteeReviewDetailPage-ScxcoDtA.js                   13.49 kB │ gzip:   5.09 kB
+dist/assets/CostAnalysisDifferenceDrawer-sGMAHg04.js                13.59 kB │ gzip:   5.00 kB
+dist/assets/group-19616-DQzMJhqJ.js                                 13.71 kB │ gzip:  10.20 kB
+dist/assets/CommitteeProjectOnboardingPage-DY9Orp_N.js              13.77 kB │ gzip:   4.67 kB
+dist/assets/SubjectAuditMatrix-CGtF7Bl-.js                          13.87 kB │ gzip:   4.60 kB
+dist/assets/BudgetInitiationWorkbenchPage-3SpGr3xx.js               14.18 kB │ gzip:   5.36 kB
+dist/assets/AiManagementPage-DUkCvaP6.js                            14.20 kB │ gzip:   5.46 kB
+dist/assets/CostBomPartEditorPage-BYFDGf9L.js                       14.22 kB │ gzip:   5.28 kB
+dist/assets/SystemUserDataPermissionPage-DTLpntyn.js                14.38 kB │ gzip:   5.20 kB
+dist/assets/ProductionDashboardPage-BftLdWrK.js                     14.43 kB │ gzip:   4.52 kB
+dist/assets/runtime-dom.esm-bundler-C0Fbajws.js                     14.45 kB │ gzip:   6.22 kB
+dist/assets/GovernanceJobPage-jYmsMa21.js                           15.04 kB │ gzip:   4.55 kB
+dist/assets/list-page-DizWQwg5.js                                   15.20 kB │ gzip:   5.83 kB
+dist/assets/CommitteeReviewSummaryPanel-BoxGcCBt.js                 15.37 kB │ gzip:   5.25 kB
+dist/assets/CommitteeReviewConclusionMatrixDialog-BHp1qCss.js       15.55 kB │ gzip:   5.64 kB
+dist/assets/CostAnalysisMatrix-CQ9pJWZW.js                          16.10 kB │ gzip:   5.73 kB
+dist/assets/CommitteeReviewDetailDrawer-DjMEeC0W.js                 16.22 kB │ gzip:   5.08 kB
+dist/assets/BudgetInitiationDetailPage-DoWc6mse.js                  16.34 kB │ gzip:   5.48 kB
+dist/assets/MeetingImportPage-C-AdplbC.js                           16.45 kB │ gzip:   4.24 kB
+dist/assets/BudgetGateReviewWorkbenchPage-B2EGpqV2.js               16.56 kB │ gzip:   5.84 kB
+dist/assets/RdCategoryManagementPage-DH675Jvw.js                    16.57 kB │ gzip:   5.30 kB
+dist/assets/ai-analysis-C7B6gWCf.js                                 16.58 kB │ gzip:   5.87 kB
+dist/assets/CommitteeGateFormPage-BvxoIQKX.js                       16.71 kB │ gzip:   5.77 kB
+dist/assets/BudgetGateReviewDetailPage-DcHSZkxu.js                  16.72 kB │ gzip:   5.84 kB
+dist/assets/CostResearchHistoryPage-BYf_iiBK.js                     17.37 kB │ gzip:   5.87 kB
+dist/assets/NewCostResearchHistoryPage-pp3brs9s.js                  17.50 kB │ gzip:   5.88 kB
+dist/assets/project-PW7S5345.js                                     17.58 kB │ gzip:   4.42 kB
+dist/assets/SystemMenuPage-KWppE-Jz.js                              17.82 kB │ gzip:   5.77 kB
+dist/assets/PurchaseBomReorganizePage-DGF4MHJ6.js                   18.10 kB │ gzip:   5.56 kB
+dist/assets/SheetDesigner-C15TPhe1.js                               18.11 kB │ gzip:   5.74 kB
+dist/assets/VehicleModelPage-HNxRuXXE.js                            18.25 kB │ gzip:   5.69 kB
+dist/assets/TableDesignerPage-CIurArNx.js                           18.70 kB │ gzip:   6.55 kB
+dist/assets/CommitteeMeetingFormPage-CsxTJ9yV.js                    18.86 kB │ gzip:   6.09 kB
+dist/assets/CommitteeMeetingDetailPage-BesRFtGA.js                  19.29 kB │ gzip:   6.54 kB
+dist/assets/GovernanceSourcePage-CDtVKYI9.js                        19.92 kB │ gzip:   6.07 kB
+dist/assets/CostBomPartHistoryPage-dO77E5yU.js                      20.16 kB │ gzip:   4.94 kB
+dist/assets/editBom-DIDeWUf9.js                                     20.24 kB │ gzip:   4.08 kB
+dist/assets/BudgetReportPage-Br3gneXm.js                            20.28 kB │ gzip:   6.19 kB
+dist/assets/checkbom-gA6aookb.js                                    21.16 kB │ gzip:   5.61 kB
+dist/assets/service-R1uuGu2D.js                                     21.40 kB │ gzip:   7.17 kB
+dist/assets/attachment-upload-BpBu7oPF.js                           22.18 kB │ gzip:   7.67 kB
+dist/assets/detail-DBN6urcH.js                                      22.24 kB │ gzip:   5.85 kB
+dist/assets/OnsiteCalculatorDrawer-Brm1qSsC.js                      22.46 kB │ gzip:   7.24 kB
+dist/assets/SystemRolePage-CLq_U8ah.js                              22.53 kB │ gzip:   7.25 kB
+dist/assets/platform-system-CxfMsn2d.js                             22.55 kB │ gzip:   5.70 kB
+dist/assets/BudgetWorkbenchPage-BrMT5ngr.js                         22.81 kB │ gzip:   7.38 kB
+dist/assets/vue-router-CPMNPyL6.js                                  23.01 kB │ gzip:   9.13 kB
+dist/assets/EvaluationImportPage-BrhOhxy0.js                        23.09 kB │ gzip:   4.88 kB
+dist/assets/VisualDashboardPage-CsgpcJDn.js                         23.12 kB │ gzip:   6.92 kB
+dist/assets/SystemUserPage-BDwLPI4D.js                              23.59 kB │ gzip:   7.32 kB
+dist/assets/BudgetGateReviewReportPage-D1lxgKR3.js                  24.59 kB │ gzip:   6.75 kB
+dist/assets/list-page-CgqcDGDp.js                                   25.19 kB │ gzip:   8.46 kB
+dist/assets/BudgetGateReviewAssessPage-DdSlLp-Q.js                  25.68 kB │ gzip:   7.57 kB
+dist/assets/CommitteeProjectDetailPage-Dbxa_fZe.js                  25.98 kB │ gzip:   8.14 kB
+dist/assets/PurchaseDashboardPage-DCf5ZDec.js                       27.25 kB │ gzip:  14.98 kB
+dist/assets/MainTableComparePanel-Dnv6avZk.js                       30.22 kB │ gzip:   7.85 kB
+dist/assets/BudgetInitiationAssessPage-DV_Iv7TQ.js                  32.70 kB │ gzip:   8.72 kB
+dist/assets/NewProjectCostPage-Canpcmi6.js                          32.97 kB │ gzip:   9.20 kB
+dist/assets/matrix-utils-Bbp5-0-0.js                                33.33 kB │ gzip:  10.17 kB
+dist/assets/ProjectCostPage-Dz4oUqzW.js                             33.62 kB │ gzip:   9.34 kB
+dist/assets/NewProjectCostPage-DHoEFoyP.js                          34.41 kB │ gzip:   9.47 kB
+dist/assets/ProjectManagementPage-DvjkpiMi.js                       35.64 kB │ gzip:  10.54 kB
+dist/assets/CostBomDetailPage-k1aTLx7O.js                           37.28 kB │ gzip:  10.09 kB
+dist/assets/CostAnalysisWorkbenchPage-C1SUyWs8.js                   38.77 kB │ gzip:  12.29 kB
+dist/assets/group-19608-Cgn_RtnA.js                                 38.91 kB │ gzip:  28.72 kB
+dist/assets/cost-center-BBu_eWwi.js                                 40.00 kB │ gzip:  10.02 kB
+dist/assets/committee.mock-CdKlCzNE.js                              40.90 kB │ gzip:  11.35 kB
+dist/assets/auth-lJfHYMSf.js                                        42.25 kB │ gzip:  10.67 kB
+dist/assets/formula-engine-CvkHvtvr.js                              44.26 kB │ gzip:  13.63 kB
+dist/assets/detail-BpNB6aFH.js                                      48.19 kB │ gzip:  15.76 kB
+dist/assets/CostResearchHistoryViewPage-D9W4ZUOl.js                 48.43 kB │ gzip:  12.01 kB
+dist/assets/http-DEUZKso8.js                                        49.07 kB │ gzip:  18.86 kB
+dist/assets/NewCostResearchHistoryViewPage-Ccou9thv.js              49.62 kB │ gzip:  12.37 kB
+dist/assets/NewProjectCostViewPage-Dvq9BLwn.js                      49.81 kB │ gzip:  12.26 kB
+dist/assets/NewProjectCostViewPage-tbU-b_kQ.js                      49.95 kB │ gzip:  12.29 kB
+dist/assets/ProjectCostViewPage-D2KXHkih.js                         50.57 kB │ gzip:  12.13 kB
+dist/assets/detail-DElxP7TO.js                                      55.02 kB │ gzip:  16.39 kB
+dist/assets/mock-BN_T-4IG.js                                        61.27 kB │ gzip:  18.73 kB
+dist/assets/CostBomQueryPage-IvWcd11s.js                            64.31 kB │ gzip:  15.24 kB
+dist/assets/CommitteeGroupMaterialPresentation-CW8O9NZQ.js          66.49 kB │ gzip:  17.54 kB
+dist/assets/runtime-core.esm-bundler-rN2AiGcs.js                    67.47 kB │ gzip:  26.43 kB
+dist/assets/lodash-UC71Ej6x.js                                      71.34 kB │ gzip:  26.09 kB
+dist/assets/RevenueAuditWorkbenchDetail-DmSynU0R.js                 75.66 kB │ gzip:  23.93 kB
+dist/assets/CommitteeGroupMaterialDisplayPage-Bx21yBf6.js           76.75 kB │ gzip:  27.48 kB
+dist/assets/CommitteeGroupMaterialEditPage-DSU4U_2K.js              78.38 kB │ gzip:  20.54 kB
+dist/assets/detail-B2vBlwVQ.js                                      78.55 kB │ gzip:  25.13 kB
+dist/assets/CommitteeGroupMaterialPage-DLx3vP_y.js                 107.63 kB │ gzip:  35.03 kB
+dist/assets/dist-C25rVnby.js                                       171.29 kB │ gzip:  43.67 kB
+dist/assets/service-YkL2npkb.js                                    207.25 kB │ gzip:  54.18 kB
+dist/assets/index-B9ohcJuL.js                                      331.57 kB │ gzip:  83.45 kB
+dist/assets/excel-template-parser-CgOM2wXO.js                      428.07 kB │ gzip: 143.24 kB
+dist/assets/CommitteeReviewEditPanel-BzC3AXbg.js                   501.52 kB │ gzip: 153.98 kB
+dist/assets/install-BMRoE7bm.js                                    528.24 kB │ gzip: 180.40 kB
+dist/assets/echarts-ztSK2e-r.js                                    597.27 kB │ gzip: 195.73 kB
+dist/assets/detail-uBKTWGw0.js                                     666.65 kB │ gzip:  92.94 kB
+dist/assets/es-CqYj_QxC.js                                         864.24 kB │ gzip: 275.03 kB
+dist/assets/exceljs.min-CVvXZrgy.js                                929.90 kB │ gzip: 256.47 kB
+
+[31m[INVALID_ANNOTATION] [0mA comment "/* #__PURE__ */" in "node_modules/.pnpm/@vueuse+core@14.3.0_vue@3.5.38_typescript@6.0.3_/node_modules/@vueuse/core/dist/index.js" contains an annotation that Rolldown cannot interpret due to the position of the comment.
+      [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@vueuse+core@14.3.0_vue@3.5.38_typescript@6.0.3_/node_modules/@vueuse/core/dist/index.js:3362:1 [38;5;246m][0m
+      [38;5;246m│[0m
+ [38;5;246m3362 │[0m /* #__PURE__ */
+ [38;5;240m     │[0m ───────┬───────  
+ [38;5;240m     │[0m        ╰───────── comment ignored due to position
+ [38;5;240m     │[0m 
+ [38;5;240m     │[0m [38;5;115mHelp[0m: For more information on how to use pure annotations correctly, check the documentation: https://rolldown.rs/in-depth/dead-code-elimination#pure
+[38;5;246m──────╯[0m
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[31m[INVALID_ANNOTATION] [0mA comment "/* #__PURE__ */" in "node_modules/.pnpm/@vueuse+core@14.3.0_vue@3.5.38_typescript@6.0.3_/node_modules/@vueuse/core/dist/index.js" contains an annotation that Rolldown cannot interpret due to the position of the comment.
+      [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@vueuse+core@14.3.0_vue@3.5.38_typescript@6.0.3_/node_modules/@vueuse/core/dist/index.js:5780:23 [38;5;246m][0m
+      [38;5;246m│[0m
+ [38;5;246m5780 │[0m [38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249md[0m[38;5;249me[0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249mu[0m[38;5;249ml[0m[38;5;249mt[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249m([0m/* #__PURE__ */[38;5;249m [0m[38;5;249m{[0m
+ [38;5;240m     │[0m                       ───────┬───────  
+ [38;5;240m     │[0m                              ╰───────── comment ignored due to position
+ [38;5;240m     │[0m 
+ [38;5;240m     │[0m [38;5;115mHelp[0m: For more information on how to use pure annotations correctly, check the documentation: https://rolldown.rs/in-depth/dead-code-elimination#pure
+[38;5;246m──────╯[0m
+
+✓ built in 10.10s

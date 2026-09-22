@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">智行官主申报独立图形彩色稿</title>
+  <desc id="desc">V1 岗位徽章的商标申报简化版本，保留企业边界、岗位核心、智能判断和执行结果。</desc>
+  <path d="M128 18 218 53v69c0 55-34 93-90 114-56-21-90-59-90-114V53l90-35Z" fill="#2F6FE8"/>
+  <path d="M128 40 196 66v55c0 42-25 71-68 89-43-18-68-47-68-89V66l68-26Z" fill="none" stroke="#FFFFFF" stroke-width="6" opacity=".82"/>
+  <path d="m128 70 43 25v50l-43 25-43-25V95l43-25Z" fill="#FFFFFF"/>
+  <path d="m128 82 5.5 14.5L148 102l-14.5 5.5L128 122l-5.5-14.5L108 102l14.5-5.5L128 82Z" fill="#F5A84B"/>
+  <circle cx="128" cy="102" r="4" fill="#FFFFFF"/>
+  <path d="M108 129h40M108 143h27" fill="none" stroke="#2F6FE8" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="151" cy="143" r="5" fill="#63C5DD"/>
+  <path d="M100 177c8 7 18 12 28 17 10-5 20-10 28-17" fill="none" stroke="#79C9EA" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="100" cy="177" r="5" fill="#FFFFFF"/>
+  <circle cx="128" cy="194" r="6" fill="#F5A84B"/>
+  <circle cx="156" cy="177" r="5" fill="#FFFFFF"/>
+</svg>

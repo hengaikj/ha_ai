@@ -38,6 +38,7 @@ import {
   isWatermarkEnabled,
 } from "@/config/features";
 import logo from "@/assets/logo/logo2.png";
+import zhixingguanLogo from "@/assets/brand/zhixingguan-logo.svg";
 const route = useRoute();
 const isAiRoute = computed(() => route.path === "/ai" || route.path.startsWith("/ai/"));
 const router = useRouter();
@@ -860,7 +861,7 @@ onBeforeUnmount(() => {
   >
     <header class="app-layout__navbar">
       <div class="app-layout__brand">
-        <img v-if="!isAiRoute" class="app-layout__brand-logo" :src="logo" alt="BAIC" />
+        <img class="app-layout__brand-logo" :src="isAiRoute ? zhixingguanLogo : logo" :alt="isAiRoute ? '智行官' : 'BAIC'" />
         <span class="app-layout__brand-title">{{ isAiRoute ? "智行官" : "收益与成本管理系统" }}</span>
       </div>
 
