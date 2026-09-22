@@ -21,6 +21,12 @@ public class Application {
     }
 
     @Bean
+    ModelPolicyService modelPolicyService(ObjectProvider<ProjectPolicyMapper> policyMapper,
+                                           ObjectProvider<LogicalModelMapper> logicalModelMapper) {
+        return new ModelPolicyService(policyMapper.getIfAvailable(), logicalModelMapper.getIfAvailable());
+    }
+
+    @Bean
     GatewayService gatewayService(ObjectProvider<PersistentApiKeyStore> store,
                                   ObjectProvider<RedisApiKeyCache> cache,
                                   ObjectProvider<ApiKeyMapper> apiKeyMapper,
@@ -30,6 +36,7 @@ public class Application {
                 ObjectProvider<AttemptMapper> attemptMapper,
                 ObjectProvider<ProjectMapper> projectMapper,
                 ObjectProvider<ObjectMapper> mapper,
+                                  ModelPolicyService policyService,
                                   org.springframework.core.env.Environment env) {
         if (!env.getProperty("ha.gateway.persistence.enabled", Boolean.class, false)) {
             return GatewayService.demo();
@@ -39,8 +46,7 @@ public class Application {
         var keys = new ApiKeyService(persistent, cache.getIfAvailable());
         keys.register(new ApiKey("1001", "1001", 1001L, "m01-demo-key",
                 ApiKeyStatus.ENABLED, null));
-        var policies = new ModelPolicyService(policyMapper.getIfAvailable(),
-                logicalModelMapper.getIfAvailable());
+        var policies = policyService;
         policies.allow("1001", "ha-gpt-4o-mini");
         var registry = new ProviderRegistry();
         registry.register(new LogicalModel("ha-gpt-4o-mini", "ha-gpt-4o-mini", true));
