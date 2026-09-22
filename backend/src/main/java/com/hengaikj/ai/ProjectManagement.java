@@ -7,6 +7,7 @@ import com.hengaikj.ai.persistence.mapper.ProjectMapper;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import org.springframework.dao.DuplicateKeyException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,6 +17,7 @@ interface ProjectRepository {
     ProjectRecord create(long enterpriseId, String code, String name, String entitlementMode);
     ProjectRecord find(long enterpriseId, long projectId);
     ProjectRecord update(long enterpriseId, long projectId, String name, String entitlementMode);
+    List<ProjectRecord> list(long enterpriseId);
 }
 
 final class ProjectRecord {
@@ -69,6 +71,12 @@ final class MybatisProjectRepository implements ProjectRepository {
     }
 
     @Override
+    public List<ProjectRecord> list(long enterpriseId) {
+        return mapper.selectList(new QueryWrapper<ProjectEntity>().eq("enterprise_id", enterpriseId)
+                .orderByAsc("project_id")).stream().map(this::toRecord).toList();
+    }
+
+    @Override
     public ProjectRecord find(long enterpriseId, long projectId) {
         var row = mapper.selectOne(new QueryWrapper<ProjectEntity>()
                 .eq("enterprise_id", enterpriseId).eq("project_id", projectId));
@@ -109,6 +117,11 @@ final class InMemoryProjectRepository implements ProjectRepository {
         return row;
     }
     @Override
+    public List<ProjectRecord> list(long enterpriseId) {
+        return rows.values().stream().filter(p -> p.enterpriseId == enterpriseId)
+                .sorted(java.util.Comparator.comparingLong(p -> p.projectId)).toList();
+    }
+    @Override
     public ProjectRecord find(long enterpriseId, long projectId) {
         var row = rows.get(projectId);
         if (row == null || row.enterpriseId != enterpriseId) throw GatewayException.notFound("项目不存在");
@@ -136,6 +149,11 @@ final class ProjectApplicationService {
         validateMode(command.entitlementMode());
         return repository.create(enterpriseId, command.projectCode().trim(), command.projectName().trim(),
                 command.entitlementMode());
+    }
+
+    List<ProjectRecord> list(long enterpriseId) {
+        validateEnterprise(enterpriseId);
+        return repository.list(enterpriseId);
     }
 
     ProjectRecord get(long enterpriseId, long projectId) {

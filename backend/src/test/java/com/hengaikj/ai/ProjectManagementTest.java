@@ -54,6 +54,17 @@ class ProjectManagementTest {
     }
 
     @Test
+    void listReturnsOnlyProjectsInEnterprise() {
+        var service = new ProjectApplicationService(new InMemoryProjectRepository());
+        service.create(1001L, new ProjectCreateCommand("one", "项目一", "BALANCE"));
+        service.create(1001L, new ProjectCreateCommand("two", "项目二", "SUBSCRIPTION"));
+        service.create(1002L, new ProjectCreateCommand("other", "其他企业", "BALANCE"));
+        var projects = service.list(1001L);
+        assertEquals(2, projects.size());
+        assertTrue(projects.stream().allMatch(project -> project.enterpriseId == 1001L));
+    }
+
+    @Test
     void rejectsDuplicateCodeAndInvalidEntitlementMode() {
         var service = new ProjectApplicationService(new InMemoryProjectRepository());
         service.create(1001L, new ProjectCreateCommand("demo", "演示项目", "BALANCE"));

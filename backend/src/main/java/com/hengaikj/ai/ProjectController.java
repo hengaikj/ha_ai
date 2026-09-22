@@ -8,8 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.List;
 
-/** 企业 Project 管理接口；列表响应与权限码待 Issue #27 确认，故本轮不实现列表。 */
+/** 企业 Project 管理接口，所有查询均按企业范围隔离。 */
 @RestController
 @RequestMapping("/api/projects")
 final class ProjectController {
@@ -23,6 +24,16 @@ final class ProjectController {
                                                 HttpServletResponse response) {
         return ok(response, service.create(enterpriseId,
                 new ProjectCreateCommand(request.projectCode(), request.projectName(), request.entitlementMode())));
+    }
+
+    @GetMapping
+    ResponseEntity<Map<String, Object>> list(@RequestHeader("X-Enterprise-Id") long enterpriseId,
+                                               HttpServletResponse response) {
+        var requestId = GatewayService.newRequestId();
+        var data = service.list(enterpriseId).stream().map(this::data).toList();
+        response.setHeader("x-request-id", requestId);
+        return ResponseEntity.ok().header("x-request-id", requestId)
+                .body(Map.of("success", true, "requestId", requestId, "data", data));
     }
 
     @GetMapping("/{projectId}")
@@ -41,12 +52,16 @@ final class ProjectController {
                 new ProjectUpdateCommand(request.projectName(), request.entitlementMode())));
     }
 
+    private Map<String, String> data(ProjectRecord project) {
+        return Map.of("projectId", String.valueOf(project.projectId), "projectCode", project.projectCode,
+                "projectName", project.projectName, "entitlementMode", project.entitlementMode,
+                "status", project.status);
+    }
+
     private ResponseEntity<Map<String, Object>> ok(HttpServletResponse response, ProjectRecord project) {
         var requestId = GatewayService.newRequestId();
         response.setHeader("x-request-id", requestId);
-        var data = Map.of("projectId", String.valueOf(project.projectId), "projectCode", project.projectCode,
-                "projectName", project.projectName, "entitlementMode", project.entitlementMode,
-                "status", project.status);
+        var data = data(project);
         return ResponseEntity.ok().header("x-request-id", requestId)
                 .body(Map.of("success", true, "requestId", requestId, "data", data));
     }
