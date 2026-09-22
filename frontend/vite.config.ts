@@ -53,7 +53,7 @@ function versionPlugin() {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const apiProxyTarget =
-    env.VITE_API_PROXY_TARGET || "http://60.205.248.236:8001";
+    env.VITE_API_PROXY_TARGET || "http://127.0.0.1:18080";
 
   return {
     define: {
@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
     plugins: [vue(), versionPlugin()],
     server: {
       host: "0.0.0.0",
-      port: 80,
+      port: 5173,
       strictPort: true,
       proxy: {
         // 收益管理服务独立代理（需放在 /api 之前，优先匹配）
