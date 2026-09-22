@@ -5,6 +5,8 @@
 ## Git 与事实源
 
 - 已有仓库，未重复 clone。启动时 main 工作区干净。
+- 后续使用用户指定凭据完成 `git fetch --all --prune`（退出 0）及子分支 push；原始输出见 git-fetch-authenticated.txt、git-after-authenticated-fetch.txt。
+- 已创建 Draft PR：https://github.com/hengaikj/ha_ai/pull/24（基底 feature/m01-frontend），尚未完成页面实现。
 - `git fetch --all --prune` 返回 Empty reply from server；HTTP/1.1 重试也未完成同步。原始输出见 evidence/m01-wave1/。
 - 通过 GitHub REST API 再次核对远端分支 SHA，与本地引用一致：
   - develop：fd664c64c406a22b06268be8679b1315b176f487

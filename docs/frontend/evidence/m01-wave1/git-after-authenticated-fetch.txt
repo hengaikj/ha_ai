@@ -1,0 +1,46 @@
+bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+On branch feature/m01-frontend-wave1
+Your branch is up to date with 'origin/feature/m01-frontend-wave1'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	docs/frontend/evidence/m01-wave1/git-after-authenticated-fetch.txt
+	docs/frontend/evidence/m01-wave1/git-fetch-authenticated.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+* feature/m01-frontend-wave1
+  main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/chore/design-handoff-contract-v3
+  remotes/origin/chore/m01-backend-slice-state
+  remotes/origin/chore/materialize-engineering-inputs
+  remotes/origin/chore/materialize-full-contracts
+  remotes/origin/chore/monorepo-dev-environment
+  remotes/origin/chore/multi-agent-orchestration
+  remotes/origin/design/m01-product-prototype
+  remotes/origin/develop
+  remotes/origin/docs/dev-team-startup
+  remotes/origin/feature/m01-frontend
+  remotes/origin/feature/m01-frontend-wave1
+  remotes/origin/feature/m01-slice01
+  remotes/origin/main
+fd664c6 (origin/develop) 编排: 合并M01后端A/B/C切片状态
+48847b0 设计: 合并v3 Design Handoff与资源完整性Gate
+79cec5f 输入: 合并完整Contract物化与SHA校验Gate
+f3b4c72 (origin/chore/design-handoff-contract-v3) 设计: 新增validate-design-handoff.py
+d40239d 设计: 新增页面开发包模板.md
+f595d2b 设计: 新增Design_Handoff_Gate.md
+b542320 设计: 新增00_设计交付从这里开始.md
+a4094f6 设计: 新增component-mapping.schema.json
+f2c23e0 设计: 新增assets-manifest.schema.json
+d549aac 设计: 新增design-handoff.schema.json
+dc889ed (origin/chore/m01-backend-slice-state) 编排: 将后端M01拆分为A/B/C三级切片
+537f4ce 编排: 记录M01后端三级切片人工决策
+1b0cee8 验证: 新增完整Contract哈希校验脚本
+5e88271 输入: 锁定完整Contract物化清单与哈希
+e28f9d3 输入：物化Engineering Handoff与Contract
+78359f6 合并：PR #5 开发基础规范
+73dae8b 合并：PR #4 开发基础规范
+819215a 合并：PR #2 开发基础规范
+7f79c21 (origin/main, origin/HEAD, main) 初始化项目仓库并明确中文协作规范
+18	8
