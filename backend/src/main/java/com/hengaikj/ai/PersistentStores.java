@@ -14,6 +14,7 @@ import java.util.Map;
 interface PersistentApiKeyStore {
     void save(ApiKey key);
     ApiKey find(String hash);
+    ApiKey findById(String apiKeyId);
     void updateStatus(ApiKey key);
 }
 
@@ -63,6 +64,15 @@ final class MybatisApiKeyStore implements PersistentApiKeyStore {
         var entity = mapper.selectOne(new QueryWrapper<ApiKeyEntity>()
                 .eq("key_hash", hash)
                 .last("LIMIT 1"));
+        if (entity == null) return null;
+        return new ApiKey(String.valueOf(entity.apiKeyId), String.valueOf(entity.projectId),
+                entity.enterpriseId, null, entity.keyHash,
+                ApiKeyStatus.valueOf(entity.status), toInstant(entity.expiresAt));
+    }
+
+    @Override
+    public ApiKey findById(String apiKeyId) {
+        var entity = mapper.selectById(Long.parseLong(apiKeyId));
         if (entity == null) return null;
         return new ApiKey(String.valueOf(entity.apiKeyId), String.valueOf(entity.projectId),
                 entity.enterpriseId, null, entity.keyHash,

@@ -47,11 +47,23 @@ public final class ApiKeyService {
     private void updateById(String apiKeyId, ApiKeyStatus status) {
         var current = database.values().stream()
                 .filter(key -> key.apiKeyId().equals(apiKeyId)).findFirst().orElse(null);
-        if (current == null && persistent != null) {
-            throw GatewayException.notFound("API Key不存在或不在当前管理范围");
+        if (current != null) {
+            update(current.secret(), status);
+            return;
         }
-        if (current == null) throw GatewayException.notFound("API Key不存在或不在当前管理范围");
-        update(current.secret(), status);
+        if (persistent != null) {
+            current = persistent.findById(apiKeyId);
+            if (current != null) {
+                var updated = current.withStatus(status);
+                persistent.updateStatus(updated);
+                if (cache != null) {
+                    cache.evict(current.hash());
+                    cache.put(updated);
+                }
+                return;
+            }
+        }
+        throw GatewayException.notFound("API Key不存在或不在当前管理范围");
     }
 
     public void disable(String secret) {
