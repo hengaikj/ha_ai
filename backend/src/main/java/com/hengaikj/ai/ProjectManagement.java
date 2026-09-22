@@ -5,7 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hengaikj.ai.persistence.entity.ProjectEntity;
 import com.hengaikj.ai.persistence.mapper.ProjectMapper;
 import java.time.LocalDateTime;
-import java.util.List;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import org.springframework.dao.DuplicateKeyException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -48,7 +49,8 @@ final class MybatisProjectRepository implements ProjectRepository {
             throw GatewayException.conflict("企业内项目编码已存在");
         }
         var row = new ProjectEntity();
-        row.projectId = nextId();
+        // 应用生成主键，避免并发创建读取同一个数据库最大值。
+        row.projectId = IdWorker.getId();
         row.enterpriseId = enterpriseId;
         row.projectCode = code;
         row.projectName = name;
@@ -57,7 +59,12 @@ final class MybatisProjectRepository implements ProjectRepository {
         row.version = 0L;
         row.createdAt = LocalDateTime.now();
         row.updatedAt = row.createdAt;
-        mapper.insert(row);
+        try {
+            mapper.insert(row);
+        } catch (DuplicateKeyException ex) {
+            // 预查询无法排除并发插入，由数据库唯一约束作最终裁决。
+            throw GatewayException.conflict("项目主键或企业内项目编码冲突");
+        }
         return toRecord(row);
     }
 
@@ -80,11 +87,6 @@ final class MybatisProjectRepository implements ProjectRepository {
                 .set("updated_at", LocalDateTime.now()).setSql("version = version + 1");
         mapper.update(null, update);
         return find(enterpriseId, projectId);
-    }
-
-    private long nextId() {
-        var values = mapper.selectObjs(new QueryWrapper<ProjectEntity>().select("COALESCE(MAX(project_id),0)+1"));
-        return values.isEmpty() ? 1L : ((Number) values.get(0)).longValue();
     }
 
     private ProjectRecord toRecord(ProjectEntity row) {
