@@ -15,6 +15,7 @@ export interface ApiKeySummary {
   keyName: string;
   keyPrefix: string;
   status: "ENABLED" | "DISABLED" | "REVOKED";
+  createdAt: string;
   expiresAt: string | null;
 }
 export type ApiKeyInput = Pick<ApiKeySummary, "keyName" | "expiresAt">;

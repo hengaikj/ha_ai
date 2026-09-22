@@ -317,6 +317,7 @@ onBeforeUnmount(() => {
     >
       <el-table-column prop="keyPrefix" label="Key 前缀" min-width="160" />
       <el-table-column prop="status" label="状态" min-width="120" />
+      <el-table-column prop="createdAt" label="创建时间" min-width="210" />
       <el-table-column prop="expiresAt" label="过期时间" min-width="210"
         ><template #default="{ row }">{{
           row.expiresAt || "未设置"

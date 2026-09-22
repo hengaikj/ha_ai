@@ -47,6 +47,7 @@ export function createMockManagementData() {
           keyName: "开发环境",
           keyPrefix: "mock-demo-",
           status: "ENABLED",
+          createdAt: "2026-09-22T01:42:18Z",
           expiresAt: null,
         },
         {
@@ -54,6 +55,7 @@ export function createMockManagementData() {
           keyName: "测试环境",
           keyPrefix: "mock-test-",
           status: "DISABLED",
+          createdAt: "2026-09-22T01:43:18Z",
           expiresAt: "2027-01-01T00:00:00Z",
         },
         {
@@ -61,6 +63,7 @@ export function createMockManagementData() {
           keyName: "已撤销示例",
           keyPrefix: "mock-old-",
           status: "REVOKED",
+          createdAt: "2026-09-22T01:44:18Z",
           expiresAt: null,
         },
       ],
@@ -150,6 +153,7 @@ export function createMockManagementService(
         apiKeyId: `mock-key-${++data.sequence}`,
         keyPrefix: "mock-only-",
         status: "ENABLED",
+        createdAt: "2026-09-22T01:45:18Z",
       });
       // 仅页面端口的虚构演示值；不构造未定义的 API Secret 响应字段。
       return "MOCK_ONLY_NOT_A_REAL_SECRET";

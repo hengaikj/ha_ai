@@ -32,6 +32,7 @@ function decodeApiKey(value: unknown): ApiKeySummary {
     !text(item.keyName) ||
     !text(item.keyPrefix) ||
     !["ENABLED", "DISABLED", "REVOKED"].includes(String(item.status)) ||
+    !text(item.createdAt) ||
     (item.expiresAt !== null && !text(item.expiresAt))
   )
     return invalid("API Key 列表项缺少正式字段。");
@@ -40,6 +41,7 @@ function decodeApiKey(value: unknown): ApiKeySummary {
     keyName: item.keyName,
     keyPrefix: item.keyPrefix,
     status: item.status as ApiKeySummary["status"],
+    createdAt: item.createdAt,
     expiresAt: item.expiresAt as string | null,
   };
 }

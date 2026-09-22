@@ -39,6 +39,7 @@ describe("M01 管理页面端口", () => {
     expect(JSON.stringify(own)).not.toContain(secret);
     expect(Object.keys(own[0]!).sort()).toEqual([
       "apiKeyId",
+      "createdAt",
       "expiresAt",
       "keyName",
       "keyPrefix",
@@ -48,12 +49,16 @@ describe("M01 管理页面端口", () => {
   it("API Key列表展示字段不包含Key名称和Secret", async () => {
     const service = createMockManagementService();
     const rows = await service.keys("project-demo");
-    const displayRows = rows.map(({ keyPrefix, status, expiresAt }) => ({
-      keyPrefix,
-      status,
-      expiresAt,
-    }));
+    const displayRows = rows.map(
+      ({ keyPrefix, status, createdAt, expiresAt }) => ({
+        keyPrefix,
+        status,
+        createdAt,
+        expiresAt,
+      }),
+    );
     expect(Object.keys(displayRows[0]!).sort()).toEqual([
+      "createdAt",
       "expiresAt",
       "keyPrefix",
       "status",
@@ -106,6 +111,7 @@ describe("M01 管理页面端口", () => {
         keyName: "生产",
         keyPrefix: "ha-",
         status: "ENABLED",
+        createdAt: "2026-09-22T01:42:18Z",
         expiresAt: null,
         secret: "must-not-enter-list",
         keyHash: "hash",
@@ -117,6 +123,7 @@ describe("M01 管理页面端口", () => {
         keyName: "生产",
         keyPrefix: "ha-",
         status: "ENABLED",
+        createdAt: "2026-09-22T01:42:18Z",
         expiresAt: null,
       },
     ]);
@@ -126,6 +133,7 @@ describe("M01 管理页面端口", () => {
         keyName: "生产",
         keyPrefix: "ha-",
         status: "ENABLED",
+        createdAt: "2026-09-22T01:42:18Z",
         secret: "full-secret",
       }),
     ).toBe("full-secret");

@@ -52,6 +52,7 @@ for (const viewport of [
     await expect(table.locator("th")).toContainText([
       "Key 前缀",
       "状态",
+      "创建时间",
       "过期时间",
     ]);
     await expect(
