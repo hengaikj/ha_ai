@@ -18,6 +18,9 @@ export interface ApiKeySummary {
   expiresAt: string | null;
 }
 export type ApiKeyInput = Pick<ApiKeySummary, "keyName" | "expiresAt">;
+export interface ApiKeyCreated extends ApiKeySummary {
+  secret: string;
+}
 export interface UsageSummary {
   requestId: string;
   projectId: string;

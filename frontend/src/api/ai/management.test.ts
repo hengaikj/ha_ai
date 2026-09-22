@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createMockManagementData, createMockManagementService } from "./mock";
-import { createHttpManagementService } from "./http";
+import { apiKeyDecoders, createHttpManagementService } from "./http";
 import { allowedKeyActions } from "./types";
 
 describe("M01 管理页面端口", () => {
@@ -52,6 +52,9 @@ describe("M01 管理页面端口", () => {
     ).rejects.toMatchObject({ status: 409 });
     await service.changeKey("key-demo", "disable");
     expect((await service.keys("project-demo"))[0]?.status).toBe("DISABLED");
+    await service.changeKey("key-demo", "revoke");
+    expect((await service.keys("project-demo"))[0]?.status).toBe("REVOKED");
+    expect(allowedKeyActions("REVOKED")).not.toContain("enable");
   });
   it("项目重复编码返回409而非创建重复记录", async () => {
     const service = createMockManagementService();
@@ -72,5 +75,39 @@ describe("M01 管理页面端口", () => {
     await expect(service.projects()).rejects.toMatchObject({
       code: "CONTRACT_PENDING",
     });
+  });
+  it("API Key正式解码只投影列表字段并读取data.secret", () => {
+    const rows = apiKeyDecoders.keys!([
+      {
+        apiKeyId: "k1",
+        keyName: "生产",
+        keyPrefix: "ha-",
+        status: "ENABLED",
+        expiresAt: null,
+        secret: "must-not-enter-list",
+        keyHash: "hash",
+      },
+    ]);
+    expect(rows).toEqual([
+      {
+        apiKeyId: "k1",
+        keyName: "生产",
+        keyPrefix: "ha-",
+        status: "ENABLED",
+        expiresAt: null,
+      },
+    ]);
+    expect(
+      apiKeyDecoders.createdSecret!({
+        apiKeyId: "k1",
+        keyName: "生产",
+        keyPrefix: "ha-",
+        status: "ENABLED",
+        secret: "full-secret",
+      }),
+    ).toBe("full-secret");
+    expect(() => apiKeyDecoders.createdSecret!({ apiKeyId: "k1" })).toThrow(
+      "data.secret",
+    );
   });
 });

@@ -6,28 +6,72 @@ import {
   type ManagementService,
   type ProjectSummary,
   type ApiKeySummary,
+  type ApiKeyCreated,
   type UsageSummary,
 } from "./types";
 
-// 待 Contract Owner 补齐列表 data / 创建 Secret 响应后，提供解码器。
-// 不以 array/items/records 或 secret/apiKey 等猜测作为正式响应协议。
+// IS-M01-03 正式 Contract 解码器：列表只投影 Summary 字段，创建只读取 data.secret。
 export interface ManagementDecoders {
-  projects(data: unknown): ProjectSummary[];
-  keys(data: unknown): ApiKeySummary[];
-  usage(data: unknown): UsageSummary[];
-  createdSecret(data: unknown): string;
+  projects?: (data: unknown) => ProjectSummary[];
+  keys?: (data: unknown) => ApiKeySummary[];
+  usage?: (data: unknown) => UsageSummary[];
+  createdSecret?: (data: unknown) => string;
 }
+const text = (value: unknown): value is string =>
+  typeof value === "string" && value.length > 0;
+function invalid(message: string): never {
+  throw new ManagementError(0, "INVALID_RESPONSE", message);
+}
+function decodeApiKey(value: unknown): ApiKeySummary {
+  if (!value || typeof value !== "object")
+    return invalid("API Key 列表项格式不符合契约。");
+  const item = value as Record<string, unknown>;
+  if (
+    !text(item.apiKeyId) ||
+    !text(item.keyName) ||
+    !text(item.keyPrefix) ||
+    !["ENABLED", "DISABLED", "REVOKED"].includes(String(item.status)) ||
+    (item.expiresAt !== null && !text(item.expiresAt))
+  )
+    return invalid("API Key 列表项缺少正式字段。");
+  return {
+    apiKeyId: item.apiKeyId,
+    keyName: item.keyName,
+    keyPrefix: item.keyPrefix,
+    status: item.status as ApiKeySummary["status"],
+    expiresAt: item.expiresAt as string | null,
+  };
+}
+export const apiKeyDecoders: Pick<
+  ManagementDecoders,
+  "keys" | "createdSecret"
+> = {
+  keys(data) {
+    if (!Array.isArray(data)) return invalid("API Key 列表响应不是数组。");
+    return data.map(decodeApiKey);
+  },
+  createdSecret(data) {
+    if (
+      !data ||
+      typeof data !== "object" ||
+      !text((data as Partial<ApiKeyCreated>).secret)
+    )
+      return invalid("创建 API Key 响应缺少 data.secret。");
+    return (data as ApiKeyCreated).secret;
+  },
+};
 export function createHttpManagementService(
   decoders?: ManagementDecoders,
 ): ManagementService {
-  function requireDecoders() {
-    if (!decoders)
+  function requireDecoder<K extends keyof ManagementDecoders>(name: K) {
+    const decoder = decoders?.[name];
+    if (!decoder)
       throw new ManagementError(
         0,
         "CONTRACT_PENDING",
         "接口响应定义待确认，暂时无法加载或提交。",
       );
-    return decoders;
+    return decoder;
   }
   async function send(path: string, method = "get", data?: unknown) {
     try {
@@ -73,24 +117,22 @@ export function createHttpManagementService(
   }
   return {
     async projects() {
-      const d = requireDecoders();
-      return d.projects(await send("/projects"));
+      return requireDecoder("projects")(await send("/projects"));
     },
     async keys(id) {
-      const d = requireDecoders();
-      return d.keys(await send(`/projects/${encodeURIComponent(id)}/api-keys`));
+      return requireDecoder("keys")(
+        await send(`/projects/${encodeURIComponent(id)}/api-keys`),
+      );
     },
     async usage() {
-      const d = requireDecoders();
-      return d.usage(await send("/usage"));
+      return requireDecoder("usage")(await send("/usage"));
     },
     async createProject(input) {
-      requireDecoders();
+      requireDecoder("projects");
       await send("/projects", "post", input);
     },
     async createKey(id, input) {
-      const d = requireDecoders();
-      return d.createdSecret(
+      return requireDecoder("createdSecret")(
         await send(
           `/projects/${encodeURIComponent(id)}/api-keys`,
           "post",
@@ -99,7 +141,7 @@ export function createHttpManagementService(
       );
     },
     async changeKey(id, action) {
-      requireDecoders();
+      requireDecoder("keys");
       await send(`/api-keys/${encodeURIComponent(id)}/${action}`, "post");
     },
   };

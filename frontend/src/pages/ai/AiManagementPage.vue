@@ -15,7 +15,7 @@ import {
   isAiMockEnabled,
   type MockState,
 } from "@/api/ai/mock";
-import { createHttpManagementService } from "@/api/ai/http";
+import { apiKeyDecoders, createHttpManagementService } from "@/api/ai/http";
 import {
   ManagementError,
   allowedKeyActions,
@@ -60,9 +60,15 @@ const mockState = () =>
     : "normal";
 const service = mock
   ? createMockManagementService(mockState, useAiDemoStore().data)
-  : createHttpManagementService();
+  : createHttpManagementService(
+      kind.value === "keys" ? apiKeyDecoders : undefined,
+    );
 // 权限码未获正式映射；只在显式 Mock 模式开放交互演示，真实写操作保持禁用。
-const canWrite = computed(() => mock && route.query.mockReadonly !== "true");
+const canWrite = computed(() =>
+  kind.value === "keys"
+    ? !mock || route.query.mockReadonly !== "true"
+    : mock && route.query.mockReadonly !== "true",
+);
 const projects = ref<ProjectSummary[]>([]);
 const keys = ref<ApiKeySummary[]>([]);
 const usage = ref<UsageSummary[]>([]);
@@ -408,14 +414,14 @@ onBeforeUnmount(() => {
     </el-dialog>
     <el-dialog
       :model-value="Boolean(secret)"
-      title="Secret 仅展示一次"
+      title="一次性API Key"
       width="min(560px, calc(100vw - 32px))"
       :close-on-click-modal="false"
       destroy-on-close
       @update:model-value="secret = ''"
     >
       <el-alert
-        title="请立即复制并妥善保存。关闭或离开页面后，无法再次查看完整 Secret。"
+        title="请立即复制并妥善保存。关闭后将无法再次查看完整密钥。"
         type="warning"
         :closable="false"
         show-icon
