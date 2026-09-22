@@ -1,0 +1,3 @@
+package com.hengaikj.ai;
+import com.hengaikj.ai.config.RedisConfig; import org.junit.jupiter.api.Test; import org.springframework.data.redis.connection.RedisConnectionFactory; import org.springframework.data.redis.core.RedisTemplate; import static org.junit.jupiter.api.Assertions.*; import static org.mockito.Mockito.mock;
+class IntegrationGateTest { @Test void redisBeanUsesConnectionFactory(){RedisConnectionFactory f=mock(RedisConnectionFactory.class); RedisTemplate<String,Object> t=new RedisConfig().redisTemplate(f); assertSame(f,t.getConnectionFactory()); assertNotNull(t.getKeySerializer()); assertNotNull(t.getValueSerializer());} }
