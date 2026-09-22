@@ -5,6 +5,7 @@ import {
   type ProjectSummary,
   type ApiKeySummary,
   type UsageSummary,
+  type ProjectContextAdapter,
 } from "./types";
 
 export const isAiMockEnabled = () =>
@@ -153,9 +154,11 @@ export function createMockManagementService(
       // 仅页面端口的虚构演示值；不构造未定义的 API Secret 响应字段。
       return "MOCK_ONLY_NOT_A_REAL_SECRET";
     },
-    async changeKey(id, action) {
+    async changeKey(context: ProjectContextAdapter, id, action) {
       await before(true);
-      const key = [...keys.values()].flat().find((k) => k.apiKeyId === id);
+      const key = projectKeys(context.projectId()).find(
+        (k) => k.apiKeyId === id,
+      );
       if (!key)
         throw new ManagementError(404, "MOCK_NOT_FOUND", "API Key 不存在");
       if (!allowedKeyActions(key.status).includes(action))

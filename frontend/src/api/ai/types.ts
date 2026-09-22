@@ -31,13 +31,26 @@ export interface UsageSummary {
   createdAt: string;
 }
 export type KeyAction = "enable" | "disable" | "revoke";
+/** TEMPORARY：在正式 enterprise/project auth context 决策前，绑定当前项目。 */
+export interface ProjectContextAdapter {
+  projectId(): string;
+}
+export function createTemporaryProjectContextAdapter(
+  readProjectId: () => string,
+): ProjectContextAdapter {
+  return { projectId: readProjectId };
+}
 // 这是页面端口，不是 API 响应 Schema。响应解码必须由正式 Contract 提供。
 export interface ManagementService {
   projects(): Promise<ProjectSummary[]>;
   createProject(input: ProjectInput): Promise<void>;
   keys(projectId: string): Promise<ApiKeySummary[]>;
   createKey(projectId: string, input: ApiKeyInput): Promise<string>;
-  changeKey(keyId: string, action: KeyAction): Promise<void>;
+  changeKey(
+    context: ProjectContextAdapter,
+    keyId: string,
+    action: KeyAction,
+  ): Promise<void>;
   usage(): Promise<UsageSummary[]>;
 }
 export class ManagementError extends Error {

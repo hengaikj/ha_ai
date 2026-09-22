@@ -25,6 +25,7 @@ import {
   type ProjectInput,
   type ApiKeyInput,
   type KeyAction,
+  createTemporaryProjectContextAdapter,
 } from "@/api/ai/types";
 
 const route = useRoute();
@@ -42,6 +43,9 @@ const title = computed(
     ({ projects: "项目/应用", keys: "API Key", usage: "调用记录" })[kind.value],
 );
 const projectId = computed(() => String(route.params.projectId || ""));
+const projectContext = createTemporaryProjectContextAdapter(
+  () => projectId.value,
+);
 const mock = isAiMockEnabled();
 const mockStates: MockState[] = [
   "normal",
@@ -189,7 +193,7 @@ async function changeKey(row: ApiKeySummary, action: KeyAction) {
       "确认操作",
       { confirmButtonText: "确认", cancelButtonText: "取消", type: "warning" },
     );
-    await service.changeKey(row.apiKeyId, action);
+    await service.changeKey(projectContext, row.apiKeyId, action);
     await load();
   } catch (e) {
     if (e !== "cancel" && e !== "close") await handleError(e);

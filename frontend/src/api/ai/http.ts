@@ -8,6 +8,7 @@ import {
   type ApiKeySummary,
   type ApiKeyCreated,
   type UsageSummary,
+  type ProjectContextAdapter,
 } from "./types";
 
 // IS-M01-03 正式 Contract 解码器：列表只投影 Summary 字段，创建只读取 data.secret。
@@ -140,8 +141,14 @@ export function createHttpManagementService(
         ),
       );
     },
-    async changeKey(id, action) {
+    async changeKey(context: ProjectContextAdapter, id, action) {
       requireDecoder("keys");
+      if (!context.projectId())
+        throw new ManagementError(
+          0,
+          "PROJECT_CONTEXT_REQUIRED",
+          "缺少当前项目上下文。",
+        );
       await send(`/api-keys/${encodeURIComponent(id)}/${action}`, "post");
     },
   };

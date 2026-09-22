@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { createMockManagementData, createMockManagementService } from "./mock";
 import { apiKeyDecoders, createHttpManagementService } from "./http";
 import { allowedKeyActions } from "./types";
+import { createTemporaryProjectContextAdapter } from "./types";
 
 describe("M01 管理页面端口", () => {
   it("不同页面端口共享新建项目和密钥，但测试场景相互独立", async () => {
@@ -48,11 +49,16 @@ describe("M01 管理页面端口", () => {
     const service = createMockManagementService();
     expect(allowedKeyActions("REVOKED")).toEqual([]);
     await expect(
-      service.changeKey("key-revoked", "enable"),
+      service.changeKey(
+        createTemporaryProjectContextAdapter(() => "project-demo"),
+        "key-revoked",
+        "enable",
+      ),
     ).rejects.toMatchObject({ status: 409 });
-    await service.changeKey("key-demo", "disable");
+    const context = createTemporaryProjectContextAdapter(() => "project-demo");
+    await service.changeKey(context, "key-demo", "disable");
     expect((await service.keys("project-demo"))[0]?.status).toBe("DISABLED");
-    await service.changeKey("key-demo", "revoke");
+    await service.changeKey(context, "key-demo", "revoke");
     expect((await service.keys("project-demo"))[0]?.status).toBe("REVOKED");
     expect(allowedKeyActions("REVOKED")).not.toContain("enable");
   });
