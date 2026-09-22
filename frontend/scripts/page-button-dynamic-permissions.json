@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "file": "src/pages/budget/BudgetWorkbenchPage.vue",
+      "variable": "config.permissionPrefix",
+      "values": ["budget:initiation", "budget:gate-review"],
+      "reason": "预算复用工作台按立项评审和过阀评审配置切换"
+    },
+    {
+      "file": "src/pages/committee/CommitteeMeetingDetailPage.vue",
+      "variable": "level.toLowerCase()",
+      "values": ["second", "group"],
+      "reason": "会议详情按二级公司和集团会议层级切换"
+    },
+    {
+      "file": "src/pages/committee/CommitteeMeetingFormPage.vue",
+      "variable": "submitPermission",
+      "values": [
+        "committee:meeting:second:create",
+        "committee:meeting:second:update",
+        "committee:meeting:group:create",
+        "committee:meeting:group:update"
+      ],
+      "reason": "会议表单按会议层级和新增编辑状态选择保存权限"
+    },
+    {
+      "file": "src/pages/committee/CommitteeMeetingListPage.vue",
+      "variable": "level.toLowerCase()",
+      "values": ["second", "group"],
+      "reason": "会议列表按二级公司和集团会议层级切换"
+    },
+    {
+      "file": "src/pages/cost/CostAnalysisPage.vue",
+      "variable": "config.permissionPrefix",
+      "values": ["cost:research:history", "cost:analysis", "cost:bom:query"],
+      "reason": "成本复用页面按履历、分析和 BOM 查询配置切换"
+    },
+    {
+      "file": "src/pages/cost/CostBomQueryPage.vue",
+      "variable": "config.permissionPrefix",
+      "values": ["cost:research:history", "cost:analysis", "cost:bom:query"],
+      "reason": "成本查询复用页面按履历、分析和 BOM 查询配置切换"
+    },
+    {
+      "file": "src/pages/cost/cost-bom/CostBomDetailPage.vue",
+      "variable": "permissionPrefix",
+      "values": ["cost:research:project-cost", "cost:research:history"],
+      "reason": "成本 BOM 详情由项目成本和成本履历路由复用"
+    },
+    {
+      "file": "src/pages/cost/cost-bom/CostBomPartEditorPage.vue",
+      "variable": "savePermission",
+      "values": [
+        "cost:research:project-cost:create",
+        "cost:research:project-cost:part-add-page:save",
+        "cost:research:new-project-cost:part-add-page:save",
+        "cost:research:project-cost:edit",
+        "cost:research:project-cost:part-edit-page:save",
+        "cost:research:new-project-cost:part-edit-page:save",
+        "cost:research:project-cost:copy",
+        "cost:research:project-cost:part-copy-page:save",
+        "cost:research:new-project-cost:part-copy-page:save",
+        "cost:research:history:part-add-page:save",
+        "cost:research:history:part-edit-page:save",
+        "cost:research:history:part-copy-page:save",
+        "cost:research:new-history:part-add-page:save",
+        "cost:research:new-history:part-edit-page:save",
+        "cost:research:new-history:part-copy-page:save"
+      ],
+      "reason": "零件编辑器按来源路由和新增编辑复制模式选择保存权限"
+    },
+    {
+      "file": "src/pages/cost/cost-bom/CostBomVersionHistoryPage.vue",
+      "variable": "comparePermission",
+      "values": [
+        "cost:research:history:version-page:compare",
+        "cost:research:new-history:version-page:compare",
+        "cost:research:project-cost:compare",
+        "cost:research:project-cost:version-page:compare",
+        "cost:research:new-project-cost:version-page:compare"
+      ],
+      "reason": "版本历史对比按钮按成本履历和项目成本上下文选择权限"
+    },
+    {
+      "file": "src/pages/cost/cost-bom/CostBomVersionHistoryPage.vue",
+      "variable": "useVersionPermission",
+      "values": [
+        "cost:research:history:version-page:use-version",
+        "cost:research:new-history:version-page:use-version",
+        "cost:research:project-cost:use-version",
+        "cost:research:project-cost:version-page:use-version",
+        "cost:research:new-project-cost:version-page:use-version"
+      ],
+      "reason": "版本历史切换版本按钮按成本履历和项目成本上下文选择权限"
+    },
+    {
+      "file": "src/pages/cost/cost-bom/CostBomVersionHistoryPage.vue",
+      "variable": "versionQueryPermission",
+      "values": [
+        "cost:research:history:version-page:view",
+        "cost:research:new-history:version-page:view",
+        "cost:research:project-cost:list",
+        "cost:research:project-cost:version-page:view",
+        "cost:research:new-project-cost:version-page:view"
+      ],
+      "reason": "版本历史查看按钮按成本履历和项目成本上下文选择权限"
+    },
+    {
+      "file": "src/pages/cost/research/history/CostResearchHistoryViewPage.vue",
+      "variable": "viewPagePermissionPrefix",
+      "values": ["cost:research:history:view-page"],
+      "reason": "成本履历详情页按钮使用页面级权限前缀"
+    },
+    {
+      "file": "src/pages/cost/research/history/CostResearchHistoryPage.vue",
+      "variable": "listPagePermissionPrefix",
+      "values": ["cost:research:history:list-page"],
+      "reason": "成本履历列表页按钮使用页面级权限前缀"
+    },
+    {
+      "file": "src/pages/cost/research/history/NewCostResearchHistoryPage.vue",
+      "variable": "listPagePermissionPrefix",
+      "values": ["cost:research:new-history:list-page"],
+      "reason": "成本履历列表页按钮使用页面级权限前缀"
+    },
+    {
+      "file": "src/pages/cost/research/history/NewCostResearchHistoryViewPage.vue",
+      "variable": "viewPagePermissionPrefix",
+      "values": ["cost:research:new-history:view-page"],
+      "reason": "成本履历详情页按钮使用页面级权限前缀"
+    },
+    {
+      "file": "src/pages/cost/cost-bom/CostBomVersionComparePage.vue",
+      "variable": "comparePermission",
+      "values": [
+        "cost:research:history:version-compare-page:compare",
+        "cost:research:new-history:version-compare-page:compare",
+        "cost:research:project-cost:version-compare-page:compare",
+        "cost:research:new-project-cost:version-compare-page:compare"
+      ],
+      "reason": "版本对比页按钮按成本履历和成本履历上下文选择页面级权限"
+    },
+    {
+      "file": "src/pages/custom-table/TemplateCategoryPage.vue",
+      "variable": "createPermission",
+      "values": ["base:cust-table:category:edit"],
+      "reason": "模板分类固定使用自定义表格 V2 分类维护权限"
+    },
+    {
+      "file": "src/pages/custom-table/TemplateCategoryPage.vue",
+      "variable": "editPermission",
+      "values": ["base:cust-table:category:edit"],
+      "reason": "模板分类固定使用自定义表格 V2 分类维护权限"
+    },
+    {
+      "file": "src/pages/custom-table/TemplateCategoryPage.vue",
+      "variable": "deletePermission",
+      "values": ["base:cust-table:category:edit"],
+      "reason": "模板分类固定使用自定义表格 V2 分类维护权限"
+    },
+    {
+      "file": "src/pages/custom-table/components/DesignerToolbar.vue",
+      "variable": "publishPermission",
+      "values": ["base:cust-table:template:publish"],
+      "reason": "设计器工具栏接收 V2 模板发布权限"
+    },
+    {
+      "file": "src/pages/custom-table/components/DesignerToolbar.vue",
+      "variable": "savePermission",
+      "values": ["base:cust-table:template:edit"],
+      "reason": "设计器工具栏接收 V2 模板保存权限"
+    },
+    {
+      "file": "src/pages/information/PresetColumnFormPage.vue",
+      "variable": "permission",
+      "values": [
+        "information:preset-column:add",
+        "information:preset-column:edit"
+      ],
+      "reason": "预置列表单按新增和编辑模式选择保存权限"
+    }
+  ]
+}

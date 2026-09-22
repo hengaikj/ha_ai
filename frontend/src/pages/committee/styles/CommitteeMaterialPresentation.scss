@@ -1,0 +1,5743 @@
+/* ==========================================================================
+   北汽集团会议材料全屏 PPT 汇报演示专用样式（Presentation Slide System）
+   ========================================================================== */
+
+.ppt-presentation-root {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #112847 0%, #081424 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #17385e;
+  box-sizing: border-box;
+
+  /* 鼠标超过2秒不动自动隐藏鼠标指针 */
+  &.is-cursor-hidden {
+    &,
+    * {
+      cursor: none !important;
+    }
+  }
+}
+
+.ppt-stage-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.ppt-stage {
+  width: 1920px;
+  height: 1080px;
+  flex-shrink: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 幻灯片主卡片 */
+.ppt-slide-card {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #f4f8fc 0%, #ffffff 100%);
+  border-radius: 18px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 切换动画 */
+.ppt-slide-fade-enter-active,
+.ppt-slide-fade-leave-active {
+  transition: opacity 0.28s cubic-bezier(0.25, 1, 0.5, 1), transform 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.ppt-slide-fade-enter-from {
+  opacity: 0;
+  transform: translateX(20px) scale(0.995);
+}
+
+.ppt-slide-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-20px) scale(0.995);
+}
+
+.ppt-slide-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  letter-spacing: 0.6px; // 全屏展示全局字间距基底，告别紧凑拥挤
+}
+
+/* --------------------------------------------------------------------------
+   1. 封面页单例排版（Cover Slide：顶白 + 中深蓝 + 底白）
+   -------------------------------------------------------------------------- */
+
+.ppt-cover-layout {
+  padding: 0 !important;
+  background: #ffffff !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 顶部 Header（白色背景） */
+.ppt-cover-top {
+  height: 108px;
+  padding: 0 64px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.ppt-cover-logo {
+  height: 46px;
+  width: auto;
+  object-fit: contain;
+}
+
+.ppt-cover-badge {
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 15px;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+}
+
+/* 中间 Hero Banner（红框深蓝通栏底色区域） */
+.ppt-cover-banner {
+  flex: 1;
+  min-height: 590px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(118deg, #091f3a 0%, #0f3563 40%, #1a4f8f 75%, #256ab5 100%);
+  color: #ffffff;
+}
+
+.ppt-cover-backdrop {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 56%;
+  pointer-events: none;
+  opacity: 0.88;
+  -webkit-mask-image: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.15) 20%,
+      rgba(0, 0, 0, 0.85) 60%,
+      #000 100%);
+  mask-image: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.15) 20%,
+      rgba(0, 0, 0, 0.85) 60%,
+      #000 100%);
+}
+
+.ppt-cover-backdrop img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right bottom;
+}
+
+.ppt-cover-content {
+  position: relative;
+  z-index: 2;
+  max-width: 66%;
+  padding: 0 64px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ppt-cover-title {
+  font-size: 54px;
+  line-height: 1.25;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 2px; // 大屏舒朗庄重大标，消除负压缩
+  color: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+.ppt-cover-department {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  letter-spacing: 1px;
+  transform: translateY(100px);
+}
+
+.ppt-cover-department strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* 底部 Facts & Footer（白色/浅色背景） */
+.ppt-cover-bottom {
+  height: 330px;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 64px 20px;
+  flex-shrink: 0;
+}
+
+.ppt-cover-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  flex: 1;
+  align-content: center;
+}
+
+.ppt-cover-fact {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 22px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(15, 43, 82, 0.05);
+  transition: all 0.2s ease;
+}
+
+.ppt-cover-fact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 43, 82, 0.09);
+  border-color: #cbd5e1;
+}
+
+.ppt-cover-fact-label {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.ppt-cover-fact-val {
+  font-size: 24px;
+  color: #0f2c4e;
+  font-weight: 700;
+}
+
+.ppt-cover-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid #edf2f7;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* --------------------------------------------------------------------------
+   2. 标准页通用结构（Standard Slide Layout）
+   -------------------------------------------------------------------------- */
+
+.ppt-standard-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 统一页眉 */
+.ppt-slide-header {
+  height: 80px;
+  padding: 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #dce6f0;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.ppt-slide-header__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ppt-slide-header__logo {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+}
+
+.ppt-slide-header__divider {
+  width: 1px;
+  height: 22px;
+  background: #cbd5e1;
+}
+
+.ppt-slide-header__meeting-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #17385e;
+  letter-spacing: 1px;
+}
+
+.ppt-slide-header__gate-tag {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+}
+
+.ppt-slide-header__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ppt-slide-header__section-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1d5da9 0%, #2d82d8 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(29, 93, 169, 0.25);
+  letter-spacing: 0.8px;
+}
+
+.ppt-slide-header__title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.ppt-slide-header__section-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: #0f2c4e;
+  margin: 0;
+  letter-spacing: 1.5px; // 顶部板块主标题字间距舒展
+}
+
+.ppt-slide-header__slide-subtitle {
+  font-size: 16px;
+  color: #1d5da9;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+}
+
+/* 统一主体容器 */
+.ppt-slide-body {
+  flex: 1;
+  padding: 10px 36px 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 统一小板块头 */
+.ppt-sub-head {
+  padding: 12px 20px;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  color: #0f2c4e;
+  flex-shrink: 0;
+
+  .committee-text-strong,
+  &>span:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f2c4e;
+    letter-spacing: 1.5px; // 板块标题大字间距，呼吸感强
+  }
+}
+
+.ppt-sub-head header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 统一页脚 */
+.ppt-slide-footer {
+  height: 44px;
+  padding: 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 13px;
+  color: #64748b;
+  flex-shrink: 0;
+  letter-spacing: 0.8px;
+}
+
+.ppt-slide-footer__page {
+  font-weight: 700;
+  color: #1d5da9;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/* 全屏汇报页不显示后台全局水印，避免压过评审矩阵和材料索引。 */
+:global(body.is-ppt-presentation-active #wm_div_id) {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. 02 阀点信息与进度总览（合并页专属空间优化排版）
+   -------------------------------------------------------------------------- */
+
+.ppt-body-gate-and-timeline {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden; // 坚决不加滚动条，一屏自适应呈现
+  box-sizing: border-box;
+}
+
+/* 上半部分：阀点意图 + 项目概述（弹性自适应，不撑出滚动条） */
+.ppt-gatetimeline-upper {
+  flex: 1.05;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 5.2fr 4.8fr;
+  gap: 12px;
+}
+
+.ppt-gate-intent-panel,
+.ppt-project-overview-panel {
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(23, 56, 94, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 1. 左侧阀点意图卡片（双舱对称结构，饱满从容） */
+.ppt-gate-intent-inner {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.ppt-intent-pod {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(15, 44, 78, 0.03);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(15, 44, 78, 0.06);
+  }
+}
+
+.ppt-intent-pod__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.ppt-intent-pod__stripe {
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: #1d5da9;
+
+  &.is-purpose {
+    background: linear-gradient(180deg, #1d5da9 0%, #2563eb 100%);
+  }
+
+  &.is-work {
+    background: linear-gradient(180deg, #0284c7 0%, #0ea5e9 100%);
+  }
+}
+
+.ppt-intent-pod__title {
+  font-size: 21px; // 大一号，更加醒目
+  font-weight: 750;
+  color: #0f2c4e;
+  letter-spacing: 1.5px; // 强化字间距，标题更具分量
+}
+
+.ppt-intent-pod__content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.ppt-intent-pod__text {
+  margin: 0;
+  width: 100%;
+  font-size: 21px; // 大一号，阅读舒适
+  line-height: 1.85;
+  color: #1e293b;
+  font-weight: 500;
+  letter-spacing: 1.2px; // 强化字间距，正文呼吸通透
+  word-break: break-word;
+  white-space: pre-wrap; // 识别 \n 换行符，多行文本原样换行渲染
+}
+
+.ppt-intent-p {
+  width: 100%;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #1e293b;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.ppt-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ppt-bullet-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.ppt-bullet-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  transform: translateY(-50%) rotate(45deg);
+  background: #2563eb;
+  box-shadow: 0 0 4px rgba(37, 99, 235, 0.4);
+}
+
+.ppt-link-btn {
+  font-size: 13px;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ppt-link-btn:hover {
+  text-decoration: underline;
+}
+
+/* 2. 右侧项目概述事实网格（默认2列5行完全等高排布，内容多时才自适应展开） */
+.ppt-overview-fact-grid {
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px 14px;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+
+  &.is-expanded-bg {
+    grid-template-rows: repeat(4, 1fr) auto;
+  }
+}
+
+.ppt-fact-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+  height: 100% !important;
+  min-height: 48px !important;
+  padding: 6px 14px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e8eff7 !important;
+  border-radius: 8px !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease;
+}
+
+.ppt-fact-item:hover {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 3px 10px rgba(15, 43, 82, 0.06);
+}
+
+.ppt-fact-item .group-material-display__fact-icon {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  background: transparent !important;
+  overflow: hidden !important;
+}
+
+.ppt-fact-item .group-material-display__fact-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.ppt-fact-item .group-material-display__fact-body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+
+.ppt-fact-item .group-material-display__fact-body span:first-child {
+  font-size: 13px !important;
+  color: #64748b !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.8px !important; // 事实标签字间距清晰
+}
+
+.ppt-fact-item .group-material-display__fact-body .committee-text-strong {
+  font-size: 18.5px !important;
+  font-weight: 700 !important;
+  color: #0f2c4e !important;
+  line-height: 1.35 !important;
+  letter-spacing: 1.2px !important; // 事实数值加粗文字大字距
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* 默认项目背景：横跨2列，高度与上面4行完全等高对齐 */
+.ppt-fact-item--full,
+.ppt-fact-item:last-child {
+  grid-column: span 2 !important;
+  align-items: center !important;
+  height: 100% !important;
+  min-height: 48px !important;
+  padding: 6px 14px !important;
+}
+
+.ppt-fact-item--full .group-material-display__fact-body .committee-text-strong,
+.ppt-fact-item:last-child .group-material-display__fact-body .committee-text-strong {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #0f2c4e !important;
+  line-height: 1.35 !important;
+  letter-spacing: 1.2px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 当项目背景文字过多时自适应多行展开 */
+.ppt-fact-item--full.is-multiline {
+  align-items: flex-start !important;
+  align-self: start !important;
+  height: auto !important;
+  min-height: 52px !important;
+  padding: 8px 14px !important;
+
+  .group-material-display__fact-body {
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .group-material-display__fact-body .committee-text-strong {
+    white-space: pre-wrap !important;
+    line-height: 1.5 !important;
+    font-size: 16.5px !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    letter-spacing: 0.8px !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+}
+
+/* 3. 下半部分：阀点进度总览 */
+.ppt-gatetimeline-lower {
+  //flex: 0.92;
+  min-height: 0;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(23, 56, 94, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.group-material-display__timeline-board {
+  display: grid;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid #d7e3ee;
+  border-radius: 10px;
+  background: #ffffff;
+  margin: 12px 18px 16px;
+  box-shadow: 0 4px 12px rgba(23, 56, 94, 0.03);
+}
+
+.group-material-display__timeline-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 16px;
+  border: 1px dashed #c9d9ec;
+  border-radius: 8px;
+  color: #6f8299;
+  font-size: 16px;
+  background: #fff;
+  margin: 12px 18px 16px;
+}
+
+.group-material-display__timeline-row {
+  display: grid;
+  border-bottom: 1px solid #e4eefc;
+}
+
+.group-material-display__timeline-row:last-child {
+  border-bottom: 0;
+}
+
+.group-material-display__timeline-row>span {
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  color: #2d3440;
+  font-size: 18px; // 大一号（原16px）
+  font-weight: 700;
+  letter-spacing: 1.2px; // 强化字间距
+  background: #f8fbff;
+}
+
+.group-material-display__timeline-row--year {
+  color: #1e3a5f;
+  background: #dce9f6;
+}
+
+.group-material-display__timeline-row--year span,
+.group-material-display__timeline-row--year .committee-text-strong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 14px;
+  color: #1e3a5f;
+  font-size: 18px; // 保持原版字号
+  font-weight: 750;
+  letter-spacing: 1.2px; // 保持原版字间距
+  background: #dce9f6;
+  border-left: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+.group-material-display__timeline-row--year .group-material-display__timeline-year-label {
+  grid-column: 1;
+  border-left: 0;
+}
+
+.group-material-display__timeline-row--month>span {
+  justify-content: center;
+  min-height: 36px;
+  color: #5d7187;
+  font-size: 17px; // 保持原版字号
+  font-weight: 700;
+  letter-spacing: 1.2px; // 保持原版字间距
+  background: #f3f7fb;
+}
+
+.group-material-display__timeline-row--month b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  color: #5d7187;
+  font-size: 17px; // 保持原版字号
+  font-weight: 700;
+  letter-spacing: 1px; // 保持原版字间距
+  background: #f3f7fb;
+  border-left: 1px solid #e1eaf3;
+}
+
+.group-material-display__timeline-row--gates {
+  border-bottom: 1px solid #e4eefc;
+}
+
+.group-material-display__timeline-row--gates:last-child {
+  border-bottom: 0;
+}
+
+.group-material-display__timeline-row--gates>span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 18px;
+  min-height: 126px;
+  background: #f8fbff;
+  border-right: 1px solid #e4eefc;
+}
+
+.group-material-display__timeline-row--gates:last-child>span {
+  min-height: 108px;
+}
+
+.group-material-display__timeline-row--gates>span .committee-text-strong {
+  color: #1f2937;
+  font-size: 18px; // 保持原版字号
+  font-weight: 750;
+  line-height: 1.35; // 保持原版行高
+  letter-spacing: 1.2px; // 保持原版字间距
+}
+
+.group-material-display__timeline-row--gates>span small {
+  color: #2563eb;
+  font-size: 13px; // 保持原版字号
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.group-material-display__timeline-row--gates>span small.is-green {
+  color: #16a34a;
+}
+
+/* 时间轴轨道容器 */
+.group-material-display__timeline-track {
+  position: relative;
+  grid-column: 2 / -1;
+  min-height: 126px;
+}
+
+.group-material-display__timeline-row--gates:last-child .group-material-display__timeline-track {
+  min-height: 108px;
+}
+
+/* 进度轴横线：top 设定为 65px，正好平整穿过药丸针尖底部（12px + 53px = 65px） */
+.group-material-display__timeline-track::before {
+  position: absolute;
+  top: 65px;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: #dbe8fb;
+  content: "";
+}
+
+/* 节点容器：top 设为 12px，水平根据 offset 居中，底部留足日期与状态标签空间 */
+.group-material-display__timeline-point {
+  position: absolute;
+  top: 12px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 72px; // 保持原版宽度
+  transform: translateX(-50%);
+}
+
+/* 药丸图标：43px * 53px 倒水滴图钉（完全保持原版尺寸） */
+.group-material-display__gate-pill {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px; // 保持原版尺寸
+  height: 53px; // 保持原版尺寸
+  color: #394552;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.group-material-display__gate-pill.is-current,
+.group-material-display__gate-pill.is-completed {
+  color: #ffffff;
+}
+
+.group-material-display__gate-pill img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.group-material-display__gate-pill.is-completed:not(.is-current) img {
+  filter: hue-rotate(279deg) saturate(80%) contrast(92.5%);
+}
+
+.group-material-display__gate-pill b {
+  position: relative;
+  z-index: 1;
+  transform: translateY(-5px);
+  font-size: 16px; // 保持原版字号
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* 药丸日期：在药丸底部下方 6px，处于横线正下方 */
+.group-material-display__timeline-point small {
+  position: relative;
+  z-index: 1;
+  margin-top: 6px;
+  color: #1e293b;
+  font-size: 15px; // 保持原版字号
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
+/* 当前进行状态标签：在日期下方 */
+.group-material-display__timeline-status {
+  height: 24px;
+  line-height: 24px;
+  padding: 0 10px;
+  margin-top: 5px;
+  border: 0;
+  border-radius: 4px;
+  background: #dbeaff;
+  color: #2563eb;
+  font-size: 14px; // 保持原版字号
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   4. 其它各板块在 PPT 视口下的单例深度优化
+   -------------------------------------------------------------------------- */
+
+/* 01 产品型谱 */
+.ppt-body-spectrum {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppt-body-spectrum .ppt-spectrum-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(23, 56, 94, 0.06);
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.ppt-body-spectrum .ppt-spectrum-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.ppt-body-spectrum .ppt-spectrum-empty {
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+/* 03 产品委员会要求与完成情况（沉浸式高管决策双列对照看板） */
+.ppt-body-previous-gate {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ppt-prevgate-stage {
+  height: 100%;
+  width: 100%;
+  max-width: 1720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 顶部极境双舱标头：左右独立成型，全宽与下方卡片1:1对齐，中央微核徽章与流光翼线平衡呼吸感 */
+.ppt-prevgate-deck-header {
+  display: grid;
+  grid-template-columns: 1fr 52px 1fr;
+  align-items: stretch;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  box-shadow: none;
+}
+
+.ppt-deck-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ppt-deck-col.is-req {
+  background: linear-gradient(180deg, #f2f7fd 0%, #e6f0fc 100%);
+  border: 1px solid #bfd8f5;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 3px 10px rgba(29, 93, 169, 0.05);
+
+  &:hover {
+    border-color: #a3c9f2;
+    box-shadow: inset 0 1px 0 #ffffff, 0 4px 14px rgba(29, 93, 169, 0.09);
+  }
+
+  .ppt-deck-main-title {
+    color: #0c2b4e;
+  }
+
+  .ppt-deck-ray.is-left {
+    background: linear-gradient(90deg, transparent 0%, rgba(29, 93, 169, 0.35) 100%);
+  }
+
+  .ppt-deck-ray.is-right {
+    background: linear-gradient(90deg, rgba(29, 93, 169, 0.35) 0%, transparent 100%);
+  }
+}
+
+.ppt-deck-col.is-exec {
+  background: linear-gradient(180deg, #f2faf5 0%, #e3f5ea 100%);
+  border: 1px solid #b7e5c7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 3px 10px rgba(22, 163, 74, 0.05);
+
+  &:hover {
+    border-color: #99dcaf;
+    box-shadow: inset 0 1px 0 #ffffff, 0 4px 14px rgba(22, 163, 74, 0.09);
+  }
+
+  .ppt-deck-main-title {
+    color: #08331d;
+  }
+
+  .ppt-deck-ray.is-left {
+    background: linear-gradient(90deg, transparent 0%, rgba(22, 163, 74, 0.35) 100%);
+  }
+
+  .ppt-deck-ray.is-right {
+    background: linear-gradient(90deg, rgba(22, 163, 74, 0.35) 0%, transparent 100%);
+  }
+}
+
+/* 居中微核：徽章、主标题、两翼流光翼线 */
+.ppt-deck-pod-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.ppt-deck-ray {
+  width: 46px;
+  height: 1.5px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.ppt-deck-emblem {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+
+  &.is-blue {
+    background: linear-gradient(135deg, #16529b 0%, #2563eb 100%);
+    box-shadow: 0 2px 6px rgba(22, 82, 155, 0.35), 0 0 0 2px #ffffff;
+  }
+
+  &.is-green {
+    background: linear-gradient(135deg, #15803d 0%, #10b981 100%);
+    box-shadow: 0 2px 6px rgba(21, 128, 61, 0.35), 0 0 0 2px #ffffff;
+  }
+}
+
+.ppt-deck-main-title {
+  margin: 0;
+  font-size: 19.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.ppt-deck-flow-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 双列独立对照卡片流：左右完全独立的卡片，中间是呼吸间距与流向轴，彻底打破“横条”感 */
+.ppt-prevgate-grid-flow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ppt-prevgate-pair-row {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 52px 1fr;
+  align-items: stretch;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* 独立浮动卡片块（左卡与右卡独立成型，拥有优雅宽高比） */
+.ppt-prevgate-block {
+  height: 100%;
+  min-height: 0;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 43, 82, 0.04);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 12px 22px;
+  box-sizing: border-box;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.ppt-prevgate-pair-row:hover .ppt-prevgate-block {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(15, 43, 82, 0.08);
+  border-color: #b9d1ea;
+}
+
+/* 左侧彩色垂直指示条 */
+.ppt-block-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.ppt-block-accent.is-blue {
+  background: linear-gradient(180deg, #1d5da9 0%, #3b82f6 100%);
+}
+
+.ppt-block-accent.is-green {
+  background: linear-gradient(180deg, #16a34a 0%, #22c55e 100%);
+}
+
+/* 左卡背景微水波浅蓝质感 */
+.ppt-prevgate-block.is-req {
+  background: linear-gradient(135deg, #f9fbff 0%, #f1f6fd 100%);
+  gap: 16px;
+}
+
+/* 右卡背景纯净高光白 */
+.ppt-prevgate-block.is-exec {
+  background: #ffffff;
+  gap: 14px;
+}
+
+/* 左卡序号胶囊：高品质悬浮质感微标 */
+.ppt-block-index {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #c7dcf1;
+  box-shadow: 0 2px 6px rgba(29, 93, 169, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppt-block-num {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1d5da9;
+  letter-spacing: 0.8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 右卡完成微状态徽标 */
+.ppt-block-status-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppt-status-check-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 2px 5px rgba(16, 185, 129, 0.12);
+}
+
+/* 中间衔接通廊 */
+.ppt-prevgate-corridor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ppt-corridor-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-image: linear-gradient(to bottom, #cbd5e1 50%, rgba(255, 255, 255, 0) 0%);
+  background-position: left;
+  background-size: 1px 6px;
+  background-repeat: repeat-y;
+}
+
+.ppt-corridor-node {
+  position: relative;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+}
+
+.ppt-prevgate-pair-row:hover .ppt-corridor-node {
+  border-color: #1d5da9;
+  color: #1d5da9;
+  box-shadow: 0 2px 10px rgba(29, 93, 169, 0.2);
+  transform: scale(1.1);
+}
+
+/* 文字内容区域：核心突出，排版呼吸感强 */
+.ppt-block-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.ppt-block-text {
+  margin: 0;
+  word-break: break-word;
+  white-space: pre-wrap;
+  transition: font-size 0.2s ease;
+}
+
+.ppt-block-text.is-req-text {
+  color: #0f2c4e;
+  letter-spacing: 1.2px; // 舒展通透字距，告别紧密拥挤
+}
+
+.ppt-block-text.is-exec-text {
+  color: #1e293b;
+  letter-spacing: 1.2px; // 舒展通透字距，告别紧密拥挤
+}
+
+/* 条数自适应间距控制 */
+.ppt-prevgate-stage.is-count-1 .ppt-prevgate-grid-flow {
+  gap: 0;
+}
+
+.ppt-prevgate-stage.is-count-1 .ppt-prevgate-block {
+  padding: 36px 40px;
+}
+
+.ppt-prevgate-stage.is-count-1 .ppt-block-index {
+  width: 44px;
+  height: 44px;
+}
+
+.ppt-prevgate-stage.is-count-1 .ppt-block-num {
+  font-size: 18px;
+}
+
+.ppt-prevgate-stage.is-count-2 .ppt-prevgate-grid-flow {
+  gap: 18px;
+}
+
+.ppt-prevgate-stage.is-count-2 .ppt-prevgate-block {
+  padding: 24px 30px;
+}
+
+.ppt-prevgate-stage.is-count-2 .ppt-block-index {
+  width: 42px;
+  height: 42px;
+}
+
+.ppt-prevgate-stage.is-count-2 .ppt-block-num {
+  font-size: 16px;
+}
+
+.ppt-prevgate-stage.is-count-3 .ppt-prevgate-grid-flow {
+  gap: 14px;
+}
+
+.ppt-prevgate-stage.is-count-3 .ppt-prevgate-block {
+  padding: 18px 24px;
+}
+
+.ppt-prevgate-stage.is-count-3 .ppt-block-index {
+  width: 38px;
+  height: 38px;
+}
+
+.ppt-prevgate-stage.is-count-3 .ppt-block-num {
+  font-size: 15px;
+}
+
+.ppt-prevgate-stage.is-count-4 .ppt-prevgate-grid-flow {
+  gap: 10px;
+}
+
+.ppt-prevgate-stage.is-count-4 .ppt-prevgate-block {
+  padding: 12px 20px;
+}
+
+.ppt-prevgate-stage.is-count-4 .ppt-block-index {
+  width: 34px;
+  height: 34px;
+}
+
+.ppt-prevgate-stage.is-count-4 .ppt-block-num {
+  font-size: 14px;
+}
+
+.ppt-prevgate-stage.is-count-5 .ppt-prevgate-grid-flow {
+  gap: 8px;
+}
+
+.ppt-prevgate-stage.is-count-5 .ppt-prevgate-block {
+  padding: 8px 18px;
+}
+
+.ppt-prevgate-stage.is-count-5 .ppt-block-index {
+  width: 32px;
+  height: 32px;
+}
+
+.ppt-prevgate-stage.is-count-5 .ppt-block-num {
+  font-size: 13px;
+}
+
+/* 空状态 */
+.ppt-prevgate-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppt-prevgate-empty-box {
+  padding: 48px 96px;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  font-size: 18px;
+  color: #94a3b8;
+  box-shadow: 0 8px 24px rgba(15, 43, 82, 0.04);
+}
+
+/* 05 质量板块独立小区块事项卡片流 */
+.ppt-body-quality {
+  height: 100%;
+}
+
+.ppt-quality-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 44, 78, 0.05);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ppt-quality-count-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+/* 05 质量板块：高奢沉稳行政双舱卡片流（完全摒弃俗气红绿，专注沉稳科技与高级质感） */
+.ppt-body-quality {
+  height: 100%;
+}
+
+.ppt-quality-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 44, 78, 0.05);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ppt-quality-count-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+.ppt-quality-conclusion-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 20px 0;
+  padding: 10px 16px;
+  background: #f0f6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #e6f0fd;
+    border-color: #bfdbfe;
+  }
+
+  &--headline {
+    position: relative;
+    margin: 16px 20px 0;
+    padding: 18px 24px 18px 20px;
+    background: linear-gradient(108deg, #eef5ff 0%, #e3effe 32%, #f4f8fe 72%, #ffffff 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    box-shadow:
+      0 6px 20px -3px rgba(15, 44, 78, 0.07),
+      0 2px 6px rgba(37, 99, 235, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    &:hover {
+      background: linear-gradient(108deg, #e6f1ff 0%, #dbeafe 32%, #eef5fe 72%, #ffffff 100%);
+      border-color: #93c5fd;
+      box-shadow:
+        0 8px 24px -3px rgba(15, 44, 78, 0.1),
+        0 3px 8px rgba(37, 99, 235, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+
+      .ppt-headline-accent-bar {
+        background: linear-gradient(180deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+        box-shadow: 0 0 10px rgba(37, 99, 235, 0.45);
+      }
+
+      .ppt-zoom-indicator.is-headline-zoom {
+        opacity: 1;
+        transform: scale(1.06);
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+      }
+    }
+
+    .ppt-headline-accent-bar {
+      width: 6px;
+      align-self: stretch;
+      min-height: 32px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, #1d4ed8 0%, #2563eb 60%, #60a5fa 100%);
+      box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .ppt-quality-conclusion-content {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ppt-quality-conclusion-text {
+      font-size: 24px; // 核心总结结论：大字号磅礴展示
+      font-weight: 750;
+      line-height: 1.46;
+      color: #071e3d; // 极致深邃有力的行政深蓝黑
+      letter-spacing: 0.6px;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .ppt-headline-watermark {
+      position: absolute;
+      right: 56px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #2563eb;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .ppt-zoom-indicator.is-headline-zoom {
+      position: relative;
+      z-index: 1;
+      opacity: 0.65;
+      transition: all 0.2s ease;
+      color: #1d4ed8;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  }
+}
+
+
+.ppt-quality-conclusion-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+
+  svg {
+    stroke: #1d4ed8;
+  }
+}
+
+.ppt-quality-conclusion-text {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1e3a8a;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ppt-quality-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  padding: 16px 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.ppt-quality-cards-container.is-count-1 .ppt-quality-item-card {
+  height: 100%;
+}
+
+.ppt-quality-cards-container.is-count-2 .ppt-quality-item-card {
+  flex: 1;
+  min-height: 0;
+}
+
+.ppt-quality-cards-container.is-count-3 .ppt-quality-item-card {
+  flex: 1;
+  min-height: 0;
+}
+
+.ppt-quality-item-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.ppt-quality-item-card:hover {
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+  border-color: #cbd5e1;
+}
+
+/* 卡片顶栏：沉稳商务灰蓝 */
+.ppt-quality-card-bar {
+  padding: 10px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.ppt-quality-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ppt-quality-num-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 24px;
+  padding: 0 7px;
+  background: #1e3a8a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  letter-spacing: 0.8px;
+}
+
+.ppt-quality-bar-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 1.2px;
+}
+
+.ppt-quality-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ppt-quality-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.ppt-quality-meta-chip:hover {
+  border-color: #94a3b8;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.ppt-quality-meta-chip.is-dept .ppt-meta-icon {
+  color: #2563eb;
+}
+
+.ppt-quality-meta-chip.is-date .ppt-meta-icon {
+  color: #0284c7;
+}
+
+.ppt-meta-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppt-meta-label {
+  color: #475569;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
+.ppt-meta-divider {
+  width: 1px;
+  height: 14px;
+  background: #cbd5e1;
+  margin: 0 1px;
+  flex-shrink: 0;
+}
+
+.ppt-meta-val {
+  color: #0f172a;
+  font-size: 16.5px;
+  font-weight: 750;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.ppt-quality-meta-chip.is-date .ppt-meta-val {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 1px;
+}
+
+/* 卡片内容区：左右沉稳双舱 */
+.ppt-quality-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  padding: 14px 16px;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.ppt-quality-pod {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.ppt-quality-pod--problem {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.ppt-quality-pod--measure {
+  background: #f0f7ff;
+  border: 1px solid #dbeafe;
+}
+
+.ppt-pod-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.ppt-pod-bar-stripe {
+  width: 3.5px;
+  height: 15px;
+  border-radius: 2px;
+  background: #475569;
+}
+
+.ppt-pod-bar-stripe.is-blue {
+  background: #2563eb;
+}
+
+.ppt-pod-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: 1.2px;
+}
+
+.ppt-pod-text-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.ppt-pod-text {
+  margin: 0;
+  width: 100%;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: 1.2px; // 强化长文本字间距，呼吸通透
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.ppt-pod-text.is-problem-text {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.ppt-pod-text.is-measure-text {
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+.ppt-quality-cards-container.is-count-1 .ppt-pod-text {
+  font-size: 24px;
+  line-height: 1.7;
+  letter-spacing: 1.5px;
+}
+
+.ppt-quality-cards-container.is-count-2 .ppt-pod-text {
+  font-size: 22px;
+  line-height: 1.65;
+  letter-spacing: 1.3px;
+}
+
+/* 空状态 */
+.ppt-quality-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+/* 04 交付物与评审矩阵：全屏黄金比例饱满布满、大号部室徽章、高饱和指示灯 */
+.ppt-body-deliverables {
+  height: 100%;
+}
+
+.ppt-deliverables-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 页面底部交付物清单：行政级会议资料舱，锁定总高度195px不变，舒适容纳最多2排材料 */
+.ppt-deliverables-panel {
+  background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+  border: 1px solid #c7d9ee;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(15, 44, 78, 0.07);
+  display: flex;
+  flex-direction: column;
+  height: 195px;
+  min-height: 195px;
+  max-height: 195px;
+  flex-shrink: 0; // 最多就占用蓝框的高度，绝不多占
+  flex-grow: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ppt-deliverables-panel-header {
+  height: 42px;
+  min-height: 42px;
+  padding: 0 20px;
+  background: linear-gradient(90deg, #edf5ff 0%, #f8fbff 55%, #ffffff 100%);
+  border-bottom: 1px solid #d7e5f4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.ppt-deliverables-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ppt-deliverables-bar-stripe {
+  width: 5px;
+  height: 20px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #0b63ce 0%, #4aa3ff 100%);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.ppt-deliverables-bar-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f2c4e;
+  letter-spacing: 1px;
+}
+
+.ppt-deliverables-panel-body {
+  flex: 1;
+  padding: 16px 20px 18px;
+  background: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+}
+
+/* 自适应材料标题长度的流式标签网格：自然舒适间距，凝聚不分散 */
+.ppt-deliverables-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 12px; // 适中行间距 14px，舒适自然不分散
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 1. 自适应长度单项材料标签：稍微加大材料尺寸，现代商务大气胶囊风格 */
+.ppt-deliverable-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px; // 稍微加大材料尺寸（原40px -> 48px）
+  padding: 0 18px 0 12px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #d5e3f2;
+  box-shadow: 0 2px 7px rgba(15, 44, 78, 0.045);
+  width: fit-content;
+  max-width: 320px;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+
+  &:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.1);
+  }
+}
+
+.ppt-deliverable-chip-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(145deg, #e7f3ff, #cfe6ff);
+  border: 1px solid #b8d8fa;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+}
+
+.ppt-deliverable-chip-text {
+  font-size: 16px; // 字号加大 2px
+  font-weight: 650;
+  color: #263c55;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 2. 尾部突出展示胶囊：同步加大尺寸至 48px，与材料尺寸统一平衡 */
+.ppt-deliverable-more-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px; // 同步加大至 48px
+  padding: 0 18px 0 14px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  border: 1px solid #1d4ed8;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.22);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.35);
+    transform: translateY(-1px);
+
+    .ppt-more-chip__dots i {
+      transform: scale(1.2);
+    }
+
+    .ppt-more-chip__action {
+      background: rgba(255, 255, 255, 0.32);
+    }
+  }
+}
+
+.ppt-more-chip__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+
+  i {
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+}
+
+.ppt-more-chip__label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.ppt-more-chip__prefix,
+.ppt-more-chip__suffix {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.8px;
+}
+
+.ppt-more-chip__num {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0.8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.ppt-more-chip__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* 上方评审矩阵甲板：占据除去材料板块后的全部其余位置（flex: 1），开阔充盈 */
+.ppt-matrix-vertical-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1; // 其余位置全都给 2 个表格！
+  min-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ppt-matrix-card {
+  flex: 1; // 集团卡片占据甲板主要弹性空间，普通维度行饱满舒展
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #d5e3f2;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 44, 78, 0.065);
+  overflow: hidden;
+  box-sizing: border-box;
+
+  /* 品牌公司职能部室：单行结论验收舱，结论行高度与集团结论行严格一致（66px） */
+  &.ppt-matrix-card--compact {
+    flex: 0 0 auto;
+    min-height: 0;
+
+    .ppt-matrix-table-wrap {
+      flex: 0 0 auto;
+      height: auto;
+    }
+
+    .ppt-matrix-table {
+      height: auto;
+    }
+  }
+}
+
+/* 卡片顶栏：行政级沉稳微渐变通栏，字号 20px 与其他页面一致 */
+.ppt-matrix-card-bar {
+  padding: 0 20px;
+  height: 42px;
+  min-height: 42px;
+  background: linear-gradient(90deg, #f0f6fc 0%, #f9fcff 60%, #ffffff 100%);
+  border-bottom: 1.5px solid #dce8f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.ppt-matrix-card--theme-1 .ppt-matrix-card-bar {
+  background: linear-gradient(90deg, #edf4fc 0%, #f7faff 60%, #ffffff 100%);
+  border-bottom: 1.5px solid #dce8f5;
+}
+
+.ppt-matrix-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ppt-matrix-bar-stripe {
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #1d4ed8 0%, #2563eb 100%);
+  box-shadow: 0 1px 3px rgba(29, 78, 216, 0.28);
+}
+
+.ppt-matrix-bar-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f2c4e;
+  letter-spacing: 1.5px;
+}
+
+.ppt-matrix-bar-tag {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #e0effe;
+  border: 1px solid #bfdbfe;
+  padding: 3px 12px;
+  border-radius: 12px;
+  letter-spacing: 0.8px;
+}
+
+/* 表格主体容器：100% 充满卡片 */
+.ppt-matrix-table-wrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  background: #ffffff;
+}
+
+.ppt-matrix-table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ppt-col-dim {
+  width: 145px;
+  min-width: 145px;
+  max-width: 145px;
+}
+
+.ppt-col-dept {
+  width: auto;
+}
+
+/* 表头单元格：通栏高级商务浅微蓝一体化底色，典雅开阔 */
+.ppt-matrix-table thead tr {
+  height: 60px;
+  min-height: 60px;
+  background: linear-gradient(180deg, #f5f9fd 0%, #edf4fc 100%);
+  border-bottom: 2px solid #cfe0f2;
+}
+
+.ppt-matrix-table th {
+  background: transparent;
+  border-bottom: none;
+  border-right: 1px solid rgba(207, 224, 242, 0.7);
+  text-align: center;
+  padding: 2px 5px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.ppt-matrix-table th:last-child {
+  border-right: none;
+}
+
+.ppt-matrix-table th.ppt-th-dim {
+  background: linear-gradient(90deg, #edf4fc 0%, #e4effa 100%);
+  border-right: 2px solid #cfe0f2;
+}
+
+.ppt-th-dim-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 850;
+  color: #0d3463;
+  padding: 0 8px;
+  border-radius: 6px;
+  letter-spacing: 1.2px;
+}
+
+/* 参评部室列头微舱：强化设计语言，晶体立体微雕 + 北汽科技蓝底标，大号字体清晰醒目 */
+.ppt-th-dept-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 6px);
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #ffffff 0%, #eef6ff 100%);
+  border: 1px solid #b8d5f4;
+  border-bottom: 3px solid #2878d5;
+  box-shadow: 0 3px 9px rgba(12, 38, 74, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ppt-th-dept-chip:hover {
+  border-color: #2563eb;
+  border-bottom-color: #1d4ed8;
+  background: linear-gradient(180deg, #ffffff 0%, #edf5fe 100%);
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.16);
+  transform: translateY(-1.5px);
+}
+
+.ppt-th-dept-dot {
+  display: none !important;
+}
+
+.ppt-th-dept-text {
+  font-size: clamp(16px, 1.15vw, 18.5px); // 增大 1 个字号，显著更醒目
+  font-weight: 800;
+  color: #102f52;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 1.4px;
+}
+
+/* 数据行与单元格：普通维度行弹性舒展均分高度，饱满从容，彻底杜绝过度压缩 */
+.ppt-matrix-table tbody tr:not(.is-conclusion-tr) {
+  height: auto;
+  border-bottom: 1px solid #edf3fa;
+  transition: background-color 0.15s ease;
+
+  &:nth-child(even) {
+    background-color: #fafcff;
+  }
+
+  &:hover {
+    background: #f1f7fe;
+  }
+
+  td {
+    padding: 2px 5px;
+    vertical-align: middle;
+  }
+}
+
+.ppt-matrix-table td {
+  text-align: center;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(226, 237, 248, 0.65);
+}
+
+.ppt-matrix-table td:last-child {
+  border-right: none;
+}
+
+.ppt-matrix-table td.ppt-td-dim {
+  background: linear-gradient(90deg, #f6faff 0%, #eef5fc 100%);
+  border-right: 2px solid #cfe0f2;
+  text-align: center;
+}
+
+.ppt-dim-name {
+  font-size: 16px;
+  font-weight: 750;
+  color: #0f2c4e;
+  white-space: nowrap;
+  letter-spacing: 2px;
+}
+
+.ppt-matrix-table td.ppt-td-val {
+  vertical-align: middle;
+}
+
+/* 结论建议底行：集团与品牌公司两处高度严格一致（66px），挺拔庄重！ */
+.ppt-matrix-table tr.is-conclusion-tr {
+  height: 66px !important; // 集团与品牌公司两处结论建议行高度绝对一致！
+  min-height: 66px !important;
+  max-height: 66px !important;
+  background: linear-gradient(90deg, #e8f2fe 0%, #f0f7ff 50%, #e8f2fe 100%) !important;
+  border-top: 2px solid #82b9f0 !important;
+  border-bottom: 2px solid #82b9f0 !important;
+
+  td {
+    height: 66px !important;
+    max-height: 66px !important;
+    padding: 0 5px !important;
+    vertical-align: middle !important;
+  }
+}
+
+.ppt-matrix-table tr.is-conclusion-tr td.ppt-td-dim {
+  background: #dbeafe !important;
+  border-right: 2px solid #93c5fd !important;
+}
+
+.ppt-matrix-table tr.is-conclusion-tr .ppt-dim-name {
+  color: #1d4ed8 !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  letter-spacing: 2.5px;
+}
+
+/* 信号指示灯样式：微立体珠宝级状态质感，内发光高光 + 鲜亮纯正色相 + 柔和光晕 */
+.ppt-matrix-signal-dot {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: #cbd5e1;
+  opacity: 1;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.ppt-matrix-signal-dot:hover {
+  transform: scale(1.25);
+  opacity: 1 !important;
+}
+
+/* 绿色：通过/符合 */
+.ppt-matrix-signal-dot.is-green {
+  background: radial-gradient(circle at 35% 35%, #34d399 0%, #10b981 55%, #059669 100%);
+  border: 1.5px solid #047857;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.65);
+}
+
+/* 正黄色：纯正金黄 48° 色相，杜绝脏灰或橙红偏色 */
+.ppt-matrix-signal-dot.is-yellow {
+  background: radial-gradient(circle at 35% 35%, #fde047 0%, #eab308 55%, #ca8a04 100%);
+  border: 1.5px solid #a16207;
+  box-shadow: 0 2px 6px rgba(202, 138, 4, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.65);
+}
+
+/* 红色：鲜明红宝石警示 */
+.ppt-matrix-signal-dot.is-red {
+  background: radial-gradient(circle at 35% 35%, #f87171 0%, #ef4444 55%, #dc2626 100%);
+  border: 1.5px solid #b91c1c;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.65);
+}
+
+/* 普通维度信号灯：100% 实色鲜亮清晰 */
+.ppt-matrix-table tbody tr:not(.is-conclusion-tr) .ppt-matrix-signal-dot {
+  opacity: 1 !important;
+}
+
+/* 结论建议行大号醒目指示灯：特大尺寸 22px + 双层光环 + 全屏绝对视觉中心 */
+.ppt-matrix-signal-dot.is-conclusion-dot {
+  width: 22px;
+  height: 22px;
+  opacity: 1 !important;
+}
+
+.ppt-matrix-signal-dot.is-conclusion-dot.is-green {
+  border: 2px solid #047857;
+  box-shadow: 0 0 0 3.5px rgba(16, 185, 129, 0.22), 0 3px 8px rgba(5, 150, 105, 0.4), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+.ppt-matrix-signal-dot.is-conclusion-dot.is-yellow {
+  border: 2px solid #a16207;
+  box-shadow: 0 0 0 3.5px rgba(234, 179, 8, 0.24), 0 3px 8px rgba(202, 138, 4, 0.4), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+.ppt-matrix-signal-dot.is-conclusion-dot.is-red {
+  border: 2px solid #b91c1c;
+  box-shadow: 0 0 0 3.5px rgba(239, 68, 68, 0.22), 0 3px 8px rgba(220, 38, 38, 0.4), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+.ppt-matrix-empty-dash {
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.ppt-matrix-signal-dot.is-clickable {
+  cursor: pointer;
+}
+
+/* 04 交付物与评审矩阵：全屏汇报采用一体化信息板，避免每个元素都像独立按钮。 */
+.ppt-body-deliverables {
+  --ppt-ink: #17385e;
+  --ppt-muted: #58708c;
+  --ppt-blue: #397fc9;
+  --ppt-line: #d6e3f0;
+  --ppt-surface: #f4f8fd;
+}
+
+.ppt-matrix-vertical-deck,
+.ppt-deliverables-layout {
+  gap: 10px;
+}
+
+.ppt-matrix-card,
+.ppt-deliverables-panel {
+  border-color: var(--ppt-line);
+  border-radius: 10px;
+  box-shadow: 0 5px 16px rgba(15, 44, 78, 0.045);
+}
+
+.ppt-matrix-card-bar,
+.ppt-matrix-card--theme-1 .ppt-matrix-card-bar,
+.ppt-deliverables-panel-header {
+  background: var(--ppt-surface);
+  border-bottom: 1px solid var(--ppt-line);
+}
+
+.ppt-matrix-bar-stripe,
+.ppt-deliverables-bar-stripe {
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: #397fc9;
+  box-shadow: none;
+}
+
+.ppt-matrix-bar-title,
+.ppt-deliverables-bar-title {
+  color: var(--ppt-ink);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.ppt-matrix-bar-tag {
+  color: #356b9f;
+  background: #eaf3fc;
+  border-color: #c9ddef;
+}
+
+.ppt-matrix-table thead tr {
+  height: 60px;
+  min-height: 60px;
+  background: var(--ppt-surface);
+  border-bottom: 1px solid #cfe0f2;
+}
+
+.ppt-matrix-table th {
+  height: 60px;
+  padding: 4px 6px;
+  vertical-align: middle;
+}
+
+.ppt-matrix-table th.ppt-th-dim {
+  background: #edf4fb;
+  border-right: 1px solid #cfe0f2;
+}
+
+/* 部室名称统一成为连续的列标题带，而不是一排卡片按钮。 */
+.ppt-th-dept-chip {
+  width: 100%;
+  height: 48px;
+  padding: 0 8px;
+  border-radius: 5px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2.5px solid #71a8de;
+  box-shadow: none;
+}
+
+.ppt-th-dept-chip:hover {
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: #397fc9;
+  box-shadow: none;
+  transform: none;
+}
+
+.ppt-th-dept-text {
+  font-size: clamp(16px, 1.1vw, 18px);
+  font-weight: 700;
+  color: #17385e;
+  letter-spacing: 0.6px;
+}
+
+.ppt-th-dim-chip {
+  height: 48px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.ppt-matrix-table tbody tr:not(.is-conclusion-tr) {
+  border-bottom-color: #edf2f7;
+}
+
+.ppt-matrix-table tbody tr:not(.is-conclusion-tr):nth-child(even) {
+  background: #fcfdff;
+}
+
+.ppt-matrix-table tbody tr:not(.is-conclusion-tr):hover {
+  background: inherit;
+}
+
+.ppt-matrix-table td {
+  border-right-color: rgba(222, 234, 246, 0.7);
+}
+
+.ppt-matrix-table td.ppt-td-dim {
+  background: #f5f9fd;
+  border-right: 1px solid #cfe0f2;
+}
+
+.ppt-dim-name {
+  font-weight: 650;
+  color: var(--ppt-ink);
+  letter-spacing: 1px;
+}
+
+/* 结论是唯一需要强化的行。 */
+.ppt-matrix-table tr.is-conclusion-tr {
+  background: #eaf3fe !important;
+  border-top: 1px solid #72a9df !important;
+  border-bottom: 1px solid #72a9df !important;
+}
+
+.ppt-matrix-table tr.is-conclusion-tr td.ppt-td-dim {
+  background: #dcecff !important;
+  border-right: 1px solid #8db9e4 !important;
+}
+
+.ppt-matrix-table tr.is-conclusion-tr .ppt-dim-name {
+  font-weight: 750 !important;
+  letter-spacing: 1.4px;
+}
+
+.ppt-matrix-signal-dot {
+  width: 16px;
+  height: 16px;
+}
+
+.ppt-matrix-signal-dot:hover {
+  transform: scale(1.1);
+}
+
+.ppt-matrix-signal-dot.is-conclusion-dot {
+  width: 20px;
+  height: 20px;
+}
+
+.ppt-matrix-signal-dot.is-conclusion-dot.is-green {
+  border-width: 1.5px;
+  box-shadow: 0 0 0 2.5px rgba(16, 185, 129, 0.16), 0 2px 5px rgba(5, 150, 105, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+.ppt-matrix-signal-dot.is-conclusion-dot.is-yellow {
+  border-width: 1.5px;
+  box-shadow: 0 0 0 2.5px rgba(234, 179, 8, 0.16), 0 2px 5px rgba(202, 138, 4, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+.ppt-matrix-signal-dot.is-conclusion-dot.is-red {
+  border-width: 1.5px;
+  box-shadow: 0 0 0 2.5px rgba(239, 68, 68, 0.16), 0 2px 5px rgba(220, 38, 38, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+/* 底部材料区退为索引，不再抢占矩阵和结论的视觉优先级。 */
+.ppt-deliverables-panel-body {
+  padding: 9px 20px 11px;
+}
+
+.ppt-deliverables-flow {
+  gap: 0px 10px;
+}
+
+.ppt-deliverable-chip {
+  height: 42px;
+  border-radius: 6px;
+  background: #fff;
+  border-color: #d9e5f0;
+  box-shadow: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.ppt-deliverable-chip:hover {
+  background: #f7fbff;
+  border-color: #b7d2ee;
+  box-shadow: none;
+  transform: none;
+}
+
+.ppt-deliverable-chip-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #e7f2fe;
+  border-color: #c7dff6;
+}
+
+.ppt-deliverable-chip-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #40566d;
+  letter-spacing: 0.4px;
+}
+
+.ppt-deliverable-more-chip {
+  height: 42px;
+  border-radius: 6px;
+  background: #eaf3ff;
+  border-color: #b9d5f3;
+  box-shadow: none;
+}
+
+.ppt-deliverable-more-chip:hover {
+  background: #deedff;
+  box-shadow: none;
+  transform: none;
+}
+
+.ppt-more-chip__dots i {
+  background: #4d8dce;
+}
+
+.ppt-more-chip__prefix,
+.ppt-more-chip__suffix {
+  color: #527292;
+}
+
+.ppt-more-chip__num {
+  color: #195ca3;
+  text-shadow: none;
+}
+
+.ppt-more-chip__action {
+  background: #fff;
+  color: #2466a8;
+  border-color: #c2dbf5;
+}
+
+
+
+/* 资料清单全屏内嵌模态弹窗 */
+.ppt-modal-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.ppt-modal-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ppt-modal-panel {
+  width: 1240px;
+  max-width: 94vw;
+  max-height: 85vh;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #dce7f3;
+  transform: scale(0.96);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ppt-modal-overlay.is-visible .ppt-modal-panel {
+  transform: scale(1);
+}
+
+.ppt-modal-header {
+  height: 50px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.ppt-modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ppt-modal-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #0f2c4e;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ppt-modal-count-text {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1d5da9;
+  letter-spacing: 0.8px;
+}
+
+.ppt-modal-close-btn {
+  border: 0;
+  background: transparent;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+}
+
+.ppt-modal-body {
+  padding: 18px 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.ppt-modal-footer {
+  height: 48px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border-top: 1px solid #e5edf5;
+  flex-shrink: 0;
+}
+
+.ppt-modal-footer-stat {
+  font-size: 13.5px;
+  color: #64748b;
+
+  strong {
+    color: #1d5da9;
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
+
+/* 核心优化：紧凑 5 列响应式网格，一屏尽可能展示全部，压缩卡片空间，消除笨重感 */
+.ppt-deliverables-dialog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 8px 10px;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.ppt-deliverable-dialog-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px 0 8px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+
+  &:hover {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    box-shadow: 0 2px 8px rgba(29, 93, 169, 0.08);
+    transform: translateY(-1px);
+  }
+}
+
+.ppt-dialog-item-idx {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1d5da9;
+  background: #eef5ff;
+  border: 1px solid #c7dcf7;
+  border-radius: 4px;
+  padding: 2px 5px;
+  line-height: 1;
+  flex-shrink: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0.8px;
+}
+
+.ppt-deliverable-compact-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.ppt-deliverable-dialog-label {
+  color: #1e293b;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  letter-spacing: 0.8px;
+}
+
+/* 06 成本板块全新黄金比例看板 */
+.ppt-body-cost {
+  height: 100%;
+}
+
+.ppt-cost-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 44, 78, 0.05);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ppt-cost-layout {
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+  padding: 14px 18px 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 左侧：成本文字洞察卡片（根据文字内容多少自适应高度：文字多容器高，文字少容器低） */
+.ppt-cost-side {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+.ppt-cost-equal-card {
+  min-height: 44px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid #dce6f0;
+  background: #ffffff;
+  box-shadow: 0 1px 6px rgba(15, 44, 78, 0.04);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ppt-cost-custom-card {
+  min-height: 44px;
+}
+
+.ppt-cost-equal-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(15, 44, 78, 0.08);
+  border-color: #bcd5ee;
+}
+
+.ppt-cost-equal-card.is-orange .ppt-cost-equal-head {
+  background: linear-gradient(90deg, #fffbf0 0%, #fff7e6 100%);
+  border-bottom: 1px solid #fed7aa;
+}
+
+.ppt-cost-equal-card.is-orange .ppt-cost-equal-title {
+  color: #9a3412;
+}
+
+.ppt-cost-equal-card.is-orange .ppt-cost-equal-text {
+  color: #1e293b;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.ppt-cost-equal-card.is-green .ppt-cost-equal-head {
+  background: linear-gradient(90deg, #f3fdf7 0%, #e9fbf0 100%);
+  border-bottom: 1px solid #bbf7d0;
+}
+
+.ppt-cost-equal-card.is-green .ppt-cost-equal-title {
+  color: #166534;
+}
+
+.ppt-cost-equal-card.is-green .ppt-cost-equal-text {
+  color: #1e293b;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.ppt-cost-equal-card.is-blue .ppt-cost-equal-head {
+  background: linear-gradient(90deg, #edf5fd 0%, #e2effd 100%);
+  border-bottom: 1px solid #bfdbfe;
+}
+
+.ppt-cost-equal-card.is-blue .ppt-cost-equal-title {
+  color: #1e40af;
+}
+
+.ppt-cost-equal-card.is-blue .ppt-cost-equal-text {
+  color: #1e293b;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.ppt-cost-equal-head {
+  padding: 3px 10px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.ppt-cost-equal-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ppt-cost-equal-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ppt-cost-equal-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.ppt-cost-equal-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 4px 10px 5px;
+  box-sizing: border-box;
+  background: #ffffff;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+.ppt-cost-equal-text {
+  margin: 0;
+  word-break: break-word;
+  white-space: pre-wrap;
+  color: #1e293b;
+  font-weight: normal !important;
+  font-size: 21px !important;
+  line-height: 1.5;
+  letter-spacing: 2px !important;
+}
+
+/* 右侧核心分析看板（占宽 52%，充满高度） */
+.ppt-cost-main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.ppt-cost-chart-card {
+  flex: 1;
+  min-height: 0;
+  background: #ffffff;
+  border: 1px solid #dce8f5;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(15, 44, 78, 0.02);
+  padding: 8px 14px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  &.is-clickable {
+    cursor: pointer;
+
+    &:hover {
+      border-color: #bfdbfe;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+    }
+  }
+}
+
+.ppt-cost-echarts {
+  width: 100% !important;
+  height: auto !important;
+  flex: 1;
+  min-height: 300px;
+
+  &.is-clickable {
+    cursor: pointer;
+  }
+}
+
+.ppt-revenue-chart-card {
+  &.is-clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #bfdbfe;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+    }
+  }
+}
+
+.ppt-revenue-echarts {
+  flex: 1;
+  height: auto !important;
+  min-height: 180px;
+
+  &.is-clickable {
+    cursor: pointer;
+  }
+}
+
+.ppt-chart-remark {
+  position: relative;
+  flex: 0 0 auto;
+  margin: 6px 0 0;
+  padding: 6px 36px 6px 12px;
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  letter-spacing: 1.2px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.ppt-zoomable-remark {
+    &:hover {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      box-shadow: 0 4px 14px -2px rgba(245, 158, 11, 0.2),
+        0 0 0 1px rgba(245, 158, 11, 0.3);
+      transform: translateY(-1px);
+
+      .ppt-zoom-indicator {
+        opacity: 1;
+        transform: scale(1);
+        background: #fde68a;
+        color: #b45309;
+        box-shadow: 0 2px 6px rgba(180, 83, 9, 0.2);
+      }
+    }
+
+    &:active {
+      transform: scale(0.99);
+    }
+  }
+
+  .ppt-zoom-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    background: rgba(254, 243, 199, 0.85);
+    color: #d97706;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.45;
+    transform: scale(0.92);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+
+.ppt-revenue-native-table td.is-clickable {
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #eff6ff !important;
+    color: #1d4ed8;
+  }
+}
+
+/* 07 收益板块全新黄金比例大文字空间看板 */
+.ppt-body-revenue {
+  height: 100%;
+}
+
+.ppt-revenue-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 44, 78, 0.05);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+
+.ppt-revenue-layout {
+  display: grid;
+  grid-template-columns: 48fr 52fr;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+  padding: 14px 18px 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 左侧：收益文字洞察卡片（根据文字内容多少自适应高度：文字多容器高，文字少容器低） */
+.ppt-revenue-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+.ppt-revenue-equal-card {
+  min-height: 44px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid #dce6f0;
+  background: #ffffff;
+  box-shadow: 0 1px 6px rgba(15, 44, 78, 0.04);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ppt-revenue-custom-card {
+  min-height: 44px;
+}
+
+.ppt-revenue-equal-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(15, 44, 78, 0.08);
+  border-color: #bcd5ee;
+}
+
+.ppt-revenue-equal-card.is-orange .ppt-revenue-equal-head {
+  background: linear-gradient(90deg, #fffbf0 0%, #fff7e6 100%);
+  border-bottom: 1px solid #fed7aa;
+}
+
+.ppt-revenue-equal-card.is-orange .ppt-revenue-equal-title {
+  color: #9a3412;
+}
+
+.ppt-revenue-equal-card.is-orange .ppt-revenue-equal-text {
+  color: #1e293b;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.ppt-revenue-equal-card.is-green .ppt-revenue-equal-head {
+  background: linear-gradient(90deg, #f3fdf7 0%, #e9fbf0 100%);
+  border-bottom: 1px solid #bbf7d0;
+}
+
+.ppt-revenue-equal-card.is-green .ppt-revenue-equal-title {
+  color: #166534;
+}
+
+.ppt-revenue-equal-card.is-green .ppt-revenue-equal-text {
+  color: #1e293b;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.ppt-revenue-equal-card.is-blue .ppt-revenue-equal-head {
+  background: linear-gradient(90deg, #edf5fd 0%, #e2effd 100%);
+  border-bottom: 1px solid #bfdbfe;
+}
+
+.ppt-revenue-equal-card.is-blue .ppt-revenue-equal-title {
+  color: #1e40af;
+}
+
+.ppt-revenue-equal-card.is-blue .ppt-revenue-equal-text {
+  color: #1e293b;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.ppt-revenue-equal-head {
+  padding: 3px 10px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.ppt-revenue-equal-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ppt-revenue-equal-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ppt-revenue-equal-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.ppt-revenue-equal-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 4px 10px 5px;
+  box-sizing: border-box;
+  background: #ffffff;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+.ppt-revenue-equal-text {
+  margin: 0;
+  word-break: break-word;
+  white-space: pre-wrap;
+  color: #1e293b;
+  font-weight: normal !important;
+  font-size: 21px !important;
+  line-height: 1.5;
+  letter-spacing: 2px;
+}
+
+/* 右侧核心分析看板（占宽 52%） */
+.ppt-revenue-main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+/* 上半部：柱状图卡片（固定保障图表高度，备注内容向下撑开卡片，不向上挤压图表） */
+.ppt-revenue-chart-card {
+  flex: 0 0 auto;
+  background: #ffffff;
+  border: 1px solid #dce8f5;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(15, 44, 78, 0.02);
+  padding: 8px 14px 6px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ppt-revenue-echarts {
+  width: 100% !important;
+  height: 355px !important;
+  min-height: 355px;
+  flex: 0 0 355px;
+}
+
+/* 下半部：表格明细（吸收下方剩余空间，被上方备注向下挤压自适应收缩） */
+.ppt-revenue-table-wrap {
+  flex: 1;
+  min-height: 120px;
+  background: #ffffff;
+  border: 1px solid #dce8f5;
+  border-radius: 10px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+.ppt-revenue-native-table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ppt-revenue-native-table tbody tr {
+  border-bottom: 1px solid #edf3fa;
+  transition: background-color 0.15s ease;
+}
+
+.ppt-revenue-native-table tbody tr:nth-child(even) {
+  background: #fafcff;
+}
+
+.ppt-revenue-native-table tbody tr:hover {
+  background: #f3f8fd;
+}
+
+.ppt-revenue-native-table td {
+  padding: 0 10px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 600;
+  color: #1e293b;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.8px;
+  font-family: 'DIN Alternate', 'DIN', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+.ppt-revenue-native-table td.ppt-rev-td-metric {
+  width: 200px;
+  background: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 1px;
+}
+
+.ppt-revenue-native-table td.ppt-rev-td-val.is-emphasis {
+  font-weight: 700;
+  color: #1d4ed8;
+  font-size: 20px;
+  background: rgba(240, 245, 255, 0.45);
+}
+
+/* 08 自定义板块 */
+.ppt-body-custom {
+  height: 100%;
+}
+
+.ppt-custom-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(23, 56, 94, 0.06);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ppt-custom-content {
+  flex: 1;
+  padding: 36px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin: 24px;
+  font-size: 20px;
+  line-height: 1.9;
+  color: #334155;
+}
+
+/* 09 提请决议事项：现场全画幅沉浸式展示看板（自适应 1~3 条与高端汇报质感） */
+.ppt-body-decision {
+  height: 100%;
+}
+
+.ppt-decision-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(15, 44, 78, 0.05);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ppt-sub-head-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ppt-decision-top-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ppt-decision-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+}
+
+.ppt-decision-meta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ppt-decision-meta-tag.is-editable {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.ppt-decision-meta-tag.is-readonly {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+}
+
+.ppt-tag-dot--blue {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2563eb;
+}
+
+.ppt-tag-dot--gray {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+
+.ppt-decision-char-count {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* 核心工作展示区：中心漫射科技微光背景 + 点阵底纹，居中黄金视野排布 */
+.ppt-decision-workspace {
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 36px 28px;
+  background:
+    radial-gradient(ellipse at 50% 25%,
+      rgba(235, 244, 255, 0.7) 0%,
+      rgba(248, 250, 252, 0.35) 60%),
+    linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.22) 1px,
+        transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.5;
+  }
+}
+
+/* 空状态卡片 */
+.ppt-decision-empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 88px;
+  background: #ffffff;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(15, 44, 78, 0.04);
+  position: relative;
+  z-index: 1;
+  gap: 16px;
+
+  .ppt-decision-empty-icon {
+    color: #94a3b8;
+  }
+
+  .ppt-decision-empty-text {
+    margin: 0;
+    font-size: 18px;
+    color: #64748b;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+}
+
+.ppt-decision-empty {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  color: #94a3b8;
+  font-size: 20px;
+}
+
+/* ------------------------------------------------------------- */
+/* 09 提请决议事项：完全匹配用户参考图的高端流式排版系统       */
+/* ------------------------------------------------------------- */
+
+
+.ppt-decision-workspace--ref {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 92px 88px 60px; // 整体适度下移，黄金分割居中呼吸感
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 88% 22%,
+      rgba(219, 234, 254, 0.55) 0%,
+      rgba(239, 246, 255, 0.28) 42%,
+      transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, #fafcff 50%, #f1f5fa 100%);
+
+  /* 纯 CSS/SVG 绘制的高定底图光阶色块与立体几何群（无位图依赖） */
+  .ppt-ref-css-backdrop {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 62%;
+    pointer-events: none;
+    z-index: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    overflow: hidden;
+
+    .ppt-ref-backdrop-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 4px 24px rgba(37, 99, 235, 0.04));
+    }
+  }
+}
+
+/* 主排版流（居于背景之上） */
+.ppt-ref-main-flow {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1680px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶层：总纲统领区（开放式大字布局，配备高定设计的中部长光轨） */
+.ppt-ref-manifesto-stage {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+
+  /* 核心决议总纲大字（开放式气场排版） */
+  .ppt-ref-hero-headline {
+    margin: 0;
+    padding: 0;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #0f172a;
+    letter-spacing: 0.2px;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-width: 1600px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 中部分割架构：承上启下的长光轨架构分割线（左端锚点 + 向右延展渐隐至水墨山峦，大气舒展） */
+  .ppt-ref-main-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 1560px;
+    margin-top: 28px;
+    margin-bottom: 30px;
+    user-select: none;
+
+    .ppt-divider-anchor {
+      width: 36px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
+      box-shadow: 0 1px 6px rgba(29, 78, 216, 0.35);
+      flex-shrink: 0;
+    }
+
+    .ppt-divider-rail {
+      flex: 1;
+      height: 1.5px;
+      border-radius: 1px;
+      background: linear-gradient(
+        90deg,
+        #3b82f6 0%,
+        #60a5fa 25%,
+        #93c5fd 50%,
+        rgba(191, 219, 254, 0.45) 75%,
+        transparent 100%
+      );
+      box-shadow: 0 1px 4px rgba(59, 130, 246, 0.12);
+    }
+  }
+}
+
+/* 底层：落地执行事项列表 */
+.ppt-ref-action-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1600px;
+  max-height: 100%;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.35);
+    border-radius: 2px;
+  }
+}
+
+/* 单条事项行：大号斜体数字 + 优雅细竖线 + 舒展大字正文（完全还原经典开放式布局） */
+.ppt-ref-action-line {
+  display: flex;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.75);
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    .ppt-ref-italic-num {
+      transform: scale(1.03) translateX(2px);
+    }
+  }
+
+  /* 大号浅蓝艺术斜体数字 */
+  .ppt-ref-italic-num {
+    font-size: 76px;
+    font-style: italic;
+    font-weight: 800;
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 96px;
+    font-family: "DIN Alternate", "DIN", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(180deg, #1d4ed8 0%, #3b82f6 45%, #93c5fd 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 6px rgba(59, 130, 246, 0.16));
+    user-select: none;
+    transition: all 0.25s ease;
+  }
+
+  /* 优雅细竖线（柔和渐变，轻盈通透） */
+  .ppt-ref-item-sep {
+    width: 1.5px;
+    height: 48px;
+    background: linear-gradient(
+      180deg,
+      rgba(148, 163, 184, 0.8) 0%,
+      rgba(203, 213, 225, 0.4) 60%,
+      rgba(241, 245, 249, 0.1) 100%
+    );
+    margin: 0 42px 0 32px;
+    flex-shrink: 0;
+    border-radius: 1px;
+  }
+
+  /* 执行事项大号中文正文 */
+  .ppt-ref-item-body {
+    flex: 1;
+    min-width: 0;
+
+    .ppt-ref-item-text {
+      margin: 0;
+      padding: 0;
+      font-size: 32px;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.5;
+      letter-spacing: 0.3px;
+      word-break: break-word;
+      white-space: pre-wrap;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+  }
+}
+
+/* ------------------------------------------------------------- */
+/* 条数自适应规则                                                */
+/* ------------------------------------------------------------- */
+
+.ppt-decision-workspace--ref.is-count-1 {
+  padding-top: 104px; // 单条决议场景：优雅下移至黄金视觉重心
+
+  .ppt-ref-hero-headline {
+    font-size: 48px;
+  }
+
+  .ppt-ref-main-divider {
+    margin-top: 30px;
+    margin-bottom: 36px;
+
+    .ppt-divider-anchor {
+      width: 40px;
+    }
+  }
+
+  .ppt-ref-action-line {
+    padding: 38px 0;
+  }
+
+  .ppt-ref-italic-num {
+    font-size: 84px;
+  }
+
+  .ppt-ref-item-sep {
+    height: 54px;
+    margin: 0 46px 0 34px;
+  }
+
+  .ppt-ref-item-text {
+    font-size: 34px;
+  }
+}
+
+.ppt-decision-workspace--ref.is-count-2 {
+  padding-top: 88px;
+
+  .ppt-ref-hero-headline {
+    font-size: 42px;
+  }
+
+  .ppt-ref-main-divider {
+    margin-top: 24px;
+    margin-bottom: 28px;
+  }
+
+  .ppt-ref-action-line {
+    padding: 28px 0;
+  }
+
+  .ppt-ref-italic-num {
+    font-size: 72px;
+  }
+
+  .ppt-ref-item-sep {
+    height: 46px;
+    margin: 0 42px 0 32px;
+  }
+
+  .ppt-ref-item-text {
+    font-size: 30px;
+  }
+}
+
+.ppt-decision-workspace--ref.is-count-3 {
+  padding-top: 72px;
+
+  .ppt-ref-hero-headline {
+    font-size: 36px;
+  }
+
+  .ppt-ref-main-divider {
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
+
+  .ppt-ref-action-line {
+    padding: 22px 0;
+  }
+
+  .ppt-ref-italic-num {
+    font-size: 60px;
+  }
+
+  .ppt-ref-item-sep {
+    height: 40px;
+    margin: 0 34px 0 26px;
+  }
+
+  .ppt-ref-item-text {
+    font-size: 26px;
+  }
+}
+
+.ppt-decision-workspace--ref.is-count-4 {
+  padding-top: 46px;
+  padding-bottom: 36px;
+
+  .ppt-ref-hero-headline {
+    font-size: 30px;
+  }
+
+  .ppt-ref-main-divider {
+    margin-top: 16px;
+    margin-bottom: 20px;
+  }
+
+  .ppt-ref-action-line {
+    padding: 14px 0;
+  }
+
+  .ppt-ref-italic-num {
+    font-size: 48px;
+  }
+
+  .ppt-ref-item-sep {
+    height: 32px;
+    margin: 0 28px 0 20px;
+  }
+
+  .ppt-ref-item-text {
+    font-size: 22px;
+  }
+}
+
+.ppt-decision-input-card {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ppt-decision-input-wrapper {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  padding: 22px 28px;
+  box-sizing: border-box;
+  background: #f8fafc;
+}
+
+.ppt-decision-native-textarea {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 2.2;
+  font-weight: 500;
+  color: #0f172a;
+  padding: 0;
+  margin: 0;
+}
+
+.ppt-decision-native-textarea[readonly] {
+  color: #1e293b;
+  cursor: default;
+}
+
+.ppt-decision-native-textarea::placeholder {
+  color: #94a3b8;
+  font-size: 18px;
+  line-height: 2.2;
+}
+
+/* 底栏操作条：纯净无冗余提示，严格贴紧右下角 */
+.ppt-decision-bottom-bar {
+  padding: 14px 28px 18px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.ppt-decision-bottom-action {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  margin-left: auto !important;
+}
+
+.ppt-decision-save-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 34px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+  border: 1px solid #1d4ed8;
+  box-shadow: 0 4px 16px rgba(30, 64, 175, 0.32);
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ppt-save-icon {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.ppt-decision-save-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  border-color: #2563eb;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.42);
+  transform: translateY(-2px);
+}
+
+.ppt-decision-save-btn:hover:not(:disabled) .ppt-save-icon {
+  transform: scale(1.15);
+}
+
+.ppt-decision-save-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
+}
+
+.ppt-decision-save-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* 10 附件展示区（高端企业汇报演示风格） */
+.ppt-body-attachments {
+  height: 100%;
+}
+
+.ppt-attachments-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #dce6f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 44, 78, 0.05);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ppt-attach-top-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.ppt-attach-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+.ppt-attachments-workspace {
+  flex: 1;
+  min-height: 0;
+  padding: 48px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+  // 高级企业展厅级背景：中心漫射蓝光 + 极细微科技网点底纹
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(224, 238, 255, 0.65) 0%, rgba(248, 250, 252, 0.45) 65%),
+    linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.28) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.7;
+  }
+}
+
+/* 空状态 */
+.ppt-attach-empty-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 80px;
+  background: #ffffff;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(15, 44, 78, 0.04);
+  position: relative;
+  z-index: 1;
+}
+
+.ppt-attach-empty-text {
+  font-size: 16px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* 1. 单个附件时的全景尊崇布局：居中舒展，大气沉稳 */
+.ppt-attach-single-layout {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.ppt-attach-hero-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 36px 44px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
+  border: 1px solid rgba(219, 234, 254, 0.9);
+  border-radius: 20px;
+  box-shadow:
+    0 10px 30px -5px rgba(15, 44, 78, 0.08),
+    0 4px 12px -2px rgba(15, 44, 78, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow:
+      0 24px 48px -8px rgba(15, 44, 78, 0.15),
+      0 12px 24px -4px rgba(15, 44, 78, 0.08),
+      0 0 0 1px rgba(59, 130, 246, 0.2);
+
+    .ppt-hero-filename {
+      color: #1d4ed8;
+    }
+
+    .ppt-hero-preview-btn {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(30, 64, 175, 0.35);
+    }
+  }
+
+  &.is-excel::before {
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  }
+
+  &.is-ppt::before {
+    background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+  }
+
+  &.is-word::before {
+    background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+  }
+
+  &.is-pdf::before {
+    background: linear-gradient(90deg, #ef4444 0%, #b91c1c 100%);
+  }
+
+  &.is-image::before {
+    background: linear-gradient(90deg, #06b6d4 0%, #0284c7 100%);
+  }
+
+  &.is-archive::before {
+    background: linear-gradient(90deg, #8b5cf6 0%, #6d28d9 100%);
+  }
+}
+
+.ppt-hero-icon-box {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: #1e40af;
+  box-shadow: 0 8px 20px rgba(15, 44, 78, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.ppt-attach-hero-card:hover .ppt-hero-icon-box {
+  transform: scale(1.05);
+}
+
+.ppt-attach-hero-card.is-ppt .ppt-hero-icon-box {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: rgba(249, 115, 22, 0.3);
+  color: #ea580c;
+}
+
+.ppt-attach-hero-card.is-excel .ppt-hero-icon-box {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #059669;
+}
+
+.ppt-attach-hero-card.is-word .ppt-hero-icon-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #2563eb;
+}
+
+.ppt-attach-hero-card.is-pdf .ppt-hero-icon-box {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+}
+
+.ppt-attach-hero-card.is-image .ppt-hero-icon-box {
+  background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+  border-color: rgba(6, 182, 212, 0.3);
+  color: #0284c7;
+}
+
+.ppt-attach-hero-card.is-archive .ppt-hero-icon-box {
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #7c3aed;
+}
+
+.ppt-hero-svg-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.ppt-hero-icon-ext {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  letter-spacing: 0.8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ppt-hero-content-box {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ppt-hero-filename {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f2c4e;
+  line-height: 1.5;
+  letter-spacing: 1.2px;
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+
+.ppt-hero-action-row {
+  display: flex;
+  align-items: center;
+}
+
+.ppt-hero-preview-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+  border: 1px solid #1e40af;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.25);
+  letter-spacing: 1px;
+
+  &:hover:not(:disabled) {
+    opacity: 0.95;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.35);
+  }
+}
+
+.ppt-attach-hero-card.is-ppt .ppt-hero-preview-btn {
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  border-color: #ea580c;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25);
+}
+
+.ppt-attach-hero-card.is-excel .ppt-hero-preview-btn {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%);
+  border-color: #059669;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+}
+
+.ppt-attach-hero-card.is-image .ppt-hero-preview-btn {
+  background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+  border-color: #0284c7;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+}
+
+.ppt-attach-hero-card.is-archive .ppt-hero-preview-btn {
+  background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
+  border-color: #7c3aed;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+}
+
+/* 2. 多附件自适应网格 (2~5 个)：自适应气度、比例饱满、尊贵从容 */
+.ppt-attach-multi-grid {
+  width: 100%;
+  display: grid;
+  gap: 32px;
+  align-content: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.ppt-attach-multi-grid.is-count-2 {
+  grid-template-columns: repeat(2, minmax(380px, 480px));
+  max-width: 1040px;
+}
+
+.ppt-attach-multi-grid.is-count-3 {
+  grid-template-columns: repeat(3, minmax(350px, 420px));
+  max-width: 1360px;
+}
+
+.ppt-attach-multi-grid.is-count-4 {
+  grid-template-columns: repeat(2, minmax(380px, 480px));
+  max-width: 1040px;
+  gap: 28px;
+}
+
+.ppt-attach-multi-grid.is-count-5 {
+  grid-template-columns: repeat(3, minmax(320px, 400px));
+  max-width: 1320px;
+  gap: 24px;
+}
+
+.ppt-attach-grid-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 65%, #f6f9fc 100%);
+  border: 1px solid rgba(219, 234, 254, 0.85);
+  border-radius: 18px;
+  padding: 30px 28px 24px;
+  min-height: 290px;
+  box-shadow:
+    0 4px 6px -1px rgba(15, 44, 78, 0.03),
+    0 12px 28px -4px rgba(15, 44, 78, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+
+  // 顶部彩色渐变品牌强调光条
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5px;
+    background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+  }
+
+  // 悬浮奢华光感提升
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow:
+      0 20px 40px -8px rgba(15, 44, 78, 0.12),
+      0 10px 18px -4px rgba(15, 44, 78, 0.05),
+      0 0 0 1px rgba(59, 130, 246, 0.25);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .ppt-grid-filename {
+      color: #1d4ed8;
+    }
+
+    .ppt-grid-icon-box {
+      transform: scale(1.06);
+    }
+
+    .ppt-grid-preview-btn {
+      background: #1e40af;
+      color: #ffffff;
+      border-color: #1e40af;
+      box-shadow: 0 4px 14px rgba(30, 64, 175, 0.3);
+      transform: translateY(-1px);
+    }
+  }
+
+  // 区分各类文件主题色彩
+  &.is-ppt {
+    &::before {
+      background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+    }
+
+    &:hover {
+      border-color: rgba(249, 115, 22, 0.4);
+      box-shadow: 0 20px 40px -8px rgba(234, 88, 12, 0.14), 0 10px 18px -4px rgba(234, 88, 12, 0.06);
+
+      .ppt-grid-filename {
+        color: #ea580c;
+      }
+
+      .ppt-grid-preview-btn {
+        background: #ea580c;
+        border-color: #ea580c;
+        box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+      }
+    }
+  }
+
+  &.is-excel {
+    &::before {
+      background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    }
+
+    &:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 20px 40px -8px rgba(16, 185, 129, 0.14), 0 10px 18px -4px rgba(16, 185, 129, 0.06);
+
+      .ppt-grid-filename {
+        color: #059669;
+      }
+
+      .ppt-grid-preview-btn {
+        background: #059669;
+        border-color: #059669;
+        box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+      }
+    }
+  }
+
+  &.is-word {
+    &::before {
+      background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+    }
+
+    &:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 20px 40px -8px rgba(37, 99, 235, 0.14), 0 10px 18px -4px rgba(37, 99, 235, 0.06);
+
+      .ppt-grid-filename {
+        color: #1d4ed8;
+      }
+
+      .ppt-grid-preview-btn {
+        background: #2563eb;
+        border-color: #2563eb;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      }
+    }
+  }
+
+  &.is-pdf {
+    &::before {
+      background: linear-gradient(90deg, #ef4444 0%, #b91c1c 100%);
+    }
+
+    &:hover {
+      border-color: rgba(239, 68, 68, 0.4);
+      box-shadow: 0 20px 40px -8px rgba(220, 38, 38, 0.14), 0 10px 18px -4px rgba(220, 38, 38, 0.06);
+
+      .ppt-grid-filename {
+        color: #dc2626;
+      }
+
+      .ppt-grid-preview-btn {
+        background: #dc2626;
+        border-color: #dc2626;
+        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+      }
+    }
+  }
+
+  &.is-image {
+    &::before {
+      background: linear-gradient(90deg, #06b6d4 0%, #0284c7 100%);
+    }
+
+    &:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 20px 40px -8px rgba(2, 132, 199, 0.14), 0 10px 18px -4px rgba(2, 132, 199, 0.06);
+
+      .ppt-grid-filename {
+        color: #0284c7;
+      }
+
+      .ppt-grid-preview-btn {
+        background: #0284c7;
+        border-color: #0284c7;
+        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+      }
+    }
+  }
+
+  &.is-archive {
+    &::before {
+      background: linear-gradient(90deg, #8b5cf6 0%, #6d28d9 100%);
+    }
+
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 20px 40px -8px rgba(124, 58, 237, 0.14), 0 10px 18px -4px rgba(124, 58, 237, 0.06);
+
+      .ppt-grid-filename {
+        color: #7c3aed;
+      }
+
+      .ppt-grid-preview-btn {
+        background: #7c3aed;
+        border-color: #7c3aed;
+        box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+      }
+    }
+  }
+}
+
+.ppt-grid-card-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.ppt-grid-icon-box {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: #1e40af;
+  box-shadow: 0 4px 12px rgba(15, 44, 78, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.ppt-attach-grid-card.is-ppt .ppt-grid-icon-box {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: rgba(249, 115, 22, 0.3);
+  color: #ea580c;
+}
+
+.ppt-attach-grid-card.is-excel .ppt-grid-icon-box {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #059669;
+}
+
+.ppt-attach-grid-card.is-word .ppt-grid-icon-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #2563eb;
+}
+
+.ppt-attach-grid-card.is-pdf .ppt-grid-icon-box {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+}
+
+.ppt-attach-grid-card.is-image .ppt-grid-icon-box {
+  background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+  border-color: rgba(6, 182, 212, 0.3);
+  color: #0284c7;
+}
+
+.ppt-attach-grid-card.is-archive .ppt-grid-icon-box {
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #7c3aed;
+}
+
+.ppt-grid-svg-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.ppt-grid-icon-ext {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 1.5px 5px;
+  background: #ffffff;
+  border-radius: 3.5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ppt-grid-card-body {
+  flex: 1;
+  min-height: 60px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ppt-grid-filename {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f2c4e;
+  line-height: 1.55;
+  letter-spacing: 1.2px;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+
+.ppt-grid-card-foot {
+  display: flex;
+  align-items: center;
+  padding-top: 18px;
+  border-top: 1px solid #edf2f7;
+}
+
+.ppt-grid-preview-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e40af;
+  background: #f0f6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 1px;
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    svg {
+      transform: scale(1.15);
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. 悬浮汇报工具栏（Floating Presenter Toolbar）
+   -------------------------------------------------------------------------- */
+
+.ppt-floating-toolbar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ppt-floating-toolbar.is-hidden {
+  opacity: 0;
+  transform: translate(-50%, 18px);
+  pointer-events: none;
+}
+
+.ppt-floating-toolbar__inner {
+  background: rgba(10, 24, 44, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 40px;
+  padding: 6px 18px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ppt-btn {
+  background: transparent;
+  border: 0;
+  color: #e2e8f0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.ppt-btn--icon {
+  width: 38px;
+  height: 38px;
+  color: #cbd5e1;
+}
+
+.ppt-btn--icon:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.ppt-btn--icon:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ppt-btn--icon.is-active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.ppt-btn--page {
+  padding: 4px 12px;
+  height: 34px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 4px;
+}
+
+.ppt-btn--page:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.ppt-page-divider {
+  opacity: 0.5;
+  margin: 0 2px;
+}
+
+.ppt-toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 页码下拉菜单与浮动提示（Teleport 到 body，需全局生效且层级高于全屏演示层 z-index: 9999） */
+:global(.el-popper.ppt-page-dropdown-popper) {
+  z-index: 10005 !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28) !important;
+  padding: 6px 0 !important;
+}
+
+:global(.el-popper.ppt-page-dropdown-popper .el-popper__arrow::before) {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+:global(.ppt-page-dropdown-menu) {
+  max-height: 420px;
+  min-width: 240px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+:global(.ppt-page-dropdown-menu .el-dropdown-menu__item) {
+  display: flex;
+  align-items: center;
+  padding: 9px 16px;
+  font-size: 14px;
+  color: #334155;
+  transition: all 0.15s ease;
+}
+
+:global(.ppt-page-dropdown-menu .el-dropdown-menu__item:hover) {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+:global(.ppt-page-dropdown-menu .el-dropdown-menu__item.is-active) {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+:global(.ppt-page-dropdown-menu .ppt-dropdown-idx) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-right: 8px;
+  font-size: 13px;
+}
+
+:global(.ppt-page-dropdown-menu .ppt-dropdown-title) {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:global(.el-popper.ppt-toolbar-tooltip-popper) {
+  z-index: 10005 !important;
+}
+
+/* 快捷键弹出卡片 */
+.ppt-shortcut-guide {
+  padding: 8px 4px;
+}
+
+.ppt-shortcut-guide h4 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.ppt-shortcut-guide ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ppt-shortcut-guide li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #475569;
+}
+
+.ppt-shortcut-guide kbd {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-family: inherit;
+  color: #1e293b;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* --------------------------------------------------------------------------
+   6. 幻灯片大纲抽屉（Slide Outline Drawer）
+   -------------------------------------------------------------------------- */
+
+.ppt-outline-drawer {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ppt-outline-drawer.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ppt-outline-drawer__panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 380px;
+  background: #ffffff;
+  box-shadow: 16px 0 48px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.ppt-outline-drawer.is-visible .ppt-outline-drawer__panel {
+  transform: translateX(0);
+}
+
+.ppt-outline-drawer__header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ppt-outline-drawer__header h4 {
+  margin: 0;
+  font-size: 17px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.ppt-outline-drawer__close {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.ppt-outline-drawer__close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.ppt-outline-drawer__list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ppt-outline-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.ppt-outline-item:hover {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.ppt-outline-item.is-current {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.ppt-outline-item__num {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.ppt-outline-item.is-current .ppt-outline-item__num {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.ppt-outline-item__info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ppt-outline-item__sec {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ppt-outline-item.is-current .ppt-outline-item__sec {
+  color: #1d4ed8;
+}
+
+.ppt-outline-item__sub {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   可放大区块微交互提示（Spotlight Zoomable Triggers）
+   ========================================================================== */
+.ppt-zoomable-pod,
+.ppt-zoomable-card {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -2px rgba(37, 99, 235, 0.14),
+      0 0 0 1.5px rgba(59, 130, 246, 0.35);
+    border-color: #93c5fd !important;
+
+    .ppt-zoom-indicator {
+      opacity: 1;
+      transform: scale(1);
+      background: #eff6ff;
+      color: #2563eb;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.16);
+    }
+  }
+
+  &:active {
+    transform: scale(0.985);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+  }
+}
+
+.ppt-zoom-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(241, 245, 249, 0.85);
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.35;
+  transform: scale(0.92);
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ==========================================================================
+   局部独立区块全屏特化放大特效浮窗（Spotlight Zoom Modal）
+   ========================================================================== */
+.ppt-spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3100;
+  /* 高于常规清单弹窗 3000 */
+  background: rgba(11, 19, 43, 0.72);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.ppt-spotlight-dialog {
+  position: relative;
+  width: 1040px;
+  max-width: 88vw;
+  max-height: 82vh;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 32px 72px -16px rgba(15, 23, 42, 0.42),
+    0 0 0 1px rgba(226, 232, 240, 0.8),
+    0 16px 36px -8px rgba(37, 99, 235, 0.16);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 顶部 Tone 发光流光条 */
+.ppt-spotlight-glow-bar {
+  height: 5px;
+  width: 100%;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 50%, #60a5fa 100%);
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.45);
+}
+
+.ppt-spotlight-dialog.is-green .ppt-spotlight-glow-bar {
+  background: linear-gradient(90deg, #059669 0%, #10b981 50%, #34d399 100%);
+  box-shadow: 0 2px 12px rgba(16, 185, 129, 0.45);
+}
+
+.ppt-spotlight-dialog.is-orange .ppt-spotlight-glow-bar {
+  background: linear-gradient(90deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  box-shadow: 0 2px 12px rgba(245, 158, 11, 0.45);
+}
+
+.ppt-spotlight-dialog.is-purple .ppt-spotlight-glow-bar {
+  background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
+  box-shadow: 0 2px 12px rgba(139, 92, 246, 0.45);
+}
+
+.ppt-spotlight-dialog.is-cyan .ppt-spotlight-glow-bar {
+  background: linear-gradient(90deg, #0891b2 0%, #06b6d4 50%, #67e8f9 100%);
+  box-shadow: 0 2px 12px rgba(6, 182, 212, 0.45);
+}
+
+.ppt-spotlight-dialog.is-red .ppt-spotlight-glow-bar {
+  background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
+  box-shadow: 0 2px 12px rgba(239, 68, 68, 0.45);
+}
+
+/* 浮窗头部 */
+.ppt-spotlight-header {
+  padding: 22px 32px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  flex-shrink: 0;
+}
+
+.ppt-spotlight-header-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ppt-spotlight-sub-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  .ppt-spotlight-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3b82f6;
+  }
+}
+
+.ppt-spotlight-dialog.is-green .ppt-spotlight-sub-tag .ppt-spotlight-dot {
+  background: #10b981;
+}
+
+.ppt-spotlight-dialog.is-orange .ppt-spotlight-sub-tag .ppt-spotlight-dot {
+  background: #f59e0b;
+}
+
+.ppt-spotlight-dialog.is-purple .ppt-spotlight-sub-tag .ppt-spotlight-dot {
+  background: #8b5cf6;
+}
+
+.ppt-spotlight-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ppt-spotlight-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+  box-sizing: border-box;
+}
+
+.ppt-spotlight-dialog.is-green .ppt-spotlight-badge {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.25);
+}
+
+.ppt-spotlight-icon-badge {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+}
+
+.ppt-spotlight-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f2c4e;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 头部右侧：元数据胶囊与关闭按钮 */
+.ppt-spotlight-header-extra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.ppt-spotlight-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 24px;
+  font-size: 14px;
+  box-sizing: border-box;
+
+  &.is-dept {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+
+    .ppt-spotlight-chip-label {
+      font-weight: 600;
+      color: #3b82f6;
+    }
+
+    .ppt-spotlight-chip-val {
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+  }
+
+  &.is-date {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+
+    .ppt-spotlight-chip-label {
+      font-weight: 600;
+      color: #22c55e;
+    }
+
+    .ppt-spotlight-chip-val {
+      font-weight: 700;
+      color: #14532d;
+    }
+  }
+
+  .ppt-spotlight-chip-divider {
+    width: 1px;
+    height: 12px;
+    background: currentColor;
+    opacity: 0.28;
+  }
+}
+
+.ppt-spotlight-close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+
+  &:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    transform: rotate(90deg) scale(1.08);
+    border-color: #cbd5e1;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+/* 浮窗正文核心内容区 */
+.ppt-spotlight-body {
+  padding: 32px 36px 36px;
+  overflow-y: auto;
+  flex: 1;
+  box-sizing: border-box;
+  background: #f8fafc;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+.ppt-spotlight-content-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  padding: 36px 42px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+.ppt-spotlight-content-text {
+  margin: 0;
+  color: #1e293b;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: text;
+}
+
+/* 质量问题双舱对照放大展示 */
+.ppt-spotlight-dialog:has(.ppt-spotlight-pair-grid) {
+  width: 1200px;
+  max-width: 92vw;
+}
+
+.ppt-spotlight-pair-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.ppt-spotlight-pair-pod {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  padding: 26px 30px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+
+  &.is-problem,
+  &.is-gray {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+  }
+
+  &.is-measure,
+  &.is-blue {
+    background: #f0f7ff;
+    border-color: #dbeafe;
+  }
+
+  &.is-green {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+}
+
+.ppt-spotlight-pod-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+
+.ppt-spotlight-pod-stripe {
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+
+  &.is-problem,
+  &.is-gray {
+    background: #64748b;
+  }
+
+  &.is-measure,
+  &.is-blue {
+    background: #2563eb;
+  }
+
+  &.is-green {
+    background: #10b981;
+  }
+}
+
+.ppt-spotlight-pod-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f2c4e;
+  letter-spacing: 1.2px;
+}
+
+.ppt-spotlight-pod-content {
+  flex: 1;
+}
+
+.ppt-spotlight-content-text.is-pair-text {
+  line-height: 1.8;
+}
+
+.ppt-zoom-indicator.is-quality-indicator {
+  position: static;
+  opacity: 0.4;
+  transform: none;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+.ppt-quality-item-card:hover .ppt-zoom-indicator.is-quality-indicator {
+  opacity: 1;
+  background: #eff6ff;
+  color: #2563eb;
+  transform: scale(1.06);
+}
+
+.ppt-zoomable-pair-row {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    .ppt-prevgate-block {
+      border-color: #93c5fd !important;
+      box-shadow: 0 8px 24px -2px rgba(37, 99, 235, 0.14);
+    }
+
+    .ppt-zoom-indicator.is-prevgate-indicator {
+      opacity: 1;
+      background: #eff6ff;
+      color: #2563eb;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.16);
+      transform: scale(1.05);
+    }
+  }
+
+  &:active {
+    .ppt-prevgate-block {
+      transform: scale(0.995);
+    }
+  }
+}
+
+.ppt-zoom-indicator.is-prevgate-indicator {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  opacity: 0.35;
+}
+
+/* 过渡动画 */
+.ppt-spotlight-anim-enter-active {
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .ppt-spotlight-dialog {
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.ppt-spotlight-anim-leave-active {
+  transition: opacity 0.2s ease;
+
+  .ppt-spotlight-dialog {
+    transition: transform 0.2s ease;
+  }
+}
+
+.ppt-spotlight-anim-enter-from {
+  opacity: 0;
+
+  .ppt-spotlight-dialog {
+    transform: scale(0.92) translateY(16px);
+  }
+}
+
+.ppt-spotlight-anim-leave-to {
+  opacity: 0;
+
+  .ppt-spotlight-dialog {
+    transform: scale(0.96);
+  }
+}
