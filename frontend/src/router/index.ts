@@ -2142,7 +2142,8 @@ export const routes: RouteRecordRaw[] = [
     meta: { public: true, title: "HA AI" },
     children: [
       { path: "projects", name: "AiProjects", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "项目" }, meta: { title: "项目" } },
-      { path: "usage", name: "AiUsage", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "用量" }, meta: { title: "用量" } },
+      { path: "projects/:projectId/api-keys", name: "AiProjectApiKeys", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "API Key" }, meta: { title: "API Key" } },
+      { path: "usage", name: "AiUsage", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "调用记录" }, meta: { title: "调用记录" } },
     ],
   },
   { path: "/platform/ai/models", name: "AiModels", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "模型" }, meta: { public: true, title: "模型" } },
