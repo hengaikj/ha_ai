@@ -39,6 +39,7 @@ import {
 } from "@/config/features";
 import logo from "@/assets/logo/logo2.png";
 const route = useRoute();
+const isAiRoute = computed(() => route.path === "/ai" || route.path.startsWith("/ai/"));
 const router = useRouter();
 const authStore = useAuthStore();
 const tagsViewStore = useTagsViewStore();
@@ -809,7 +810,7 @@ function syncSidebarViewport() {
 }
 
 onMounted(() => {
-  taskCenterStore.connect();
+  if (!isAiRoute.value) taskCenterStore.connect();
   narrowViewportMedia = window.matchMedia("(max-width: 768px)");
   syncSidebarViewport();
   narrowViewportMedia.addEventListener?.("change", syncSidebarViewport);
@@ -859,8 +860,8 @@ onBeforeUnmount(() => {
   >
     <header class="app-layout__navbar">
       <div class="app-layout__brand">
-        <img class="app-layout__brand-logo" :src="logo" alt="BAIC" />
-        <span class="app-layout__brand-title">收益与成本管理系统</span>
+        <img v-if="!isAiRoute" class="app-layout__brand-logo" :src="logo" alt="BAIC" />
+        <span class="app-layout__brand-title">{{ isAiRoute ? "智行官" : "收益与成本管理系统" }}</span>
       </div>
 
       <!--      <div class="app-layout__navbar-left">-->

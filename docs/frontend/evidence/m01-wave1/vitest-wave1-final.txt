@@ -1,0 +1,15 @@
+
+> frontend@0.0.0 test /data/soft/docker/hengaikj/ha_ai/frontend
+> vitest run
+
+sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+
+ RUN  v4.1.9 /data/soft/docker/hengaikj/ha_ai/frontend
+
+
+ Test Files  5 passed (5)
+      Tests  12 passed (12)
+   Start at  14:36:05
+   Duration  3.69s (transform 714ms, setup 0ms, import 3.43s, tests 870ms, environment 5.44s)
+

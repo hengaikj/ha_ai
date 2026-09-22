@@ -1,0 +1,11 @@
+/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+
+/data/soft/docker/hengaikj/ha_ai/frontend/src/pages/ai/AiManagementPage.vue
+  238:31  warning  Attribute "v-if" should go before "class"       vue/attributes-order
+  241:31  warning  Attribute "v-else-if" should go before "class"  vue/attributes-order
+  244:31  warning  Attribute "v-else" should go before "class"     vue/attributes-order
+  259:9   warning  Attribute "v-if" should go before "class"       vue/attributes-order
+
+✖ 4 problems (0 errors, 4 warnings)
+  0 errors and 4 warnings potentially fixable with the `--fix` option.
+

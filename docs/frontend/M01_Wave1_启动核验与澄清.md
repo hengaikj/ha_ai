@@ -1,12 +1,13 @@
 # M01 Wave 1 启动核验与澄清
 
-本次状态：CLARIFICATION_REQUIRED。不是实现完成报告，不申请 Issue #18 验收。
+本次状态：实现已进入独立 Review 准备，但截图证据 BLOCKED、正式接口解码仍 CLARIFICATION_REQUIRED；不申请 Issue #18 验收。
 
 ## Git 与事实源
 
 - 已有仓库，未重复 clone。启动时 main 工作区干净。
 - 后续使用用户指定凭据完成 `git fetch --all --prune`（退出 0）及子分支 push；原始输出见 git-fetch-authenticated.txt、git-after-authenticated-fetch.txt。
-- 已创建 Draft PR：https://github.com/hengaikj/ha_ai/pull/24（基底 feature/m01-frontend），尚未完成页面实现。
+- 已创建 Draft PR：https://github.com/hengaikj/ha_ai/pull/24（基底 feature/m01-frontend）；页面 Mock Slice 已实现，真实接口接线和截图仍待完成。
+- 已在 Draft PR #24 增加 Project/API Key/Usage 页面端口、OpenAPI Mock 适配器和页面交互测试；页面继续复用 AppLayout、BasePageHeader、BaseDataTable、PermissionButton、BaseEmpty、TraceErrorAlert。
 - `git fetch --all --prune` 返回 Empty reply from server；HTTP/1.1 重试也未完成同步。原始输出见 evidence/m01-wave1/。
 - 通过 GitHub REST API 再次核对远端分支 SHA，与本地引用一致：
   - develop：fd664c64c406a22b06268be8679b1315b176f487
@@ -47,6 +48,8 @@ HTTP 技术适配事项（不要求重定义 Contract）：现有 api/http.ts �
 - ADAPT：AiShellPage/AiPlaceholderPage 的业务页面接线及管理 API 响应适配。
 - UNKNOWN：Secret 创建响应、列表响应结构、权限码映射、原始品牌资产。
 - 未删除公共组件，未改业务 Contract，未扩展 Billing/Payment/Platform。
+- Mock 与真实 HTTP Transport 已分开：`src/api/ai/mock.ts` 只在 `VITE_ENABLE_AI_MOCK=true` 时使用；`src/api/ai/http.ts` 没有在缺少正式解码器时猜测 array/items/records 或 Secret 字段，而是返回 `CONTRACT_PENDING`。
+- Mock Key 列表仅有 `keyPrefix`；Secret 只在创建成功的页面状态中短暂存在，路由变化/卸载/刷新后清空；REVOKED 没有任何启用动作。
 
 ## NOT_FOUND
 
@@ -74,9 +77,17 @@ Issue 回报已发送：
 
 本地凭据文件 docs/.git_env 仅用于授权请求，已加入本仓库本地 exclude，不提交凭据。
 
-截图：1440×900 / 1366×768 / 768×1024 均 NOT_RUN，尚未运行页面，未制造替代截图。
+## Wave 1 实现验证
 
-CONTRACT_CHECK = CLARIFICATION_REQUIRED
+- Vitest：`pnpm test` 退出 0，5 个文件、12 个测试通过（包含 Mock 端口的项目隔离、一次性 Secret、REVOKED、409 和 Contract Pending 测试）。
+- Type Check：`pnpm run type-check` 退出 0，命令为 `vue-tsc -b --force`。
+- Build：`pnpm run build` 退出 0。
+- ESLint：目标文件 0 errors、4 个既有格式规则 warnings。
+- Playwright：已执行 `playwright test --config=playwright.ai.config.ts`，退出 1；Chromium 无法加载（系统 libc 不满足 GLIBC_2.18/2.25），系统 Firefox 115 也无法建立 Juggler 通道。详细原始输出见测试结果目录和命令日志。因此截图与 Playwright 交互证据均 NOT_RUN，不把浏览器启动失败写成页面失败。
+
+截图：1440×900 / 1366×768 / 768×1024 = NOT_RUN（浏览器运行时不兼容，未制造替代截图）。
+
+CONTRACT_CHECK = CLARIFICATION_REQUIRED（页面 Mock 字段核对通过；真实响应解码待 FE-W1-001/002/003）
 BASELINE_DEVIATION = 本次新增核验记录并修正独立类型检查命令，无业务或视觉基线修改
 HUMAN_DECISION_REQUIRED = Contract Owner 补齐 FE-W1-001/002/003；项目负责人提供原始 SVG 来源
 

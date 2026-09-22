@@ -1,0 +1,459 @@
+/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+
+Running 4 tests using 1 worker
+
+(node:58732) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/e2e/ai/wave1.spec.ts:21:3 › 1440×900 页面与状态证据 (5ms)
+(node:59810) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 tests/e2e/ai/wave1.spec.ts:21:3 › 1366×768 页面与状态证据 (5ms)
+(node:61026) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 tests/e2e/ai/wave1.spec.ts:21:3 › 768×1024 页面与状态证据 (5ms)
+(node:62017) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 tests/e2e/ai/wave1.spec.ts:96:1 › 404返回、只读、401复用登录流程 (5ms)
+
+
+  1) tests/e2e/ai/wave1.spec.ts:21:3 › 1440×900 页面与状态证据 ────────────────────────────────────────────
+
+    Error: browserType.launch: Failed to launch the browser process.
+    Browser logs:
+
+    <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-5v9NKd -juggler-pipe -silent
+    <launched> pid=59024
+    [pid=59024][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=59024][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=59024][err] *** You are running in headless mode.
+    [pid=59024][err] 
+    [pid=59024][err] (firefox:59024): Gtk-WARNING **: 14:38:02.283: Locale not supported by C library.
+    [pid=59024][err] 	Using the fallback 'C' locale.
+    [pid=59024][err] [Parent 59024, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+    [pid=59024][err] 
+    [pid=59024][err] ** (firefox:59024): WARNING **: 14:38:02.308: No marshaller for signature of signal 'PropertiesChanged'
+    [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) [GFX1-]: glxtest: Unable to open a connection to the X server
+    [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=59024][out]  (t=1.71861) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=59024][out] 
+    [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71863) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out] 
+    [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71864) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out] 
+    [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71864) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71865) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out] 
+    [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71864) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71865) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71866) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out] 
+    [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71864) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71865) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=59024][out]  (t=1.71866) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=59024][out]  (t=1.71868) [GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=59024][out] 
+    [pid=59024] <process did exit: exitCode=0, signal=null>
+    [pid=59024] starting temporary directories cleanup
+    Call log:
+      - <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-5v9NKd -juggler-pipe -silent
+      - <launched> pid=59024
+      - [pid=59024][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=59024][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=59024][err] *** You are running in headless mode.
+      - [pid=59024][err]
+      - [pid=59024][err] (firefox:59024): Gtk-WARNING **: 14:38:02.283: Locale not supported by C library.
+      - [pid=59024][err] 	Using the fallback 'C' locale.
+      - [pid=59024][err] [Parent 59024, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+      - [pid=59024][err]
+      - [pid=59024][err] ** (firefox:59024): WARNING **: 14:38:02.308: No marshaller for signature of signal 'PropertiesChanged'
+      - [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) [GFX1-]: glxtest: Unable to open a connection to the X server
+      - [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=59024][out]  (t=1.71861) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=59024][out]
+      - [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71863) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]
+      - [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71864) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]
+      - [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71864) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71865) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]
+      - [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71864) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71865) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71866) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]
+      - [pid=59024][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.71852) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=59024][out]  (t=1.71861) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71863) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71864) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71865) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=59024][out]  (t=1.71866) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=59024][out]  (t=1.71868) [GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=59024][out]
+      - [pid=59024] <process did exit: exitCode=0, signal=null>
+      - [pid=59024] starting temporary directories cleanup
+      - [pid=59024] <gracefully close start>
+      - [pid=59024] <kill>
+      - [pid=59024] <skipped force kill spawnedProcess.killed=false processClosed=true>
+      - [pid=59024] finished temporary directories cleanup
+      - [pid=59024] <gracefully close end>
+
+
+    Error Context: test-results/wave1-1440×900-页面与状态证据/error-context.md
+
+  2) tests/e2e/ai/wave1.spec.ts:21:3 › 1366×768 页面与状态证据 ────────────────────────────────────────────
+
+    Error: browserType.launch: Failed to launch the browser process.
+    Browser logs:
+
+    <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-VS4eDM -juggler-pipe -silent
+    <launched> pid=60083
+    [pid=60083][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=60083][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=60083][err] *** You are running in headless mode.
+    [pid=60083][err] 
+    [pid=60083][err] (firefox:60083): Gtk-WARNING **: 14:38:08.563: Locale not supported by C library.
+    [pid=60083][err] 	Using the fallback 'C' locale.
+    [pid=60083][err] [Parent 60083, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+    [pid=60083][err] 
+    [pid=60083][err] ** (firefox:60083): WARNING **: 14:38:08.586: No marshaller for signature of signal 'PropertiesChanged'
+    [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) [GFX1-]: glxtest: Unable to open a connection to the X server
+    [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=60083][out]  (t=1.6997) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=60083][out] 
+    [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69972) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out] 
+    [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69973) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out] 
+    [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69973) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69974) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out] 
+    [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69973) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69974) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69975) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out] 
+    [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69973) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69974) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=60083][out]  (t=1.69975) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=60083][out]  (t=1.69976) [GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=60083][out] 
+    [pid=60083] <process did exit: exitCode=0, signal=null>
+    [pid=60083] starting temporary directories cleanup
+    Call log:
+      - <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-VS4eDM -juggler-pipe -silent
+      - <launched> pid=60083
+      - [pid=60083][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=60083][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=60083][err] *** You are running in headless mode.
+      - [pid=60083][err]
+      - [pid=60083][err] (firefox:60083): Gtk-WARNING **: 14:38:08.563: Locale not supported by C library.
+      - [pid=60083][err] 	Using the fallback 'C' locale.
+      - [pid=60083][err] [Parent 60083, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+      - [pid=60083][err]
+      - [pid=60083][err] ** (firefox:60083): WARNING **: 14:38:08.586: No marshaller for signature of signal 'PropertiesChanged'
+      - [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) [GFX1-]: glxtest: Unable to open a connection to the X server
+      - [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=60083][out]  (t=1.6997) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=60083][out]
+      - [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69972) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]
+      - [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69973) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]
+      - [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69973) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69974) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]
+      - [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69973) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69974) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69975) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]
+      - [pid=60083][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.69961) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=60083][out]  (t=1.6997) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69972) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69973) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69974) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=60083][out]  (t=1.69975) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=60083][out]  (t=1.69976) [GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=60083][out]
+      - [pid=60083] <process did exit: exitCode=0, signal=null>
+      - [pid=60083] starting temporary directories cleanup
+      - [pid=60083] <gracefully close start>
+      - [pid=60083] <kill>
+      - [pid=60083] <skipped force kill spawnedProcess.killed=false processClosed=true>
+      - [pid=60083] finished temporary directories cleanup
+      - [pid=60083] <gracefully close end>
+
+
+    Error Context: test-results/wave1-1366×768-页面与状态证据/error-context.md
+
+  3) tests/e2e/ai/wave1.spec.ts:21:3 › 768×1024 页面与状态证据 ────────────────────────────────────────────
+
+    Error: browserType.launch: Failed to launch the browser process.
+    Browser logs:
+
+    <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-3MMDKu -juggler-pipe -silent
+    <launched> pid=61270
+    [pid=61270][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=61270][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=61270][err] *** You are running in headless mode.
+    [pid=61270][err] 
+    [pid=61270][err] (firefox:61270): Gtk-WARNING **: 14:38:15.017: Locale not supported by C library.
+    [pid=61270][err] 	Using the fallback 'C' locale.
+    [pid=61270][err] [Parent 61270, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+    [pid=61270][err] 
+    [pid=61270][err] ** (firefox:61270): WARNING **: 14:38:15.040: No marshaller for signature of signal 'PropertiesChanged'
+    [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) [GFX1-]: glxtest: Unable to open a connection to the X server
+    [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=61270][out]  (t=1.3494) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=61270][out] 
+    [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34941) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out] 
+    [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34942) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out] 
+    [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34942) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34943) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out] 
+    [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34942) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34943) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34945) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out] 
+    [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34942) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34943) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=61270][out]  (t=1.34945) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=61270][out]  (t=1.34946) [GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=61270][out] 
+    [pid=61270] <process did exit: exitCode=0, signal=null>
+    [pid=61270] starting temporary directories cleanup
+    Call log:
+      - <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-3MMDKu -juggler-pipe -silent
+      - <launched> pid=61270
+      - [pid=61270][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=61270][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=61270][err] *** You are running in headless mode.
+      - [pid=61270][err]
+      - [pid=61270][err] (firefox:61270): Gtk-WARNING **: 14:38:15.017: Locale not supported by C library.
+      - [pid=61270][err] 	Using the fallback 'C' locale.
+      - [pid=61270][err] [Parent 61270, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+      - [pid=61270][err]
+      - [pid=61270][err] ** (firefox:61270): WARNING **: 14:38:15.040: No marshaller for signature of signal 'PropertiesChanged'
+      - [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) [GFX1-]: glxtest: Unable to open a connection to the X server
+      - [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=61270][out]  (t=1.3494) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=61270][out]
+      - [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34941) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]
+      - [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34942) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]
+      - [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34942) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34943) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]
+      - [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34942) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34943) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34945) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]
+      - [pid=61270][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.34932) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=61270][out]  (t=1.3494) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34941) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34942) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34943) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=61270][out]  (t=1.34945) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=61270][out]  (t=1.34946) [GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=61270][out]
+      - [pid=61270] <process did exit: exitCode=0, signal=null>
+      - [pid=61270] starting temporary directories cleanup
+      - [pid=61270] <gracefully close start>
+      - [pid=61270] <kill>
+      - [pid=61270] <skipped force kill spawnedProcess.killed=false processClosed=true>
+      - [pid=61270] finished temporary directories cleanup
+      - [pid=61270] <gracefully close end>
+
+
+    Error Context: test-results/wave1-768×1024-页面与状态证据/error-context.md
+
+  4) tests/e2e/ai/wave1.spec.ts:96:1 › 404返回、只读、401复用登录流程 ──────────────────────────────────────────
+
+    Error: browserType.launch: Failed to launch the browser process.
+    Browser logs:
+
+    <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-mIxBZx -juggler-pipe -silent
+    <launched> pid=62307
+    [pid=62307][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=62307][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+    [pid=62307][err] *** You are running in headless mode.
+    [pid=62307][err] 
+    [pid=62307][err] (firefox:62307): Gtk-WARNING **: 14:38:20.832: Locale not supported by C library.
+    [pid=62307][err] 	Using the fallback 'C' locale.
+    [pid=62307][err] [Parent 62307, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+    [pid=62307][err] 
+    [pid=62307][err] ** (firefox:62307): WARNING **: 14:38:20.853: No marshaller for signature of signal 'PropertiesChanged'
+    [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) [GFX1-]: glxtest: Unable to open a connection to the X server
+    [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=62307][out]  (t=1.75918) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=62307][out] 
+    [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.7592) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out] 
+    [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75921) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out] 
+    [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75921) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75923) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out] 
+    [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75921) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75923) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75924) [GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out] 
+    [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+    [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75921) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75923) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+    [pid=62307][out]  (t=1.75924) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=62307][out]  (t=1.75925) [GFX1-]: PCI candidate 0x1a03/0x2000
+    [pid=62307][out] 
+    [pid=62307] <process did exit: exitCode=0, signal=null>
+    [pid=62307] starting temporary directories cleanup
+    Call log:
+      - <launching> /usr/bin/firefox -no-remote -headless -profile /tmp/playwright_firefoxdev_profile-mIxBZx -juggler-pipe -silent
+      - <launched> pid=62307
+      - [pid=62307][err] /usr/bin/bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=62307][err] /usr/bin/sh: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)
+      - [pid=62307][err] *** You are running in headless mode.
+      - [pid=62307][err]
+      - [pid=62307][err] (firefox:62307): Gtk-WARNING **: 14:38:20.832: Locale not supported by C library.
+      - [pid=62307][err] 	Using the fallback 'C' locale.
+      - [pid=62307][err] [Parent 62307, Main Thread] WARNING: No marshaller for signature of signal 'PropertiesChanged': 'glib warning', file /builddir/build/BUILD/firefox-115.12.0/toolkit/xre/nsSigHandlers.cpp:167
+      - [pid=62307][err]
+      - [pid=62307][err] ** (firefox:62307): WARNING **: 14:38:20.853: No marshaller for signature of signal 'PropertiesChanged'
+      - [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) [GFX1-]: glxtest: Unable to open a connection to the X server
+      - [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=62307][out]  (t=1.75918) [GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=62307][out]
+      - [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.7592) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]
+      - [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75921) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]
+      - [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75921) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75923) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]
+      - [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75921) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75923) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75924) [GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]
+      - [pid=62307][out] Crash Annotation GraphicsCriticalError: |[0][GFX1-]: glxtest: Unable to open a connection to the X server (t=1.75909) |[1][GFX1-]: More than 1 GPU vendor detected via PCI, cannot deduce vendor
+      - [pid=62307][out]  (t=1.75918) |[2][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.7592) |[3][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75921) |[4][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75923) |[5][GFX1-]: PCI candidate 0x10de/0x1eb8
+      - [pid=62307][out]  (t=1.75924) |[6][GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=62307][out]  (t=1.75925) [GFX1-]: PCI candidate 0x1a03/0x2000
+      - [pid=62307][out]
+      - [pid=62307] <process did exit: exitCode=0, signal=null>
+      - [pid=62307] starting temporary directories cleanup
+      - [pid=62307] <gracefully close start>
+      - [pid=62307] <kill>
+      - [pid=62307] <skipped force kill spawnedProcess.killed=false processClosed=true>
+      - [pid=62307] finished temporary directories cleanup
+      - [pid=62307] <gracefully close end>
+
+
+    Error Context: test-results/wave1-404返回、只读、401复用登录流程/error-context.md
+
+  4 failed
+    tests/e2e/ai/wave1.spec.ts:21:3 › 1440×900 页面与状态证据 ─────────────────────────────────────────────
+    tests/e2e/ai/wave1.spec.ts:21:3 › 1366×768 页面与状态证据 ─────────────────────────────────────────────
+    tests/e2e/ai/wave1.spec.ts:21:3 › 768×1024 页面与状态证据 ─────────────────────────────────────────────
+    tests/e2e/ai/wave1.spec.ts:96:1 › 404返回、只读、401复用登录流程 ───────────────────────────────────────────
