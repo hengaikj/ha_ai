@@ -56,6 +56,31 @@ public final class ModelPolicyService {
         }
     }
 
+    /** 替换项目的模型授权集合；空集合表示撤销全部授权。 */
+    public void replace(String projectId, Set<String> models) {
+        if (projectId == null || projectId.isBlank() || models == null
+                || models.stream().anyMatch(model -> model == null || model.isBlank())) {
+            throw GatewayException.badRequest("项目模型权限参数无效");
+        }
+        if (policyMapper == null || logicalModelMapper == null) {
+            policies.put(projectId, ConcurrentHashMap.newKeySet());
+            policies.get(projectId).addAll(Set.copyOf(models));
+            return;
+        }
+        var current = allowed(projectId);
+        current.stream().filter(model -> !models.contains(model)).forEach(model -> {
+            var entity = logicalModelMapper.selectOne(new QueryWrapper<LogicalModelEntity>()
+                    .eq("model_code", model).last("LIMIT 1"));
+            if (entity != null) policyMapper.update(null,
+                    new com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper<ProjectPolicyEntity>()
+                            .eq("project_id", Long.parseLong(projectId))
+                            .eq("logical_model_id", entity.logicalModelId)
+                            .set("status", "DISABLED")
+                            .set("updated_at", LocalDateTime.now(ZoneOffset.UTC)));
+        });
+        models.forEach(model -> allow(projectId, model));
+    }
+
     public boolean isAllowed(String projectId, String model) {
         if (policyMapper == null || logicalModelMapper == null) {
             return policies.getOrDefault(projectId, Set.of()).contains(model);

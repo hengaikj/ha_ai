@@ -96,4 +96,14 @@ class GatewayServiceTest {
                 new ChatCompletionRequest("not-allowed", List.of(new Message("user", "hi")), false),
                 null, "request-2"));
     }
+    @Test
+    void replacingProjectPolicyRemovesModelsNotInNewSet() {
+        var policies = new ModelPolicyService();
+        policies.allow("project-1", "model-a");
+        policies.allow("project-1", "model-b");
+        policies.replace("project-1", java.util.Set.of("model-b", "model-c"));
+        assertFalse(policies.isAllowed("project-1", "model-a"));
+        assertEquals(java.util.Set.of("model-b", "model-c"), policies.allowed("project-1"));
+    }
+
 }
