@@ -1,0 +1,76 @@
+milestone: M01
+tasks:
+  - id: BE-M01-001
+    agent: backend
+    status: READY
+    depends_on: []
+    scope:
+      - API Key摘要鉴权与Redis→MySQL回源
+      - Project Model Policy
+      - GET /v1/models
+      - POST /v1/chat/completions stream=false
+      - Request/Attempt持久化
+      - FakeProvider
+      - HengAi ProviderAdapter非流式
+    evidence:
+      - commit_sha
+      - pull_request
+      - maven_build
+      - unit_tests
+      - api_tests
+      - provider_test_status
+    unlocks:
+      - REVIEW-BE-M01-001
+
+  - id: FE-M01-001
+    agent: frontend
+    status: READY
+    depends_on: []
+    scope:
+      - 既有Vue工程基线导入
+      - Build/Type Check/Test基线
+      - HA AI Shell
+      - Project/API Key/Model Policy/Usage基础页面
+      - OpenAPI Mock
+    evidence:
+      - commit_sha
+      - pull_request
+      - build
+      - type_check
+      - tests
+      - screenshots
+    unlocks:
+      - REVIEW-FE-M01-001
+
+  - id: REVIEW-BE-M01-001
+    agent: reviewer
+    status: WAITING
+    depends_on: [BE-M01-001]
+    unlocks: [QA-M01-001]
+
+  - id: REVIEW-FE-M01-001
+    agent: reviewer
+    status: WAITING
+    depends_on: [FE-M01-001]
+    unlocks: [QA-M01-001]
+
+  - id: QA-M01-001
+    agent: integration
+    status: WAITING
+    depends_on:
+      - REVIEW-BE-M01-001
+      - REVIEW-FE-M01-001
+    scope:
+      - Frontend → Backend → FakeProvider
+      - GET /v1/models
+      - POST /v1/chat/completions
+      - x-request-id追踪
+      - 有DEV凭证时验证HengAi Provider
+    unlocks:
+      - REVIEW-M01-GATE
+
+  - id: REVIEW-M01-GATE
+    agent: orchestrator
+    status: WAITING
+    depends_on: [QA-M01-001]
+    action: 执行M01 Milestone Gate；需要人工决定时输出HUMAN_DECISION_REQUIRED
