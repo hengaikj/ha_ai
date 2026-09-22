@@ -1,0 +1,21 @@
+{
+  "version":"m01-wave1-v0.1",
+  "viewports":[
+    {"id":"desktop","width":1440,"height":900},
+    {"id":"laptop","width":1366,"height":768},
+    {"id":"narrow","width":768,"height":1024}
+  ],
+  "screens":[
+    "PAGE-PROJECTS:NORMAL",
+    "PAGE-PROJECTS:EMPTY",
+    "PAGE-PROJECT-CREATE:FORM",
+    "PAGE-API-KEYS:NORMAL",
+    "PAGE-API-KEYS:EMPTY",
+    "PAGE-APIKEY-CREATE:FORM",
+    "PAGE-APIKEY-CREATE:SECRET_ONCE",
+    "PAGE-USAGE:NORMAL",
+    "PAGE-ERROR-STATES:403",
+    "PAGE-ERROR-STATES:500"
+  ],
+  "note":"截图使用Mock/测试数据；禁止真实API Secret进入截图。"
+}
