@@ -1,0 +1,47 @@
+{
+  "version": "1.0-candidate",
+  "provider_tests": [
+    {
+      "id": "INT-AI-001",
+      "scenario": "使用有效企业API Key经平台调用首个Provider完成非流式chat/completions",
+      "expected": "成功返回并形成Request→Attempt→Usage/Cost Evidence→Settlement追踪"
+    },
+    {
+      "id": "INT-AI-002",
+      "scenario": "stream=true真实SSE调用",
+      "expected": "流式兼容、x-request-id可追踪、终态正确结算"
+    },
+    {
+      "id": "INT-AI-003",
+      "scenario": "上游认证失败/模型不存在/限流/超时",
+      "expected": "转换为平台规范错误且保存上游诊断信息，不泄露敏感凭证"
+    },
+    {
+      "id": "INT-AI-004",
+      "scenario": "验证Provider返回的Usage与可计费证据",
+      "expected": "能够支持已批准的Cost Evidence和DECIMAL(24,12)计费链"
+    }
+  ],
+  "payment_tests": [
+    {
+      "id": "INT-PAY-ALI-001",
+      "scenario": "支付宝创建支付订单→支付成功通知→权益入账",
+      "expected": "PaymentOrder成功且EntitlementGrant/Ledger仅一次"
+    },
+    {
+      "id": "INT-PAY-ALI-002",
+      "scenario": "支付宝重复成功通知",
+      "expected": "不重复发放权益"
+    },
+    {
+      "id": "INT-PAY-WX-001",
+      "scenario": "微信支付创建支付订单→支付成功通知→权益入账",
+      "expected": "PaymentOrder成功且EntitlementGrant/Ledger仅一次"
+    },
+    {
+      "id": "INT-PAY-WX-002",
+      "scenario": "微信支付重复成功通知",
+      "expected": "不重复发放权益"
+    }
+  ]
+}

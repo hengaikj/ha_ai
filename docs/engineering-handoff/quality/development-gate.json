@@ -1,0 +1,40 @@
+{
+  "requirement_baseline": "APPROVED",
+  "design_baseline": "APPROVED",
+  "technical_baseline": "APPROVED",
+  "schema_candidate": "PASS",
+  "redis_contract": "PASS",
+  "test_contract": "PASS",
+  "openapi_contract": "PASS",
+  "formal_development_ready": true,
+  "blocking_items": [],
+  "non_blocking_open_parameters": [
+    "生产QPS/SLA",
+    "Secret Storage具体产品",
+    "Rate Limit默认阈值",
+    "生产部署拓扑"
+  ],
+  "closed_items": [
+    {
+      "id": "DEV-BLK-ROUNDING",
+      "result": "CLOSED",
+      "basis": "TDEC-007：HALF_UP；ChargeComponent级12位定标；Settlement汇总定标Charge；Ledger使用权威定标金额"
+    },
+    {
+      "id": "DEV-BLK-API-DETAIL",
+      "result": "CLOSED_CANDIDATE",
+      "basis": "企业/平台管理API已补统一响应Envelope、x-request-id、结构化错误响应和管理错误码目录；具体业务DTO在实现切片中受OpenAPI兼容约束"
+    },
+    {
+      "id": "DEV-BLK-INTEGRATION",
+      "result": "CLOSED",
+      "basis": "首个AI Provider已指定为 https://api.hengaikj.com/v1；V1在线支付渠道指定支付宝和微信支付"
+    }
+  ],
+  "integration_verification_status": "NOT_RUN",
+  "development_conditions": [
+    "真实Provider凭证和模型编码属于环境/集成配置，不写入交接包",
+    "支付宝、微信支付的具体产品类型、商户配置、签名/证书参数在对应Adapter实施时按官方接口配置",
+    "任何真实支付上线前必须通过回调验签、重复回调幂等和沙箱/测试环境验收"
+  ]
+}

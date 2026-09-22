@@ -1,0 +1,2 @@
+<template><div class="ai-shell"><h1>HA AI</h1><p>企业 AI 聚合服务平台</p><nav><RouterLink to="/ai/projects">项目</RouterLink><RouterLink to="/ai/usage">用量</RouterLink><RouterLink to="/platform/ai/models">模型</RouterLink><RouterLink to="/platform/ai/providers">Provider</RouterLink></nav><RouterView /></div></template>
+<style scoped>.ai-shell{padding:32px}.ai-shell nav{display:flex;gap:16px;margin-top:24px}</style>

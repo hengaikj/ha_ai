@@ -2138,6 +2138,16 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/ai", name: "AiShell", component: () => import("@/pages/ai/AiShellPage.vue"),
+    meta: { public: true, title: "HA AI" },
+    children: [
+      { path: "projects", name: "AiProjects", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "项目" }, meta: { title: "项目" } },
+      { path: "usage", name: "AiUsage", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "用量" }, meta: { title: "用量" } },
+    ],
+  },
+  { path: "/platform/ai/models", name: "AiModels", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "模型" }, meta: { public: true, title: "模型" } },
+  { path: "/platform/ai/providers", name: "AiProviders", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "Provider" }, meta: { public: true, title: "Provider" } },
+  {
     path: "/403",
     name: "forbidden",
     component: ForbiddenPage,
