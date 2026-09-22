@@ -26,6 +26,16 @@ class GatewayServiceTest {
     }
 
     @Test
+    void disabledKeyCanBeEnabledAgain() {
+        var keys = new ApiKeyService();
+        keys.register(new ApiKey("k-enable", "p1", 1L, "enable-me", ApiKeyStatus.ENABLED, null));
+        keys.disable("enable-me");
+        assertThrows(GatewayException.class, () -> keys.authenticate("enable-me", NOW));
+        keys.enable("enable-me");
+        assertEquals("k-enable", keys.authenticate("enable-me", NOW).apiKeyId());
+    }
+
+    @Test
     void disabledRevokedAndExpiredKeysAreRejected() {
         var disabled = new ApiKeyService();
         disabled.register(new ApiKey("k1", "p1", 1L, "disabled", ApiKeyStatus.DISABLED, null));

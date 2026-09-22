@@ -28,6 +28,10 @@ public final class ApiKeyService {
         if (cache != null) cache.put(key);
     }
 
+    public void enable(String secret) {
+        update(secret, ApiKeyStatus.ENABLED);
+    }
+
     public void disable(String secret) {
         update(secret, ApiKeyStatus.DISABLED);
     }
