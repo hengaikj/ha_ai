@@ -127,6 +127,13 @@ watch(() => route.fullPath, load, { immediate: true });
         }}</template></el-table-column
       >
       <el-table-column prop="status" label="状态" min-width="140" />
+      <el-table-column label="操作" min-width="120">
+        <template #default="{ row }">
+          <PermissionButton link type="primary" @click="router.push({ name: 'AiProjectApiKeys', params: { projectId: row.projectId } })">
+            API Key
+          </PermissionButton>
+        </template>
+      </el-table-column>
     </BaseDataTable>
     <el-dialog
       v-model="dialog"
