@@ -315,7 +315,6 @@ onBeforeUnmount(() => {
       empty-title="暂无 API Key"
       empty-description="创建 API Key 后，仅可再次查看前缀。"
     >
-      <el-table-column prop="keyName" label="Key 名称" min-width="150" />
       <el-table-column prop="keyPrefix" label="Key 前缀" min-width="160" />
       <el-table-column prop="status" label="状态" min-width="120" />
       <el-table-column prop="expiresAt" label="过期时间" min-width="210"

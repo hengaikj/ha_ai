@@ -44,10 +44,16 @@ for (const viewport of [
       .filter({ hasText: "智能问答示例" })
       .getByRole("button", { name: "API Key", exact: true })
       .click();
-    await expect(page.getByText("开发环境", { exact: true })).toBeVisible();
+    await expect(page.getByText("mock-demo-", { exact: true })).toBeVisible();
     const table = page.locator(".el-table");
     await expect(table).not.toContainText(demoSecret);
     await expect(table.locator("th")).not.toContainText(["secret"]);
+    await expect(table.locator("th")).not.toContainText(["Key 名称"]);
+    await expect(table.locator("th")).toContainText([
+      "Key 前缀",
+      "状态",
+      "过期时间",
+    ]);
     await expect(
       page
         .locator("tr")
@@ -76,11 +82,10 @@ for (const viewport of [
       .click();
     await expect(page.getByLabel("一次性 Secret")).toHaveCount(0);
     await page.getByRole("button", { name: "刷新", exact: true }).click();
-    await expect(page.getByText("评审凭据", { exact: true })).toBeVisible();
     await expect(page.getByText("mock-only-", { exact: true })).toBeVisible();
     await expect(page.getByLabel("一次性 Secret")).toHaveCount(0);
     await page.reload();
-    await expect(page.getByText("开发环境", { exact: true })).toBeVisible();
+    await expect(page.getByText("mock-demo-", { exact: true })).toBeVisible();
     await expect(page.getByLabel("一次性 Secret")).toHaveCount(0);
     await page.goto("/ai/usage");
     await expect(

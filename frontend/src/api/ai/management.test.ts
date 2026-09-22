@@ -45,6 +45,23 @@ describe("M01 管理页面端口", () => {
       "status",
     ]);
   });
+  it("API Key列表展示字段不包含Key名称和Secret", async () => {
+    const service = createMockManagementService();
+    const rows = await service.keys("project-demo");
+    const displayRows = rows.map(({ keyPrefix, status, expiresAt }) => ({
+      keyPrefix,
+      status,
+      expiresAt,
+    }));
+    expect(Object.keys(displayRows[0]!).sort()).toEqual([
+      "expiresAt",
+      "keyPrefix",
+      "status",
+    ]);
+    expect(JSON.stringify(displayRows)).not.toContain("secret");
+    expect(JSON.stringify(displayRows)).not.toContain("keyHash");
+    expect(JSON.stringify(displayRows)).not.toContain("keyName");
+  });
   it("REVOKED 不允许任何状态操作", async () => {
     const service = createMockManagementService();
     expect(allowedKeyActions("REVOKED")).toEqual([]);
