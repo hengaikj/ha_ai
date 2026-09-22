@@ -36,6 +36,14 @@ class GatewayServiceTest {
     }
 
     @Test
+    void keyCanBeEnabledByPublicIdWithoutSecret() {
+        var keys = new ApiKeyService();
+        keys.register(new ApiKey("k-public", "p1", 1L, "secret-public", ApiKeyStatus.DISABLED, null));
+        keys.enableById("k-public");
+        assertEquals("k-public", keys.authenticate("secret-public", NOW).apiKeyId());
+    }
+
+    @Test
     void disabledRevokedAndExpiredKeysAreRejected() {
         var disabled = new ApiKeyService();
         disabled.register(new ApiKey("k1", "p1", 1L, "disabled", ApiKeyStatus.DISABLED, null));

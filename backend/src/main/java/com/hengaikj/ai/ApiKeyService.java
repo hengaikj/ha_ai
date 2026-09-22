@@ -32,6 +32,28 @@ public final class ApiKeyService {
         update(secret, ApiKeyStatus.ENABLED);
     }
 
+    public void enableById(String apiKeyId) {
+        updateById(apiKeyId, ApiKeyStatus.ENABLED);
+    }
+
+    public void disableById(String apiKeyId) {
+        updateById(apiKeyId, ApiKeyStatus.DISABLED);
+    }
+
+    public void revokeById(String apiKeyId) {
+        updateById(apiKeyId, ApiKeyStatus.REVOKED);
+    }
+
+    private void updateById(String apiKeyId, ApiKeyStatus status) {
+        var current = database.values().stream()
+                .filter(key -> key.apiKeyId().equals(apiKeyId)).findFirst().orElse(null);
+        if (current == null && persistent != null) {
+            throw GatewayException.notFound("API Key不存在或不在当前管理范围");
+        }
+        if (current == null) throw GatewayException.notFound("API Key不存在或不在当前管理范围");
+        update(current.secret(), status);
+    }
+
     public void disable(String secret) {
         update(secret, ApiKeyStatus.DISABLED);
     }
