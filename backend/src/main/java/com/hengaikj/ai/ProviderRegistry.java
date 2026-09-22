@@ -50,7 +50,11 @@ interface ProviderAdapter {
     ProviderResult complete(ChatCompletionRequest request);
 }
 
-record ProviderResult(String content, String providerRequestId) {}
+record ProviderResult(String content, String providerRequestId, Usage usage) {
+    ProviderResult(String content, String providerRequestId) {
+        this(content, providerRequestId, new Usage(0, 0, 0));
+    }
+}
 
 final class FakeProvider implements ProviderAdapter {
     private final String channelId;

@@ -26,6 +26,10 @@ public final class GatewayException extends RuntimeException {
         return new GatewayException(HttpStatus.BAD_GATEWAY, "provider_error", message);
     }
 
+    static GatewayException upstream(HttpStatus status, String code, String message) {
+        return new GatewayException(status, code, message);
+    }
+
     HttpStatus status() {
         return status;
     }

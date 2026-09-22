@@ -13,6 +13,13 @@ record ErrorResponse(ErrorBody error) {}
 record ErrorBody(String message, String type, String code) {}
 class ProviderException extends RuntimeException {
     private final String code;
-    ProviderException(String message, String code) { super(message); this.code = code; }
+    private final org.springframework.http.HttpStatus status;
+    ProviderException(String message, String code) {
+        this(org.springframework.http.HttpStatus.BAD_GATEWAY, message, code);
+    }
+    ProviderException(org.springframework.http.HttpStatus status, String message, String code) {
+        super(message); this.status = status; this.code = code;
+    }
     String code() { return code; }
+    org.springframework.http.HttpStatus status() { return status; }
 }

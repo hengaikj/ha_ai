@@ -75,11 +75,11 @@ public final class GatewayService {
             return new ChatCompletionResponse("chatcmpl-" + requestId.substring(0, 8),
                     "chat.completion", clock.instant().getEpochSecond(), request.model(),
                     List.of(new Choice(0, new Message("assistant", result.content()), "stop")),
-                    new Usage(0, 0, 0));
+                    result.usage());
         } catch (ProviderException ex) {
             requests.fail(attempt.attemptId(), clock.instant(), ex.code());
             requests.fail(record.id(), clock.instant(), null);
-            throw GatewayException.upstream(ex.getMessage());
+            throw GatewayException.upstream(ex.status(), ex.code(), ex.getMessage());
         }
     }
 
