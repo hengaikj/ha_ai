@@ -1,0 +1,17 @@
+{
+  "version": "m01-ui-v0.1",
+  "project": "HA AI",
+  "status": "CANDIDATE",
+  "mode": "BROWNFIELD_UI",
+  "pages": [
+    {"page_id":"PAGE-PROJECTS","screen_refs":[],"states":["LOADING","NORMAL","EMPTY","ERROR"],"responsive":["DESKTOP","NARROW"],"spec":"design-handoff/m01/ui/page-specs/PAGE-PROJECTS.md"},
+    {"page_id":"PAGE-PROJECT-DETAIL","screen_refs":[],"states":["LOADING","NORMAL","ERROR"],"responsive":["DESKTOP","NARROW"],"spec":"design-handoff/m01/ui/page-specs/PAGE-PROJECT-DETAIL.md"},
+    {"page_id":"PAGE-API-KEYS","screen_refs":[],"states":["LOADING","NORMAL","EMPTY","ERROR","ENABLED","DISABLED","REVOKED"],"responsive":["DESKTOP","NARROW"],"spec":"design-handoff/m01/ui/page-specs/PAGE-API-KEYS.md"},
+    {"page_id":"PAGE-MODEL-POLICY","screen_refs":[],"states":["LOADING","NORMAL","EMPTY","ERROR"],"responsive":["DESKTOP","NARROW"],"spec":"design-handoff/m01/ui/page-specs/PAGE-MODEL-POLICY.md"},
+    {"page_id":"PAGE-USAGE","screen_refs":[],"states":["LOADING","NORMAL","EMPTY","ERROR"],"responsive":["DESKTOP","NARROW"],"spec":"design-handoff/m01/ui/page-specs/PAGE-USAGE.md"}
+  ],
+  "assets_manifest":"design-handoff/m01/ui/assets-manifest.json",
+  "component_mapping":"design-handoff/m01/ui/component-mapping.json",
+  "gate":{"design_handoff_ready":false},
+  "blocking":["原始智行官SVG尚未物化进Git品牌资源路径","正式设计screen_refs尚未形成","DC-M01-001仍OPEN","Platform具体字段仍需完整Schema冻结"]
+}
