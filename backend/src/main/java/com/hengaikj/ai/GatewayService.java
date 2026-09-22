@@ -36,6 +36,10 @@ public final class GatewayService {
         return new GatewayService(keys, policies, registry, new RequestRepository(), Clock.systemUTC());
     }
 
+    public void enableApiKey(String apiKeyId) { apiKeys.enableById(apiKeyId); }
+    public void disableApiKey(String apiKeyId) { apiKeys.disableById(apiKeyId); }
+    public void revokeApiKey(String apiKeyId) { apiKeys.revokeById(apiKeyId); }
+
     public ApiKeyContext authenticate(String authorization) {
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             throw GatewayException.unauthorized("API Key无效");
