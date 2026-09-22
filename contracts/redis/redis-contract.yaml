@@ -1,56 +1,15 @@
-version: 1.0-candidate
-namespace: 'ha:{env}:'
+version: 1.0
+namespace: "ha:{env}:"
 principles:
-- MySQL 8是权益、计费、账本最终权威
-- Redis只保存可重建运行态投影、缓存和控制状态
-- Redis禁止保存企业API Key完整明文和Provider Credential完整明文
-- 数据库事务提交后再更新或失效Redis
-keys:
-- name: api-key-context
-  pattern: ha:{env}:apikey:{keyHash}
-  source_of_truth: MySQL
-  value: 企业、项目、Key状态、权益模式、过期时间
-  policy: 主动失效；缓存未命中回源MySQL
-  contains_secret: false
-- name: project-runtime
-  pattern: ha:{env}:project:{projectId}:runtime
-  source_of_truth: MySQL
-  value: 项目状态、权益模式、可调用状态、额度投影
-  policy: 项目/权益/结算变化后更新或失效
-  contains_secret: false
-- name: project-model-policy
-  pattern: ha:{env}:project:{projectId}:models
-  source_of_truth: MySQL
-  value: 项目允许的逻辑模型集合
-  policy: 模型权限变化后主动失效
-  contains_secret: false
-- name: model-channel-pool
-  pattern: ha:{env}:model:{modelId}:channels
-  source_of_truth: MySQL
-  value: 模型可用渠道及静态路由投影
-  policy: 模型渠道/路由策略变化后失效
-  contains_secret: false
-- name: channel-health
-  pattern: ha:{env}:channel:{channelId}:health
-  source_of_truth: Runtime
-  value: 健康状态、失败次数、延迟、熔断状态
-  policy: 短TTL；持续刷新
-  contains_secret: false
-- name: project-inflight
-  pattern: ha:{env}:project:{projectId}:inflight
-  source_of_truth: Runtime
-  value: 项目当前在途请求计数
-  policy: 请求终态原子递减；异常恢复
-  contains_secret: false
-- name: rate-limit
-  pattern: ha:{env}:ratelimit:{scope}:{id}:{window}
-  source_of_truth: Runtime
-  value: 请求/Token窗口计数
-  policy: 按窗口TTL自然过期
-  contains_secret: false
-- name: idempotency
-  pattern: ha:{env}:idempotency:{businessKey}
-  source_of_truth: MySQL最终校验
-  value: 处理中/成功及结果引用
-  policy: MySQL唯一业务键为最终保护
-  contains_secret: false
+  - MySQL 8是权益、计费、账本最终权威
+  - Redis只保存可重建运行态投影、缓存和控制状态
+  - Redis禁止保存企业API Key完整明文和Provider Credential完整明文
+key_families:
+  - "ha:{env}:apikey:{keyHash}"
+  - "ha:{env}:project:{projectId}:runtime"
+  - "ha:{env}:project:{projectId}:models"
+  - "ha:{env}:model:{modelId}:channels"
+  - "ha:{env}:channel:{channelId}:health"
+  - "ha:{env}:project:{projectId}:inflight"
+  - "ha:{env}:ratelimit:{scope}:{id}:{window}"
+  - "ha:{env}:idempotency:{businessKey}"

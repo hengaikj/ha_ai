@@ -1,0 +1,101 @@
+milestone: M01
+tasks:
+  - id: BE-M01-A
+    agent: backend
+    status: READY
+    depends_on: []
+    decision: DEC-M01-BE-001
+    scope:
+      - Spring Boot可启动工程
+      - 内存Repository边界实现
+      - FakeProvider
+      - GET /v1/models
+      - POST /v1/chat/completions stream=false
+      - x-request-id
+      - 自动化契约与业务测试
+    must_remain_not_run:
+      - mysql_integration
+      - redis_integration
+      - hengai_provider
+      - production_readiness
+    promotion_limit: BE-M01-SLICE-A_PASS
+    unlocks: [REVIEW-BE-M01-A]
+
+  - id: REVIEW-BE-M01-A
+    agent: reviewer
+    status: WAITING
+    depends_on: [BE-M01-A]
+    unlocks: [BE-M01-B]
+
+  - id: BE-M01-B
+    agent: backend
+    status: WAITING
+    depends_on: [REVIEW-BE-M01-A]
+    scope:
+      - MyBatis-Plus与MySQL 8真实持久化
+      - Redis API Key Context缓存
+      - Redis miss回源MySQL
+      - Request与RoutingAttempt真实持久化
+      - API Key禁用撤销过期
+      - Project Model Policy
+    unlocks: [REVIEW-BE-M01-B]
+
+  - id: REVIEW-BE-M01-B
+    agent: reviewer
+    status: WAITING
+    depends_on: [BE-M01-B]
+    unlocks: [BE-M01-C]
+
+  - id: BE-M01-C
+    agent: backend
+    status: WAITING
+    depends_on: [REVIEW-BE-M01-B]
+    scope:
+      - HengAi Provider非流式真实集成
+      - 上游错误规范化
+      - Usage与响应证据
+      - Secret日志保护
+    unlocks: [REVIEW-BE-M01-C]
+
+  - id: REVIEW-BE-M01-C
+    agent: reviewer
+    status: WAITING
+    depends_on: [BE-M01-C]
+    unlocks: [QA-M01-001]
+
+  - id: FE-M01-001
+    agent: frontend
+    status: READY
+    depends_on: []
+    scope:
+      - 既有Vue工程基线导入
+      - Build/Type Check/Test基线
+      - HA AI Shell
+      - Project/API Key/Model Policy/Usage基础页面
+      - OpenAPI Mock
+    evidence: [commit_sha, pull_request, build, type_check, tests, screenshots]
+    unlocks: [REVIEW-FE-M01-001]
+
+  - id: REVIEW-FE-M01-001
+    agent: reviewer
+    status: WAITING
+    depends_on: [FE-M01-001]
+    unlocks: [QA-M01-001]
+
+  - id: QA-M01-001
+    agent: integration
+    status: WAITING
+    depends_on: [REVIEW-BE-M01-C, REVIEW-FE-M01-001]
+    scope:
+      - Frontend → Backend → FakeProvider
+      - GET /v1/models
+      - POST /v1/chat/completions
+      - x-request-id追踪
+      - 有DEV凭证时验证HengAi Provider
+    unlocks: [REVIEW-M01-GATE]
+
+  - id: REVIEW-M01-GATE
+    agent: orchestrator
+    status: WAITING
+    depends_on: [QA-M01-001]
+    action: 执行M01 Milestone Gate；需要人工决定时输出HUMAN_DECISION_REQUIRED

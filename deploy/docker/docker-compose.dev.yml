@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: ha-ai-mysql
+    environment:
+      MYSQL_DATABASE: ha_ai
+      MYSQL_ROOT_PASSWORD: ${HA_MYSQL_ROOT_PASSWORD:-dev_only_change_me}
+    ports:
+      - "${HA_MYSQL_PORT:-3306}:3306"
+    volumes:
+      - ha_mysql_data:/var/lib/mysql
+    command: ["--character-set-server=utf8mb4","--collation-server=utf8mb4_0900_ai_ci"]
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: ha-ai-redis
+    ports:
+      - "${HA_REDIS_PORT:-6379}:6379"
+    volumes:
+      - ha_redis_data:/data
+
+volumes:
+  ha_mysql_data:
+  ha_redis_data:

@@ -1,0 +1,25 @@
+id: DEC-M01-BE-001
+status: APPROVED
+decision: 允许后端先实现最小可验证垂直链路
+approved_scope:
+  - Spring Boot可启动工程
+  - 内存Repository
+  - FakeProvider
+  - OpenAI-compatible契约端点
+  - x-request-id
+  - 自动化契约测试
+must_remain_not_run_until_verified:
+  - mysql_integration
+  - redis_integration
+  - hengai_provider
+  - production_readiness
+promotion_limit: BE-M01-SLICE-A_PASS
+slices:
+  BE-M01-A:
+    status: READY
+  BE-M01-B:
+    status: WAITING
+    depends_on: [BE-M01-A]
+  BE-M01-C:
+    status: WAITING
+    depends_on: [BE-M01-B]

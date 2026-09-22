@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "ai_provider": {
+    "name": "恒爱AI API",
+    "base_url": "https://api.hengaikj.com/v1",
+    "status": "SELECTED_FOR_FIRST_INTEGRATION"
+  },
+  "payment_channels": [
+    {
+      "name": "支付宝",
+      "status": "SELECTED_FOR_V1"
+    },
+    {
+      "name": "微信支付",
+      "status": "SELECTED_FOR_V1"
+    }
+  ],
+  "verification_status": "NOT_RUN"
+}

@@ -1,0 +1,18 @@
+id: M01
+name: 首个AI Gateway真实垂直切片
+status: IN_PROGRESS
+goal: Enterprise → Project → API Key → Model Policy → ProviderAdapter → OpenAI-compatible API
+out_of_scope:
+  - billing
+  - ledger
+  - fallback
+  - streaming
+  - alipay
+  - wechat_pay
+gate:
+  backend_verified: false
+  frontend_verified: false
+  integration_fake_provider_pass: false
+  integration_real_provider: NOT_RUN
+  reviewer_pass: false
+  milestone_complete: false
