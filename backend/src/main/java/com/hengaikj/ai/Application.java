@@ -19,6 +19,9 @@ public class Application {
                                   ObjectProvider<JdbcTemplate> jdbc,
                                   ObjectProvider<ObjectMapper> mapper,
                                   org.springframework.core.env.Environment env) {
+        if (!env.getProperty("ha.gateway.persistence.enabled", Boolean.class, false)) {
+            return GatewayService.demo();
+        }
         var persistent = store.getIfAvailable();
         if (persistent == null) return GatewayService.demo();
         var keys = new ApiKeyService(persistent, cache.getIfAvailable());
