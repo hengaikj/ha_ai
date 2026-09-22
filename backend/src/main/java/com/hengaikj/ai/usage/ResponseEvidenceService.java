@@ -1,0 +1,3 @@
+package com.hengaikj.ai.usage;
+import org.springframework.stereotype.Service; import java.nio.file.*; import java.io.IOException;
+@Service public class ResponseEvidenceService { private final Path root=Path.of(System.getProperty("java.io.tmpdir"),"ha-ai-evidence","responses"); public void save(String requestId,String response){try{Files.createDirectories(root);Files.writeString(root.resolve(requestId+".json"),redact(response),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);}catch(IOException e){throw new IllegalStateException("响应证据保存失败",e);}} private String redact(String s){return s.replaceAll("(?i)(Bearer\\s+)[^\\\" ]+","$1[REDACTED]").replaceAll("(?i)(secret|api[_-]?key)\\\"?\\s*[:=]\\s*\\\"?[^,\\\"} ]+","$1:[REDACTED]");} }

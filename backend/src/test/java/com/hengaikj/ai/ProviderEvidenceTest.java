@@ -1,0 +1,3 @@
+package com.hengaikj.ai;
+import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; import com.hengaikj.ai.usage.*;
+class ProviderEvidenceTest { @Test void usageTotals(){var r=new UsageService().record("req-1","fake-model",3,5);assertEquals(8,r.totalTokens());} @Test void evidenceRedactsSecret() throws Exception {var s=new ResponseEvidenceService();s.save("test-evidence","{\"apiKey\":\"top-secret\",\"text\":\"ok\"}");var p=java.nio.file.Path.of(System.getProperty("java.io.tmpdir"),"ha-ai-evidence","responses","test-evidence.json");var v=java.nio.file.Files.readString(p);assertFalse(v.contains("top-secret"));} }
