@@ -1,0 +1,19 @@
+agents:
+  orchestrator:
+    skill: .agent/orchestrator/SKILL.md
+    writes_code: false
+  backend:
+    skill: .agent/backend/SKILL.md
+    branch: feature/m01-slice01
+    worktree: /workspace/ha-ai/backend-worktree
+  frontend:
+    skill: .agent/frontend/SKILL.md
+    branch: feature/m01-frontend
+    worktree: /workspace/ha-ai/frontend-worktree
+  reviewer:
+    skill: .agent/reviewer/SKILL.md
+    writes_code: false
+  integration:
+    skill: .agent/integration/SKILL.md
+    branch: develop
+    worktree: /workspace/ha-ai/integration-worktree
