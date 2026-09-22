@@ -2,7 +2,6 @@
 import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BaseDataTable from "@/components/base/BaseDataTable.vue";
-import BaseEmpty from "@/components/base/BaseEmpty.vue";
 import BasePageHeader from "@/components/base/BasePageHeader.vue";
 import PermissionButton from "@/components/security/PermissionButton.vue";
 import TraceErrorAlert from "@/components/base/TraceErrorAlert.vue";
