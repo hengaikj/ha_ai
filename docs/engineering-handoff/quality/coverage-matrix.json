@@ -1,0 +1,23 @@
+{
+  "p0_denominator": 15,
+  "requirement_coverage": {
+    "covered": 15,
+    "partial": 0,
+    "missing": 0
+  },
+  "design_coverage": {
+    "covered": 15,
+    "partial": 0,
+    "missing": 0
+  },
+  "technical_coverage": {
+    "covered": 15,
+    "partial": 0,
+    "missing": 0
+  },
+  "test_mapping": {
+    "mapped": 15,
+    "missing": 0
+  },
+  "note": "覆盖表示交接规格覆盖，不表示代码实现完成。"
+}
