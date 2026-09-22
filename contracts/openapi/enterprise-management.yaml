@@ -295,7 +295,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ApiKeyCreateResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -1305,6 +1305,43 @@ components:
           type: string
         data:
           $ref: '#/components/schemas/ProjectSummary'
+    ApiKeyCreateResponse:
+      type: object
+      required: [success, requestId, data]
+      properties:
+        success:
+          type: boolean
+          example: true
+        requestId:
+          type: string
+        data:
+          $ref: '#/components/schemas/ApiKeyCreated'
+    ApiKeyCreated:
+      type: object
+      required: [apiKeyId, keyName, keyPrefix, status, secret]
+      properties:
+        apiKeyId:
+          type: string
+          description: API Key ID
+        keyName:
+          type: string
+          description: Key名称
+        keyPrefix:
+          type: string
+          description: 脱敏展示前缀，不是完整Secret
+        status:
+          type: string
+          enum: [ENABLED]
+          description: 新建Key初始状态
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: 可选过期时间
+        secret:
+          type: string
+          writeOnly: true
+          description: 完整API Key Secret，仅在创建成功响应中一次性返回；服务端不得持久化明文，后续列表/详情不得返回且无法再次查看
     ApiKeyListResponse:
       type: object
       required: [success, requestId, data]
