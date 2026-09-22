@@ -12,7 +12,8 @@
     "test:e2e:committee": "playwright test --config=playwright.committee.config.ts",
     "audit:page-buttons": "node scripts/audit-page-buttons.mjs",
     "lint": "eslint .",
-    "format": "prettier --check ."
+    "format": "prettier --check .",
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
