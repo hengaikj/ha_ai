@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.hengaikj.ai.persistence.entity.ApiKeyEntity;
 import com.hengaikj.ai.persistence.mapper.ApiKeyMapper;
+import com.hengaikj.ai.persistence.mapper.ProjectMapper;
 import org.springframework.dao.DuplicateKeyException;
 import java.security.SecureRandom;
 import java.time.Instant;
@@ -22,11 +23,13 @@ interface ApiKeyManagementRepository {
 record ApiKeyManaged(String id,long enterpriseId,long projectId,String name,String prefix,String hash,ApiKeyStatus status,Instant expiresAt,String secret) {}
 
 final class MybatisApiKeyManagementRepository implements ApiKeyManagementRepository {
-    private final ApiKeyMapper mapper;
-    MybatisApiKeyManagementRepository(ApiKeyMapper mapper){this.mapper=mapper;}
+    private final ApiKeyMapper mapper; private final ProjectMapper projects;
+    MybatisApiKeyManagementRepository(ApiKeyMapper mapper, ProjectMapper projects){this.mapper=mapper;this.projects=projects;}
     public ApiKeyManaged create(long e,long p,String n,Instant x,String secret){
+        var project=projects.selectOne(new QueryWrapper<com.hengaikj.ai.persistence.entity.ProjectEntity>().eq("enterprise_id",e).eq("project_id",p));
+        if(project==null) throw GatewayException.notFound("项目不存在");
         var r=new ApiKeyEntity(); r.apiKeyId=IdWorker.getId(); r.enterpriseId=e; r.projectId=p; r.keyName=n;
-        r.keyPrefix=prefix(secret); r.keyHash=ApiKeyService.hash(secret); r.status="ENABLED"; r.entitlementMode="BALANCE"; r.expiresAt=dt(x); r.version=0L; r.createdAt=LocalDateTime.now(); r.updatedAt=r.createdAt;
+        r.keyPrefix=prefix(secret); r.keyHash=ApiKeyService.hash(secret); r.status="ENABLED"; r.entitlementMode=project.entitlementMode; r.expiresAt=dt(x); r.version=0L; r.createdAt=LocalDateTime.now(); r.updatedAt=r.createdAt;
         try { mapper.insert(r); } catch(DuplicateKeyException ex){throw GatewayException.conflict("API Key冲突");}
         return to(r,secret);
     }
