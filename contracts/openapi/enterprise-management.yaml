@@ -1321,6 +1321,10 @@ components:
           - DISABLED
           - REVOKED
           description: Key状态
+        createdAt:
+          type: string
+          format: date-time
+          description: Key创建时间
         expiresAt:
           type: string
           format: date-time

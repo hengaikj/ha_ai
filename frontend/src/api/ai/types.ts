@@ -15,6 +15,7 @@ export interface ApiKeySummary {
   keyName: string;
   keyPrefix: string;
   status: "ENABLED" | "DISABLED" | "REVOKED";
+  /** Contract 已批准：API Key 创建时间。 */
   createdAt: string;
   expiresAt: string | null;
 }
