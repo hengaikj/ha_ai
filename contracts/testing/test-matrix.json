@@ -1,0 +1,235 @@
+[
+  {
+    "id": "DEV-T001",
+    "requirements": [
+      "REQ-010",
+      "REQ-013",
+      "REQ-014"
+    ],
+    "scenario": "普通非流式调用成功",
+    "expected": "1 Request/1 Attempt并正确计量结算",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T002",
+    "requirements": [
+      "REQ-013"
+    ],
+    "scenario": "失败且无Cost Evidence",
+    "expected": "不得收费",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T003",
+    "requirements": [
+      "REQ-013"
+    ],
+    "scenario": "失败但有Cost Evidence",
+    "expected": "保持FAILED且正确收费",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T004",
+    "requirements": [
+      "REQ-011",
+      "REQ-013"
+    ],
+    "scenario": "Fallback：A失败收费+B成功收费",
+    "expected": "2 Attempt/2 Charge汇总结算",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T005",
+    "requirements": [
+      "REQ-010",
+      "REQ-013"
+    ],
+    "scenario": "流式部分输出后失败",
+    "expected": "PARTIAL+FAILED；不透明Fallback；按Evidence收费",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T006",
+    "requirements": [
+      "REQ-013"
+    ],
+    "scenario": "客户端主动断开",
+    "expected": "不自动免费，按Evidence结算",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T007",
+    "requirements": [
+      "REQ-013"
+    ],
+    "scenario": "Settlement重复执行",
+    "expected": "只产生一次有效扣费和Ledger",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T008",
+    "requirements": [
+      "REQ-004"
+    ],
+    "scenario": "Key禁用",
+    "expected": "鉴权拒绝且不进入上游",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T009",
+    "requirements": [
+      "REQ-004"
+    ],
+    "scenario": "Key永久撤销",
+    "expected": "永久拒绝且不可恢复",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T010",
+    "requirements": [
+      "REQ-004"
+    ],
+    "scenario": "Key过期",
+    "expected": "鉴权拒绝",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T011",
+    "requirements": [
+      "REQ-009"
+    ],
+    "scenario": "调用未授权模型",
+    "expected": "上游调用前拒绝",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T012",
+    "requirements": [
+      "REQ-008"
+    ],
+    "scenario": "项目额度耗尽",
+    "expected": "后续新请求拒绝",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T013",
+    "requirements": [
+      "REQ-001",
+      "REQ-002"
+    ],
+    "scenario": "跨企业读取项目/账单",
+    "expected": "租户和数据范围鉴权拒绝",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T014",
+    "requirements": [
+      "REQ-015"
+    ],
+    "scenario": "支付成功重复回调",
+    "expected": "Grant与有效Ledger均只一次",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T015",
+    "requirements": [
+      "REQ-015"
+    ],
+    "scenario": "人工入账",
+    "expected": "生成可审计ManualCredit→Grant→Ledger",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T016",
+    "requirements": [
+      "REQ-003",
+      "REQ-004"
+    ],
+    "scenario": "Redis Key缓存丢失",
+    "expected": "回源MySQL仍正确鉴权",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T017",
+    "requirements": [
+      "REQ-012"
+    ],
+    "scenario": "查询Provider Channel",
+    "expected": "不得返回Provider Credential完整明文",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T018",
+    "requirements": [
+      "REQ-013"
+    ],
+    "scenario": "历史价格规则变化",
+    "expected": "已结算Charge保持原Pricing Snapshot",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T019",
+    "requirements": [
+      "REQ-005",
+      "REQ-006"
+    ],
+    "scenario": "跨权益池自动混扣",
+    "expected": "禁止",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T020",
+    "requirements": [
+      "REQ-005",
+      "REQ-006"
+    ],
+    "scenario": "订阅到期",
+    "expected": "项目保留，Subscription Key停止调用",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T021",
+    "requirements": [
+      "REQ-005"
+    ],
+    "scenario": "年订阅新月度周期",
+    "expected": "按月释放且上期余额不结转",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T022",
+    "requirements": [
+      "REQ-007"
+    ],
+    "scenario": "企业向项目分配额度",
+    "expected": "产生QuotaAllocation及Ledger事实",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T023",
+    "requirements": [
+      "REQ-003"
+    ],
+    "scenario": "项目创建多个API Key",
+    "expected": "均唯一归属项目且独立管理",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T024",
+    "requirements": [
+      "REQ-010"
+    ],
+    "scenario": "GET /v1/models",
+    "expected": "只返回项目授权Logical Model",
+    "automation": "REQUIRED"
+  },
+  {
+    "id": "DEV-T025",
+    "requirements": [
+      "REQ-014"
+    ],
+    "scenario": "按requestId追溯",
+    "expected": "Request→Decision→Attempts→Evidence→Charges→Settlement完整",
+    "automation": "REQUIRED"
+  }
+]

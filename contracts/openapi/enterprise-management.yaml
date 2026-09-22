@@ -1,0 +1,1378 @@
+openapi: 3.0.3
+info:
+  title: 恒爱AI聚合平台 企业管理 API
+  version: 1.0.0-candidate
+  description: 企业管理员、项目管理员、开发成员及财务/审计查看者使用的管理接口候选契约。所有资源必须同时校验Enterprise、Membership、Role和Project Scope。
+paths:
+  /api/projects:
+    get:
+      summary: 查询项目列表
+      description: 权限：企业管理员；项目管理员/开发成员按授权项目范围。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: 创建项目
+      description: 权限：企业管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectCode:
+                  type: string
+                  description: 企业内唯一项目编码
+                projectName:
+                  type: string
+                  description: 项目名称
+                entitlementMode:
+                  type: string
+                  enum:
+                  - BALANCE
+                  - SUBSCRIPTION
+                  description: 项目唯一权益模式
+  /api/projects/{projectId}:
+    get:
+      summary: 查询项目详情
+      description: 权限：企业管理员；授权项目成员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: 更新项目基本信息
+      description: 权限：企业管理员；授权项目管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/projects/{projectId}/api-keys:
+    get:
+      summary: 查询项目API Key
+      description: 权限：企业管理员；授权项目管理员/开发成员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: 创建API Key
+      description: 权限：企业管理员；授权项目管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keyName:
+                  type: string
+                  description: Key名称
+                expiresAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 可选过期时间
+  /api/api-keys/{keyId}/disable:
+    post:
+      summary: 禁用API Key
+      description: 权限：企业管理员；授权项目管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/api-keys/{keyId}/enable:
+    post:
+      summary: 重新启用API Key
+      description: 权限：企业管理员；授权项目管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/api-keys/{keyId}/revoke:
+    post:
+      summary: 永久撤销API Key
+      description: 权限：企业管理员；授权项目管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/projects/{projectId}/models:
+    get:
+      summary: 查询项目模型权限
+      description: 权限：企业管理员；授权项目成员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: 配置项目模型权限
+      description: 权限：企业管理员；授权项目管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/projects/{projectId}/quota:
+    get:
+      summary: 查询项目额度
+      description: 权限：企业管理员；授权项目管理员；财务/审计查看者。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/usage:
+    get:
+      summary: 查询调用记录
+      description: 权限：企业管理员；授权项目成员按数据范围。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/usage/{requestId}:
+    get:
+      summary: 查询调用详情及Routing Attempt
+      description: 权限：企业管理员；授权项目成员按数据范围。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/billing:
+    get:
+      summary: 查询企业费用与结算
+      description: 权限：企业管理员；财务/审计查看者。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/billing/{settlementId}:
+    get:
+      summary: 查询结算详情及Charge Component
+      description: 权限：企业管理员；财务/审计查看者。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/entitlements:
+    get:
+      summary: 查询企业权益
+      description: 权限：企业管理员；财务/审计查看者。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/subscriptions:
+    get:
+      summary: 查询订阅
+      description: 权限：企业管理员；财务/审计查看者。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/subscriptions/purchase:
+    post:
+      summary: 购买订阅
+      description: 权限：企业管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/balance/recharge:
+    post:
+      summary: 创建余额在线充值订单
+      description: 权限：企业管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/payment-orders:
+    get:
+      summary: 查询支付订单
+      description: 权限：企业管理员；财务/审计查看者。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/members:
+    get:
+      summary: 查询企业成员
+      description: 权限：企业管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: 添加企业成员
+      description: 权限：企业管理员。必须执行企业租户与项目数据范围校验。
+      responses:
+        '200':
+          description: 通用成功响应
+          headers:
+            x-request-id:
+              description: 管理API请求追踪ID
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessEnvelope'
+        '400':
+          description: 请求参数或状态不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 无权限或租户/项目数据范围越权
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 资源不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未登录或认证失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 资源状态冲突、重复业务键或并发版本冲突
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 平台内部错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - message
+          - type
+          - code
+          properties:
+            message:
+              type: string
+              description: 面向调用方的错误说明
+            type:
+              type: string
+              description: 错误类型
+            code:
+              type: string
+              description: 平台规范化错误码
+    Money:
+      type: string
+      pattern: ^-?\d+(\.\d{1,12})?$
+      description: 权威金额字符串，最多12位小数；数据库DECIMAL(24,12)，Java BigDecimal
+    PageMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: 当前页码
+        pageSize:
+          type: integer
+          description: 每页条数
+        total:
+          type: integer
+          format: int64
+          description: 总记录数
+    SuccessEnvelope:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+          description: 是否成功
+        requestId:
+          type: string
+          description: 管理API请求追踪ID
+        data:
+          description: 业务响应数据
+    ProjectSummary:
+      type: object
+      properties:
+        projectId:
+          type: string
+          description: 项目ID
+        projectCode:
+          type: string
+          description: 企业内唯一项目编码
+        projectName:
+          type: string
+          description: 项目名称
+        entitlementMode:
+          type: string
+          enum:
+          - BALANCE
+          - SUBSCRIPTION
+          description: 项目唯一权益模式
+        status:
+          type: string
+          description: 项目状态
+    ApiKeySummary:
+      type: object
+      properties:
+        apiKeyId:
+          type: string
+          description: API Key ID
+        keyName:
+          type: string
+          description: Key名称
+        keyPrefix:
+          type: string
+          description: 脱敏展示前缀，不是完整Secret
+        status:
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          - REVOKED
+          description: Key状态
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: 可选过期时间
+    UsageSummary:
+      type: object
+      properties:
+        requestId:
+          type: string
+          description: AI调用请求ID
+        projectId:
+          type: string
+          description: 项目ID
+        model:
+          type: string
+          description: 逻辑模型编码
+        executionResult:
+          type: string
+          description: 执行结果
+        deliveryResult:
+          type: string
+          description: 交付结果
+        billingResult:
+          type: string
+          description: 计费结果
+        createdAt:
+          type: string
+          format: date-time
+          description: 请求时间
+    BillingSummary:
+      type: object
+      properties:
+        settlementId:
+          type: string
+          description: 结算ID
+        requestId:
+          type: string
+          description: 关联AI调用请求ID
+        totalCharge:
+          $ref: '#/components/schemas/Money'
+        currency:
+          type: string
+          description: 币种
+        status:
+          type: string
+          description: 结算状态
+  securitySchemes:
+    HumanAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Session/JWT
+      description: 企业人员管理后台登录凭证
+security:
+- HumanAuth: []
