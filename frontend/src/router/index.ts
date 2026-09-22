@@ -2141,9 +2141,7 @@ export const routes: RouteRecordRaw[] = [
     path: "/ai", name: "AiShell", component: AppLayout, redirect: "/ai/projects",
     meta: { title: "智行官" },
     children: [
-      { path: "projects", name: "AiProjects", component: () => import("@/pages/ai/AiManagementPage.vue"), meta: { title: "项目" } },
-      { path: "projects/:projectId/api-keys", name: "AiProjectApiKeys", component: () => import("@/pages/ai/AiManagementPage.vue"), meta: { title: "API Key" } },
-      { path: "usage", name: "AiUsage", component: () => import("@/pages/ai/AiManagementPage.vue"), meta: { title: "调用记录" } },
+      { path: "projects", name: "AiProjects", component: () => import("@/pages/ai/ProjectManagementPage.vue"), meta: { title: "项目" } },
     ],
   },
   { path: "/platform/ai/models", name: "AiModels", component: () => import("@/pages/ai/AiPlaceholderPage.vue"), props: { title: "模型" }, meta: { public: true, title: "模型" } },
