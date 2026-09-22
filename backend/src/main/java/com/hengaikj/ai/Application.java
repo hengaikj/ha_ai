@@ -71,6 +71,16 @@ public class Application {
     }
 
     @Bean
+    ApiKeyManagementService apiKeyManagementService(ObjectProvider<ApiKeyMapper> mapper,
+                                                      org.springframework.core.env.Environment env) {
+        if (env.getProperty("ha.gateway.persistence.enabled", Boolean.class, false)
+                && mapper.getIfAvailable() != null) {
+            return new ApiKeyManagementService(new MybatisApiKeyManagementRepository(mapper.getIfAvailable()));
+        }
+        return new ApiKeyManagementService(new InMemoryApiKeyManagementRepository());
+    }
+
+    @Bean
     ProjectApplicationService projectApplicationService(ObjectProvider<ProjectMapper> mapper,
                                                         org.springframework.core.env.Environment env) {
         if (env.getProperty("ha.gateway.persistence.enabled", Boolean.class, false)
