@@ -1,0 +1,42 @@
+name: 前端 Wave1 Playwright
+
+on:
+  pull_request:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-playwright.yml"
+  push:
+    branches:
+      - "feature/m01-frontend-wave1"
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-playwright.yml"
+
+jobs:
+  wave1-review:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-noble
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 启用 pnpm
+        run: corepack enable
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 执行 Wave1 页面验收
+        run: pnpm exec playwright test --config=playwright.wave1.config.ts
+
+      - name: 上传 Playwright 报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-wave1-playwright
+          path: frontend/outputs/playwright/wave1
+          if-no-files-found: warn

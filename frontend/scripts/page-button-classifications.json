@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "classifications": [
+    {
+      "file": "src/pages/DashboardPage.vue",
+      "labels": ["刷新工作台"],
+      "classification": "local-ui",
+      "reason": "按当前时间范围重新加载登录用户可见的工作台模块"
+    },
+    {
+      "file": "src/pages/LoginPage.vue",
+      "labels": ["刷新"],
+      "classification": "local-ui",
+      "reason": "刷新验证码，只更新匿名登录页面状态"
+    },
+    {
+      "file": "src/pages/LoginPage.vue",
+      "labels": ["登录"],
+      "classification": "public-authentication",
+      "reason": "匿名登录入口不适用登录后的菜单按钮权限"
+    },
+    {
+      "file": "src/pages/budget/BudgetDashboardPage.vue",
+      "labels": ["查看"],
+      "classification": "navigation-view",
+      "reason": "跳转到已有菜单权限控制的预算工作台"
+    },
+    {
+      "file": "src/pages/budget/BudgetInitiationDetailPage.vue",
+      "labels": ["历史版本"],
+      "classification": "navigation-view",
+      "reason": "跳转到当前项目的历史版本页面"
+    },
+    {
+      "file": "src/pages/budget/BudgetInitiationWorkbenchPage.vue",
+      "labels": ["历史版本"],
+      "classification": "navigation-view",
+      "reason": "跳转到当前项目的历史版本页面"
+    },
+    {
+      "file": "src/pages/budget/BudgetReportsPage.vue",
+      "labels": ["生成报表"],
+      "classification": "navigation-view",
+      "reason": "跳转到对应预算报表页面"
+    },
+    {
+      "file": "src/pages/budget/BudgetVersionHistoryPage.vue",
+      "labels": ["返回列表", "查看"],
+      "classification": "navigation-view",
+      "reason": "在预算列表和历史详情页面之间导航"
+    },
+    {
+      "file": "src/pages/budget/BudgetWorkbenchPage.vue",
+      "labels": ["刷新"],
+      "classification": "local-ui",
+      "reason": "刷新当前附件或列表显示"
+    },
+    {
+      "file": "src/pages/budget/BudgetWorkbenchPage.vue",
+      "labels": ["历史版本"],
+      "classification": "navigation-view",
+      "reason": "跳转到当前预算记录的历史版本页面"
+    },
+    {
+      "file": "src/pages/budget/clique/BudgetGateReviewAssessPage.vue",
+      "labels": ["列设置"],
+      "classification": "local-ui",
+      "reason": "仅调整当前表格列显示"
+    },
+    {
+      "file": "src/pages/budget/clique/BudgetGateReviewAttachmentDialog.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "切换附件表格和卡片显示模式"
+    },
+    {
+      "file": "src/pages/budget/clique/BudgetGateReviewDetailPage.vue",
+      "labels": ["历史版本"],
+      "classification": "navigation-view",
+      "reason": "跳转到当前过阀记录的历史版本页面"
+    },
+    {
+      "file": "src/pages/budget/clique/BudgetGateReviewVersionHistoryPage.vue",
+      "labels": ["返回列表"],
+      "classification": "navigation-view",
+      "reason": "在过阀列表和历史详情之间导航"
+    },
+    {
+      "file": "src/pages/budget/clique/BudgetGateReviewWbsHistoryVersionPage.vue",
+      "labels": ["返回列表", "查看"],
+      "classification": "navigation-view",
+      "reason": "在过阀WBS列表和历史详情之间导航"
+    },
+    {
+      "file": "src/pages/budget/clique/BudgetGateReviewWorkbenchPage.vue",
+      "labels": ["历史版本"],
+      "classification": "navigation-view",
+      "reason": "跳转到当前过阀记录的历史版本页面"
+    },
+    {
+      "file": "src/pages/committee/CommitteeAiMaterialPage.vue",
+      "labels": ["编辑上会材料", "返回会议"],
+      "classification": "navigation-view",
+      "reason": "在会议详情与材料编辑页面之间导航"
+    },
+    {
+      "file": "src/pages/committee/CommitteeDashboardPage.vue",
+      "labels": ["0", "刷新"],
+      "classification": "local-ui",
+      "reason": "更新工作台筛选或计数显示"
+    },
+    {
+      "file": "src/pages/committee/CommitteeDashboardPage.vue",
+      "labels": ["处理", "查看全部"],
+      "classification": "navigation-view",
+      "reason": "跳转到已有菜单权限控制的委员会业务页面"
+    },
+    {
+      "file": "src/pages/committee/CommitteeGroupMaterialPage.vue",
+      "labels": ["打开 AI 提炼工作台"],
+      "classification": "navigation-view",
+      "reason": "跳转到上会材料AI工作台"
+    },
+    {
+      "file": "src/pages/committee/CommitteeGroupMaterialPage.vue",
+      "labels": ["返回会议详情"],
+      "classification": "navigation-view",
+      "reason": "返回当前会议详情页面"
+    },
+    {
+      "file": "src/pages/committee/CommitteeGroupMaterialPage.vue",
+      "labels": ["全屏"],
+      "classification": "local-ui",
+      "reason": "仅切换当前材料页面的全屏展示状态"
+    },
+    {
+      "file": "src/pages/committee/CommitteeMeetingFormPage.vue",
+      "labels": [
+        "重新加载",
+        "重新加载关联信息",
+        "重新加载项目条件",
+        "重新搜索项目"
+      ],
+      "classification": "local-ui",
+      "reason": "重新加载当前会议表单候选数据，不产生业务写入"
+    },
+    {
+      "file": "src/pages/committee/CommitteeMeetingHistoryPage.vue",
+      "labels": ["查看"],
+      "classification": "navigation-view",
+      "reason": "跳转到历史会议详情"
+    },
+    {
+      "file": "src/pages/committee/CommitteeMeetingListPage.vue",
+      "labels": ["动态文案"],
+      "classification": "navigation-view",
+      "reason": "项目名称链接跳转到项目详情"
+    },
+    {
+      "file": "src/pages/committee/CommitteeProjectDetailPage.vue",
+      "labels": ["刷新", "动态文案"],
+      "classification": "local-ui",
+      "reason": "刷新项目详情或展开历史阀点区域"
+    },
+    {
+      "file": "src/pages/committee/CommitteeProjectDetailPage.vue",
+      "labels": ["会议历史"],
+      "classification": "navigation-view",
+      "reason": "跳转到阀点会议历史页面"
+    },
+    {
+      "file": "src/pages/committee/CommitteeProjectDetailPage.vue",
+      "labels": ["查看"],
+      "dataTest": "project-current-gate-materials-trigger",
+      "classification": "local-ui",
+      "reason": "打开已加载的当前阀点材料弹窗"
+    },
+    {
+      "file": "src/pages/committee/CommitteeProjectDetailPage.vue",
+      "labels": ["查看"],
+      "dataTest": "project-current-gate-reviewers-trigger",
+      "classification": "local-ui",
+      "reason": "打开已加载的当前阀点评审人弹窗"
+    },
+    {
+      "file": "src/pages/committee/CommitteeProjectListPage.vue",
+      "labels": ["动态文案"],
+      "classification": "navigation-view",
+      "reason": "项目名称链接跳转到项目详情"
+    },
+    {
+      "file": "src/pages/committee/CommitteeReviewDepartmentConfigPage.vue",
+      "labels": ["恢复已保存", "移除", "配置"],
+      "classification": "local-ui",
+      "reason": "调整尚未保存的部门评审配置草稿"
+    },
+    {
+      "file": "src/pages/committee/CommitteeReviewListPage.vue",
+      "labels": ["返回评审列表", "部门评审跟踪"],
+      "classification": "navigation-view",
+      "reason": "在评审列表与部门跟踪视图之间导航"
+    },
+    {
+      "file": "src/pages/committee/CommitteeSnapshotPage.vue",
+      "labels": ["查看"],
+      "classification": "navigation-view",
+      "reason": "跳转到委员会快照详情"
+    },
+    {
+      "file": "src/pages/committee/components/CommitteeReviewCollaborationPanel.vue",
+      "labels": ["· 条回复"],
+      "classification": "local-ui",
+      "reason": "展开或折叠已加载的协同回复"
+    },
+    {
+      "file": "src/pages/committee/components/CommitteeTimeBoard.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "切换时间轴当前节点显示"
+    },
+    {
+      "file": "src/pages/cost/CostAnalysisPage.vue",
+      "labels": ["刷新", "动态文案"],
+      "classification": "local-ui",
+      "reason": "刷新列表或增删当前查询条件"
+    },
+    {
+      "file": "src/pages/cost/CostBomQueryPage.vue",
+      "labels": ["刷新", "动态文案"],
+      "classification": "local-ui",
+      "reason": "刷新列表或增删当前查询条件"
+    },
+    {
+      "file": "src/pages/cost/bom/purchase-list/PurchaseBomReorganizePage.vue",
+      "labels": ["动态文案", "无版型"],
+      "classification": "local-ui",
+      "reason": "切换当前重组页面筛选和版型选择状态"
+    },
+    {
+      "file": "src/pages/cost/cost-bom/CostBomDetailPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "增删当前详情查询条件或切换局部显示"
+    },
+    {
+      "file": "src/pages/cost/research/history/CostResearchHistoryViewPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "增删当前成本履历详情查询条件"
+    },
+    {
+      "file": "src/pages/cost/research/history/NewCostResearchHistoryViewPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "增删当前成本履历详情查询条件"
+    },
+    {
+      "file": "src/pages/cost/research/project-cost/NewProjectCostPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "增删当前详情查询条件"
+    },
+    {
+      "file": "src/pages/cost/research/project-cost/ProjectCostPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "增删当前详情查询条件"
+    },
+    {
+      "file": "src/pages/custom-table/TableDesignerPage.vue",
+      "labels": [
+        "JSON预览",
+        "公式定义",
+        "删除",
+        "动态文案",
+        "导入Excel",
+        "扩展规则",
+        "新增",
+        "校验报告",
+        "模板信息",
+        "预览"
+      ],
+      "classification": "local-ui",
+      "reason": "编辑、校验或预览当前尚未提交的模板草稿"
+    },
+    {
+      "file": "src/pages/custom-table/TableWorkbookPage.vue",
+      "labels": ["返回模板中心"],
+      "classification": "navigation-view",
+      "reason": "返回已有菜单权限控制的模板中心"
+    },
+    {
+      "file": "src/pages/custom-table/TemplateCenterPage.vue",
+      "labels": ["更多"],
+      "classification": "local-ui",
+      "reason": "展开当前模板行的操作菜单"
+    },
+    {
+      "file": "src/pages/custom-table/components/DesignExtensionPanel.vue",
+      "labels": ["新增区域", "新增变量", "新增校验", "新增样式"],
+      "classification": "local-ui",
+      "reason": "修改当前尚未保存的模板扩展规则草稿"
+    },
+    {
+      "file": "src/pages/custom-table/components/DesignerToolbar.vue",
+      "labels": [
+        "Sheet管理",
+        "删除列",
+        "删除行",
+        "动态文案",
+        "取消合并",
+        "合并",
+        "复制",
+        "插入列",
+        "插入行",
+        "校验",
+        "粘贴"
+      ],
+      "classification": "local-ui",
+      "reason": "修改当前设计器内存中的工作表草稿"
+    },
+    {
+      "file": "src/pages/custom-table/components/ProviderFieldPanel.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "选择当前模板数据字段"
+    },
+    {
+      "file": "src/pages/custom-table/components/SheetCanvas.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "选择当前工作表单元格"
+    },
+    {
+      "file": "src/pages/custom-table/components/SheetDesigner.vue",
+      "labels": ["保存", "应用结构", "添加", "设置"],
+      "classification": "local-ui",
+      "reason": "修改并应用当前工作表结构草稿"
+    },
+    {
+      "file": "src/pages/custom-table/components/SheetManagerDialog.vue",
+      "labels": ["保存名称", "删除", "复制", "新增"],
+      "classification": "local-ui",
+      "reason": "修改当前模板中的工作表草稿"
+    },
+    {
+      "file": "src/pages/custom-table/components/TemplateJsonDrawer.vue",
+      "labels": ["下载 JSON"],
+      "classification": "local-ui",
+      "reason": "在浏览器端下载当前已授权模板的JSON副本，不调用后端文件接口"
+    },
+    {
+      "file": "src/pages/custom-table/components/WorkbookPermissionDrawer.vue",
+      "labels": ["删除", "新增规则"],
+      "classification": "local-ui",
+      "reason": "修改尚未提交的工作簿权限规则草稿"
+    },
+    {
+      "file": "src/pages/custom-table/components/WorkbookSheet.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "选择当前工作簿单元格"
+    },
+    {
+      "file": "src/pages/information/BudgetGradePage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "展开或折叠预算等级树"
+    },
+    {
+      "file": "src/pages/information/CostCategoryPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "展开或折叠成本分类树"
+    },
+    {
+      "file": "src/pages/information/PresetColumnFormPage.vue",
+      "labels": ["返回列表"],
+      "classification": "navigation-view",
+      "reason": "返回已有菜单权限控制的预置列列表"
+    },
+    {
+      "file": "src/pages/project/ProjectManagementPage.vue",
+      "labels": ["删除", "添加阀点"],
+      "classification": "local-ui",
+      "reason": "只增删项目编辑弹窗中的阀点草稿，提交项目时才写入后端"
+    },
+    {
+      "file": "src/pages/system/SystemDeptPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "展开或折叠部门树"
+    },
+    {
+      "file": "src/pages/system/SystemDictDetailPage.vue",
+      "labels": ["返回列表"],
+      "classification": "navigation-view",
+      "reason": "返回已有菜单权限控制的字典列表"
+    },
+    {
+      "file": "src/pages/system/SystemDictPage.vue",
+      "labels": ["动态文案"],
+      "classification": "navigation-view",
+      "reason": "字典类型名称链接跳转到字典详情"
+    },
+    {
+      "file": "src/pages/system/SystemMenuPage.vue",
+      "labels": ["动态文案"],
+      "classification": "local-ui",
+      "reason": "展开或折叠菜单树"
+    },
+    {
+      "file": "src/pages/system/SystemUserDataPermissionPage.vue",
+      "labels": ["全部", "动态文案"],
+      "classification": "local-ui",
+      "reason": "切换公司或项目选择状态，最终保存按钮已有权限"
+    },
+    {
+      "file": "src/pages/system/task-center/index.vue",
+      "labels": ["详情"],
+      "classification": "navigation-view",
+      "reason": "打开当前用户任务详情抽屉，接口按任务归属鉴权"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "file": "contracts/openapi/enterprise-management.yaml",
+  "responses": {
+    "/api/projects": {
+      "description": "通用成功响应",
+      "headers": {
+        "x-request-id": {
+          "description": "管理API请求追踪ID",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          }
+        }
+      }
+    },
+    "/api/projects/{projectId}/api-keys": {
+      "description": "通用成功响应",
+      "headers": {
+        "x-request-id": {
+          "description": "管理API请求追踪ID",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          }
+        }
+      }
+    },
+    "/api/usage": {
+      "description": "通用成功响应",
+      "headers": {
+        "x-request-id": {
+          "description": "管理API请求追踪ID",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/SuccessEnvelope"
+          }
+        }
+      }
+    }
+  },
+  "schemas": {
+    "SuccessEnvelope": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否成功"
+        },
+        "requestId": {
+          "type": "string",
+          "description": "管理API请求追踪ID"
+        },
+        "data": {
+          "description": "业务响应数据"
+        }
+      }
+    },
+    "ProjectSummary": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "description": "项目ID"
+        },
+        "projectCode": {
+          "type": "string",
+          "description": "企业内唯一项目编码"
+        },
+        "projectName": {
+          "type": "string",
+          "description": "项目名称"
+        },
+        "entitlementMode": {
+          "type": "string",
+          "enum": [
+            "BALANCE",
+            "SUBSCRIPTION"
+          ],
+          "description": "项目唯一权益模式"
+        },
+        "status": {
+          "type": "string",
+          "description": "项目状态"
+        }
+      }
+    },
+    "ApiKeySummary": {
+      "type": "object",
+      "properties": {
+        "apiKeyId": {
+          "type": "string",
+          "description": "API Key ID"
+        },
+        "keyName": {
+          "type": "string",
+          "description": "Key名称"
+        },
+        "keyPrefix": {
+          "type": "string",
+          "description": "脱敏展示前缀，不是完整Secret"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ENABLED",
+            "DISABLED",
+            "REVOKED"
+          ],
+          "description": "Key状态"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "nullable": true,
+          "description": "可选过期时间"
+        }
+      }
+    },
+    "UsageSummary": {
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "description": "AI调用请求ID"
+        },
+        "projectId": {
+          "type": "string",
+          "description": "项目ID"
+        },
+        "model": {
+          "type": "string",
+          "description": "逻辑模型编码"
+        },
+        "executionResult": {
+          "type": "string",
+          "description": "执行结果"
+        },
+        "deliveryResult": {
+          "type": "string",
+          "description": "交付结果"
+        },
+        "billingResult": {
+          "type": "string",
+          "description": "计费结果"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "请求时间"
+        }
+      }
+    }
+  }
+}

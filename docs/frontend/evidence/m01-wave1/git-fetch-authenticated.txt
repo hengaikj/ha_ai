@@ -1,0 +1,2 @@
+From https://github.com/hengaikj/ha_ai
+   7332d4b..1d15294  feature/m01-slice01 -> origin/feature/m01-slice01

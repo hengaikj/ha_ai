@@ -1,0 +1,152 @@
+.data-import-form {
+  .el-form-item {
+    margin-bottom: 14px;
+  }
+
+  .el-form-item__content {
+    margin-left: 0 !important;
+  }
+
+  .data-import-help-item {
+    margin-bottom: 0;
+  }
+
+  .data-import-help {
+    color: #606266;
+    font-size: 13px;
+    line-height: 22px;
+    word-break: break-word;
+  }
+}
+
+.data-import-option-meta {
+  float: right;
+  color: #8492a6;
+  font-size: 12px;
+}
+
+.revenue-fill-cell-popover,
+.revenue-s3-confirm-popover {
+  padding: 0;
+  border: 1px solid #d7e2ef;
+  border-radius: 8px;
+  box-shadow: 0 18px 38px rgba(22, 52, 91, 0.16);
+
+  .fill-cell-editor-panel,
+  .s3-confirm-cell {
+    display: grid;
+    gap: 8px;
+    min-width: 260px;
+    padding: 12px;
+    white-space: normal;
+  }
+
+  .audit-popover-title {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #2e3f57;
+  }
+
+  .audit-popover-sub {
+    color: #5f718c;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .s3-choice-group {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .audit-choice-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  .audit-choice-item,
+  .audit-custom-row {
+    border: 1px solid #e1e9f3;
+    border-radius: 8px;
+    padding: 8px 9px;
+    background: #f9fbff;
+    display: grid;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .audit-choice-item.is-selected,
+  .audit-custom-row.is-selected {
+    border-color: #7ca9df;
+    background: #f4f8ff;
+  }
+
+  .audit-choice-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 12px;
+    color: #374c67;
+
+    b {
+      color: #123b6d;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+  }
+
+  .audit-choice-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-left: 23px;
+    color: #7b8da5;
+    font-size: 11px;
+  }
+
+  .audit-choice-note {
+    padding-left: 23px;
+    color: #60748f;
+    font-size: 12px;
+    line-height: 18px;
+    white-space: normal;
+  }
+
+  .audit-popover-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .fill-value-row,
+  .audit-opinion-row {
+    display: grid;
+    gap: 5px;
+  }
+
+  .audit-opinion-label {
+    color: #435a75;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .audit-custom-row .el-select,
+  .audit-custom-row .el-input,
+  .fill-value-row .el-input {
+    flex: 1;
+  }
+}
+
+/* 子表公式科目悬浮说明（挂到 body，需非 scoped） */
+.revenue-formula-tooltip {
+  max-width: 440px;
+
+  .revenue-formula-tooltip__content {
+    white-space: pre-line;
+    line-height: 1.55;
+    word-break: break-word;
+    font-size: 12px;
+  }
+}

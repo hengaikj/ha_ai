@@ -1,0 +1,14 @@
+/data/soft/nodev23/lib/node_modules/corepack/dist/lib/corepack.cjs:21535
+  if (key == null || signature == null) throw new Error(`Cannot find matching keyid: ${JSON.stringify({ signatures, keys })}`);
+                                              ^
+
+Error: Cannot find matching keyid: {"signatures":[{"sig":"MEUCIQC7beO7UbuinRUqd75tDA7npst3PuGyR7nojzjFcjJ+PQIgEDeHq18hEHCjOsYdxoSRpW5J/XvD0X99QmsPFHYzsHg=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"keys":[{"expires":null,"keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA","keytype":"ecdsa-sha2-nistp256","scheme":"ecdsa-sha2-nistp256","key":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1Olb3zMAFFxXKHiIkQO5cJ3Yhl5i6UPp+IhuteBJbuHcA5UogKo0EWtlWwW6KSaKoTNEYL7JlCQiVnkhBktUgg=="}]}
+    at verifySignature (/data/soft/nodev23/lib/node_modules/corepack/dist/lib/corepack.cjs:21535:47)
+    at fetchLatestStableVersion (/data/soft/nodev23/lib/node_modules/corepack/dist/lib/corepack.cjs:21553:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async fetchLatestStableVersion2 (/data/soft/nodev23/lib/node_modules/corepack/dist/lib/corepack.cjs:21672:14)
+    at async Engine.getDefaultVersion (/data/soft/nodev23/lib/node_modules/corepack/dist/lib/corepack.cjs:22298:23)
+    at async Engine.executePackageManagerRequest (/data/soft/nodev23/lib/node_modules/corepack/dist/lib/corepack.cjs:22396:47)
+    at async Object.runMain (/data/soft/nodev23/lib/node_modules/corepack/dist/lib/corepack.cjs:23102:5)
+
+Node.js v23.5.0
