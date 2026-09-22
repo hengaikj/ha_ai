@@ -19,7 +19,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ProjectListResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -70,7 +70,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ProjectResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -141,7 +141,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ProjectResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -192,7 +192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ProjectResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -244,7 +244,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ApiKeyListResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -673,7 +673,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/UsageListResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -1281,6 +1281,56 @@ components:
           description: 管理API请求追踪ID
         data:
           description: 业务响应数据
+    ProjectListResponse:
+      type: object
+      required: [success, requestId, data]
+      properties:
+        success:
+          type: boolean
+          example: true
+        requestId:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectSummary'
+    ProjectResponse:
+      type: object
+      required: [success, requestId, data]
+      properties:
+        success:
+          type: boolean
+          example: true
+        requestId:
+          type: string
+        data:
+          $ref: '#/components/schemas/ProjectSummary'
+    ApiKeyListResponse:
+      type: object
+      required: [success, requestId, data]
+      properties:
+        success:
+          type: boolean
+          example: true
+        requestId:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiKeySummary'
+    UsageListResponse:
+      type: object
+      required: [success, requestId, data]
+      properties:
+        success:
+          type: boolean
+          example: true
+        requestId:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageSummary'
     ProjectSummary:
       type: object
       properties:
