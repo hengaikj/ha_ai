@@ -1,0 +1,15 @@
+version: 1.0
+namespace: "ha:{env}:"
+principles:
+  - MySQL 8是权益、计费、账本最终权威
+  - Redis只保存可重建运行态投影、缓存和控制状态
+  - Redis禁止保存企业API Key完整明文和Provider Credential完整明文
+key_families:
+  - "ha:{env}:apikey:{keyHash}"
+  - "ha:{env}:project:{projectId}:runtime"
+  - "ha:{env}:project:{projectId}:models"
+  - "ha:{env}:model:{modelId}:channels"
+  - "ha:{env}:channel:{channelId}:health"
+  - "ha:{env}:project:{projectId}:inflight"
+  - "ha:{env}:ratelimit:{scope}:{id}:{window}"
+  - "ha:{env}:idempotency:{businessKey}"
