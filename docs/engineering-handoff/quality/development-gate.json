@@ -1,0 +1,19 @@
+{
+  "requirement_baseline": "APPROVED",
+  "design_baseline": "APPROVED",
+  "technical_baseline": "APPROVED",
+  "schema_candidate": "PASS",
+  "redis_contract": "PASS",
+  "test_contract": "PASS",
+  "openapi_contract": "PASS",
+  "formal_development_ready": true,
+  "blocking_items": [],
+  "integration_verification_status": "NOT_RUN",
+  "integration_profile": {
+    "ai_provider": "https://api.hengaikj.com/v1",
+    "payment_channels": [
+      "支付宝",
+      "微信支付"
+    ]
+  }
+}

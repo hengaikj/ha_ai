@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: 恒爱AI聚合平台 OpenAI-compatible API
+  version: 1.0.0
+paths:
+  /v1/models:
+    get:
+      summary: 获取当前项目可调用模型
+      security: [{BearerAuth: []}]
+      responses:
+        '200': {description: 成功}
+        '401': {description: API Key认证失败}
+        '403': {description: 项目或企业无权调用}
+  /v1/chat/completions:
+    post:
+      summary: 创建对话补全
+      description: V1支持stream=false/true；M01第一阶段只实现stream=false。
+      security: [{BearerAuth: []}]
+      responses:
+        '200': {description: 成功，响应头包含x-request-id}
+        '401': {description: API Key认证失败}
+        '402': {description: 权益或额度不足}
+        '429': {description: 触发流控}
+        '502': {description: 上游模型服务错误}
+        '504': {description: 上游模型服务超时}
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
