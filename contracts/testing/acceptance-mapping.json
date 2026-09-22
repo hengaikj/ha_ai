@@ -1,0 +1,129 @@
+{
+  "version": "1.0-candidate",
+  "p0_denominator": 15,
+  "requirements": [
+    {
+      "requirement_id": "REQ-001",
+      "test_ids": [
+        "DEV-T013"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-002",
+      "test_ids": [
+        "DEV-T013"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-003",
+      "test_ids": [
+        "DEV-T016",
+        "DEV-T023"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-004",
+      "test_ids": [
+        "DEV-T008",
+        "DEV-T009",
+        "DEV-T010",
+        "DEV-T016"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-005",
+      "test_ids": [
+        "DEV-T019",
+        "DEV-T020",
+        "DEV-T021"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-006",
+      "test_ids": [
+        "DEV-T019",
+        "DEV-T020"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-007",
+      "test_ids": [
+        "DEV-T022"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-008",
+      "test_ids": [
+        "DEV-T012"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-009",
+      "test_ids": [
+        "DEV-T011"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-010",
+      "test_ids": [
+        "DEV-T001",
+        "DEV-T005",
+        "DEV-T024"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-011",
+      "test_ids": [
+        "DEV-T004"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-012",
+      "test_ids": [
+        "DEV-T017"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-013",
+      "test_ids": [
+        "DEV-T001",
+        "DEV-T002",
+        "DEV-T003",
+        "DEV-T004",
+        "DEV-T005",
+        "DEV-T006",
+        "DEV-T007",
+        "DEV-T018"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-014",
+      "test_ids": [
+        "DEV-T001",
+        "DEV-T025"
+      ],
+      "covered_by_test_contract": true
+    },
+    {
+      "requirement_id": "REQ-015",
+      "test_ids": [
+        "DEV-T014",
+        "DEV-T015"
+      ],
+      "covered_by_test_contract": true
+    }
+  ]
+}
