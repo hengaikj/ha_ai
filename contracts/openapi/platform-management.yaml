@@ -124,7 +124,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/LogicalModelListResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -164,6 +164,12 @@ paths:
     post:
       summary: 创建逻辑模型
       description: 平台权限：Model/Channel Operator。敏感凭证按最小权限原则处理。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogicalModelRequest'
       responses:
         '200':
           description: 成功
@@ -175,7 +181,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/LogicalModelResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -227,7 +233,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ProviderListResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -267,6 +273,12 @@ paths:
     post:
       summary: 创建Provider
       description: 平台权限：Model/Channel Operator。敏感凭证按最小权限原则处理。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
       responses:
         '200':
           description: 成功
@@ -278,7 +290,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ProviderResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -330,7 +342,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ChannelListResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -370,6 +382,12 @@ paths:
     post:
       summary: 创建Provider Channel
       description: 平台权限：Model/Channel Operator。敏感凭证按最小权限原则处理。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelRequest'
       responses:
         '200':
           description: 成功
@@ -381,7 +399,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessEnvelope'
+                $ref: '#/components/schemas/ChannelResponse'
         '400':
           description: 请求参数或状态不合法
           content:
@@ -993,6 +1011,245 @@ components:
           description: 管理API请求追踪ID
         data:
           description: 业务响应数据
+    LogicalModelRequest:
+      type: object
+      required:
+      - modelCode
+      - modelName
+      properties:
+        modelCode:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: 对企业暴露的逻辑模型编码，创建后保持稳定
+        modelName:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: 逻辑模型展示名称
+        capabilities:
+          type: object
+          additionalProperties: true
+          description: 模型能力元数据；未提供时由平台按默认能力处理
+        status:
+          type: string
+          enum: [ENABLED, DISABLED]
+          default: ENABLED
+          description: 逻辑模型状态
+    LogicalModel:
+      type: object
+      required: [logicalModelId, modelCode, modelName, status, createdAt, updatedAt]
+      properties:
+        logicalModelId:
+          type: string
+          description: 逻辑模型ID
+        modelCode:
+          type: string
+          description: 对企业暴露的逻辑模型编码
+        modelName:
+          type: string
+          description: 逻辑模型名称
+        capabilities:
+          type: object
+          additionalProperties: true
+          description: 模型能力元数据
+        status:
+          type: string
+          enum: [ENABLED, DISABLED]
+          description: 逻辑模型状态
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+    LogicalModelResponse:
+      allOf:
+      - $ref: '#/components/schemas/SuccessEnvelope'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/LogicalModel'
+    LogicalModelListResponse:
+      allOf:
+      - $ref: '#/components/schemas/SuccessEnvelope'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/LogicalModel'
+    ProviderRequest:
+      type: object
+      required: [providerCode, providerName, adapterCode]
+      properties:
+        providerCode:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: 上游供应商唯一编码
+        providerName:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: 上游供应商名称
+        adapterCode:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: ProviderAdapter实现编码
+        status:
+          type: string
+          enum: [ENABLED, DISABLED]
+          default: ENABLED
+          description: Provider状态
+    Provider:
+      type: object
+      required: [providerId, providerCode, providerName, adapterCode, status, createdAt, updatedAt]
+      properties:
+        providerId:
+          type: string
+          description: 上游供应商ID
+        providerCode:
+          type: string
+          description: 上游供应商唯一编码
+        providerName:
+          type: string
+          description: 上游供应商名称
+        adapterCode:
+          type: string
+          description: ProviderAdapter实现编码
+        status:
+          type: string
+          enum: [ENABLED, DISABLED]
+          description: Provider状态
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+    ProviderResponse:
+      allOf:
+      - $ref: '#/components/schemas/SuccessEnvelope'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/Provider'
+    ProviderListResponse:
+      allOf:
+      - $ref: '#/components/schemas/SuccessEnvelope'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Provider'
+    ChannelRequest:
+      type: object
+      required: [providerId, channelCode, channelName, endpoint, credentialRef]
+      properties:
+        providerId:
+          type: string
+          description: 所属上游供应商ID
+        channelCode:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: 供应商内唯一渠道编码
+        channelName:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: 渠道名称
+        endpoint:
+          type: string
+          format: uri
+          maxLength: 512
+          description: 上游API端点
+        credentialRef:
+          type: string
+          maxLength: 255
+          description: 上游凭证引用；只保存引用，禁止提交或返回凭证明文
+        priority:
+          type: integer
+          default: 0
+          description: 路由优先级，数值越小越优先
+        weight:
+          type: integer
+          minimum: 0
+          default: 100
+          description: 同优先级渠道的路由权重
+        status:
+          type: string
+          enum: [ENABLED, DISABLED]
+          default: ENABLED
+          description: 渠道状态
+    Channel:
+      type: object
+      required: [channelId, providerId, channelCode, channelName, endpoint, priority, weight, status, version, createdAt, updatedAt]
+      properties:
+        channelId:
+          type: string
+          description: 供应商渠道ID
+        providerId:
+          type: string
+          description: 所属上游供应商ID
+        channelCode:
+          type: string
+          description: 供应商内唯一渠道编码
+        channelName:
+          type: string
+          description: 渠道名称
+        endpoint:
+          type: string
+          format: uri
+          description: 上游API端点
+        credentialRef:
+          type: string
+          description: 上游凭证引用；不得返回凭证明文
+        priority:
+          type: integer
+          description: 路由优先级
+        weight:
+          type: integer
+          description: 路由权重
+        status:
+          type: string
+          enum: [ENABLED, DISABLED]
+          description: 渠道状态
+        version:
+          type: integer
+          format: int64
+          description: 乐观锁版本号
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+    ChannelResponse:
+      allOf:
+      - $ref: '#/components/schemas/SuccessEnvelope'
+      - type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/Channel'
+    ChannelListResponse:
+      allOf:
+      - $ref: '#/components/schemas/SuccessEnvelope'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Channel'
     ProjectSummary:
       type: object
       properties:
