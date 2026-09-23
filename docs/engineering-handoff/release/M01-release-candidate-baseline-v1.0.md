@@ -4,6 +4,7 @@
 冻结日期：2026-09-23（Asia/Shanghai）
 基线分支：`develop`
 基线 Commit：`79fc320492427fc3fbf8c502ecff42621815f14e`
+当前 `develop` HEAD：`2efe7f3b49c0490591e6b56701f2b8df98b5a1fb`（仅交付文档提交，未改变 RC 代码基线）
 
 ## Gate 结论
 
@@ -17,7 +18,7 @@ M01 已由总控确认通过：
 | Frontend | PASS |
 | Integration | PASS |
 
-PR #43 与 PR #44 已合并。此前 M01 相关的 PR #38、PR #39、PR #42 也已进入 `develop`，本文件以当前 `develop` 合并提交作为唯一 RC 代码基线。
+PR #43 与 PR #44 已合并。此前 M01 相关的 PR #38、PR #39、PR #42 也已进入 `develop`。`79fc320` 是本 RC 的代码基线；其后的 `develop` 提交仅补充交付文档，不改变 M01 代码。
 
 ## 冻结规则
 

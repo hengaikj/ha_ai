@@ -16,7 +16,7 @@ M01 的 Requirement、Contract、Backend、Frontend 和 Integration Gate 已通�
 | RC Commit | `79fc320492427fc3fbf8c502ecff42621815f14e` |
 | PR #43 | MERGED |
 | PR #44 | MERGED |
-| 远端分支 | `origin/develop` 与本地 RC Commit 一致 |
+| 远端分支 | `origin/develop` 包含 RC Commit；当前 HEAD `2efe7f3b49c0490591e6b56701f2b8df98b5a1fb` 仅为交付文档提交 |
 
 ## 构建与测试
 
@@ -81,4 +81,4 @@ Docker 状态复核显示 `ha-ai-backend`、`ha-ai-mysql`、`ha-ai-redis` 均为
 | `vue-tsc -b`、`pnpm run build` 退出码 0 | Frontend 类型检查和生产构建通过 | `frontend/` |
 | 已有真实 HTTP/浏览器记录 | M01 API Key、Usage、Gateway 联调通过 | `output/playwright/` |
 | `docker ps` 显示三项服务运行 | RC 使用单机 MySQL/Redis/Backend 实例 | Docker Compose |
-| RC Commit 与 `origin/develop` 一致 | 交付内容可由固定 Commit 重现 | `79fc320492427fc3fbf8c502ecff42621815f14e` |
+| RC Commit 是 `origin/develop` 的祖先 | M01 代码由固定 Commit 重现，后续仅追加交付文档 | `79fc320492427fc3fbf8c502ecff42621815f14e` |
