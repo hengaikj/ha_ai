@@ -4,6 +4,117 @@ info:
   version: 1.0.0-candidate
   description: 企业管理员、项目管理员、开发成员及财务/审计查看者使用的管理接口候选契约。所有资源必须同时校验Enterprise、Membership、Role和Project Scope。
 paths:
+  /login:
+    post:
+      summary: 用户登录
+      description: 使用用户名与密码登录；验证码当前关闭，code 和 uuid 可省略。用户名不存在、密码错误或账号锁定统一返回相同的认证失败响应。
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: 登录成功并签发一个小时有效的 Bearer JWT
+          headers:
+            x-request-id:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: 请求字段不合法
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 统一认证失败，不区分用户名、密码或账号状态
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+  /logout:
+    post:
+      summary: 注销当前会话
+      description: 撤销当前 JWT 对应的服务端会话；注销后该 JWT 返回 401。
+      responses:
+        '200':
+          description: 会话已注销
+          headers:
+            x-request-id:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthEnvelope'
+        '401':
+          description: 未登录或会话已失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+  /getInfo:
+    get:
+      summary: 查询当前登录用户上下文
+      responses:
+        '200':
+          description: 用户、角色和兼容权限码上下文
+          headers:
+            x-request-id:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentUserResponse'
+        '401':
+          description: 未登录或会话已失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+  /getRouters:
+    get:
+      summary: 查询当前用户可访问的前端菜单
+      responses:
+        '200':
+          description: 当前用户可访问的路由菜单
+          headers:
+            x-request-id:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouterResponse'
+        '401':
+          description: 未登录或会话已失效
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+  /api/captchaImage:
+    get:
+      summary: 查询验证码开关状态
+      description: 当前开发环境验证码关闭，响应 captchaEnabled=false；此接口不要求用户身份。
+      security: []
+      responses:
+        '200':
+          description: 验证码配置
+          headers:
+            x-request-id:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptchaResponse'
   /api/projects:
     get:
       summary: 查询项目列表
@@ -126,6 +237,9 @@ paths:
                   - BALANCE
                   - SUBSCRIPTION
                   description: 项目唯一权益模式
+                enterpriseId:
+                  type: string
+                  description: 仅 platform-admin 可指定目标企业；其他角色不得提交该字段。platform-admin 创建项目时必填。
   /api/projects/{projectId}:
     get:
       summary: 查询项目详情
@@ -1231,6 +1345,164 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    LoginRequest:
+      type: object
+      required:
+      - username
+      - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          format: password
+        code:
+          type: string
+          description: 可选验证码；当前验证码关闭时忽略
+        uuid:
+          type: string
+          description: 可选验证码标识；当前验证码关闭时忽略
+    LoginResponse:
+      type: object
+      required:
+      - code
+      - msg
+      - data
+      properties:
+        code:
+          type: integer
+          example: 200
+        msg:
+          type: string
+        data:
+          type: object
+          required:
+          - accessToken
+          - expiresIn
+          properties:
+            accessToken:
+              type: string
+              description: Bearer JWT；客户端应存储于登录会话中
+            expiresIn:
+              type: integer
+              format: int64
+              example: 3600
+    AuthEnvelope:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        msg:
+          type: string
+        data:
+          nullable: true
+    AuthError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 401
+        msg:
+          type: string
+          example: 用户名或密码错误
+    CurrentUserResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            user:
+              $ref: '#/components/schemas/CurrentUserContext'
+            roles:
+              type: array
+              items:
+                type: string
+            permissions:
+              type: array
+              description: 第一版为空；授权由后端角色和资源范围执行，不定义新的 permission code。
+              items:
+                type: string
+    CurrentUserContext:
+      type: object
+      required:
+      - userId
+      - username
+      - displayName
+      - roleCodes
+      - permissionCodes
+      - projectIds
+      properties:
+        userId:
+          type: integer
+          format: int64
+        username:
+          type: string
+        displayName:
+          type: string
+        enterpriseId:
+          type: integer
+          format: int64
+          nullable: true
+          description: 普通用户所属企业；platform-admin 为 null
+        roleCodes:
+          type: array
+          items:
+            type: string
+        permissionCodes:
+          type: array
+          description: 保留前端兼容字段；第一版不新增 permission code。
+          items:
+            type: string
+        projectIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    RouterResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        msg:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              name:
+                type: string
+              component:
+                type: string
+              meta:
+                type: object
+                additionalProperties: true
+    CaptchaResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        msg:
+          type: string
+        captchaEnabled:
+          type: boolean
+          example: false
+        img:
+          type: string
+          description: 验证码关闭时为空
+        uuid:
+          type: string
+          description: 验证码关闭时为空
     ErrorResponse:
       type: object
       required:
