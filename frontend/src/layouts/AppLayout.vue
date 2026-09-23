@@ -929,6 +929,7 @@ onBeforeUnmount(() => {
         <!--        </button>-->
         <span class="app-layout__navbar-divider" aria-hidden="true" />
         <el-popover
+          v-if="taskCenterStore.enabled"
           placement="bottom-end"
           trigger="click"
           width="360"
