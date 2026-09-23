@@ -1,3 +1,59 @@
 package com.hengaikj.ai.usage;
-import org.springframework.stereotype.Service; import java.time.Instant; import java.util.concurrent.ConcurrentLinkedQueue; import java.util.List;
-@Service public class UsageService { private final ConcurrentLinkedQueue<UsageRecord> records=new ConcurrentLinkedQueue<>(); public UsageRecord record(String id,String model,long prompt,long completion){UsageRecord r=new UsageRecord(id,model,prompt,completion,prompt+completion,Instant.now());records.add(r);return r;} public List<UsageRecord> recent(){return List.copyOf(records);} }
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hengaikj.ai.entity.UsageEntity;
+import com.hengaikj.ai.mapper.UsageMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+@Service
+public class UsageService {
+    private final UsageMapper mapper;
+    private final ConcurrentLinkedQueue<UsageRecord> testRecords = new ConcurrentLinkedQueue<>();
+
+    /** 测试专用构造器，允许不启动 MyBatis 的单元测试。 */
+    public UsageService() { this.mapper = null; }
+
+    @Autowired
+    public UsageService(UsageMapper mapper) { this.mapper = mapper; }
+
+    public UsageRecord record(String id, String model, long prompt, long completion) {
+        Instant recordedAt = Instant.now();
+        UsageRecord record = new UsageRecord(id, model, prompt, completion, prompt + completion, recordedAt);
+        if (mapper == null) {
+            testRecords.add(record);
+            return record;
+        }
+        UsageEntity entity = new UsageEntity();
+        entity.requestId = id;
+        entity.model = model;
+        entity.promptTokens = prompt;
+        entity.completionTokens = completion;
+        entity.totalTokens = prompt + completion;
+        entity.recordedAt = LocalDateTime.ofInstant(recordedAt, ZoneOffset.UTC);
+        mapper.insert(entity);
+        return record;
+    }
+
+    public List<UsageRecord> recent() {
+        if (mapper == null) return List.copyOf(testRecords);
+        return mapper.selectList(new QueryWrapper<UsageEntity>()
+                        .orderByDesc("recorded_at")
+                        .last("LIMIT 100"))
+                .stream().map(this::toRecord).toList();
+    }
+
+    private UsageRecord toRecord(UsageEntity entity) {
+        Instant recordedAt = entity.recordedAt == null ? null : entity.recordedAt.toInstant(ZoneOffset.UTC);
+        return new UsageRecord(entity.requestId, entity.model,
+                entity.promptTokens == null ? 0 : entity.promptTokens,
+                entity.completionTokens == null ? 0 : entity.completionTokens,
+                entity.totalTokens == null ? 0 : entity.totalTokens, recordedAt);
+    }
+}
