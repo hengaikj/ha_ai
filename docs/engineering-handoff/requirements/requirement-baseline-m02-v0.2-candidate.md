@@ -42,6 +42,8 @@
 
 逐项差异及建议验收见 [M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliation-v0.1-draft.md)。
 
+已确认的前端用户/角色界面范围和验收拆解见 [M02 Frontend IAM 工作包 v0.1 Draft](./m02-frontend-iam-work-package-v0.1-draft.md)。
+
 ## Contract、安全与数据迁移 Gate
 
 - **Contract 对齐**：实际 Controller 与 `contracts/m02-api-contract-v0.2.md` 路由不一致；先确定 canonical contract，再实现页面，避免前后端各按不同路径交付。
