@@ -34,6 +34,7 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       FLYWAY_ENABLED: "true"
+      SERVER_PORT: 8080
       HENGAI_BASE_URL: ${HENGAI_BASE_URL:-https://api.hengaikj.com/v1}
     ports:
       - "${HA_BACKEND_PORT:-18080}:8080"
