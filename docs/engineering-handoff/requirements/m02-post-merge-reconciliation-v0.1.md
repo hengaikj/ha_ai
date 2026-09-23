@@ -38,9 +38,9 @@ PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面�
 ## 继续推进前的审批项
 
 1. 产品、架构和交付负责人确认 [v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md) 的优先级、每项验收条件与责任人。
-2. 为 M02 用户/角色管理界面确定页面范围、角色可见性、交互流程和真实浏览器验收；现有界面实现状态尚未核实为完成。
+2. 评审 [Frontend IAM 工作包](./m02-frontend-iam-work-package-v0.1-draft.md) 和 [Backend IAM 工作包](./m02-backend-iam-work-package-v0.1-draft.md)，确定页面范围、角色管理深度、平台管理员企业选项数据源、Contract、HTTP/迁移测试、责任人与真实浏览器验收。
 3. 独立评审 [Laya 需求草案](./laya/m02-laya-routing-requirements-v0.1-draft.md) 与 [架构提案](./laya/m02-laya-routing-architecture-v0.2-proposal.md)，确定 Contract、隐私、失败策略、模型评估阈值、目标运行环境及发布 Gate。
-4. 完成正式基线审批后，再拆解 Backend、Frontend、Integration 和 QA 工作包；范围决定本身不作为 API、数据库、部署或业务实现授权。
+4. 工作包当前是评审草案。完成正式基线审批后，再授权 Backend、Frontend、Integration 和 QA 实施；范围决定本身不作为 API、数据库、部署或业务实现授权。
 
 ## Evidence → Finding → Path
 
