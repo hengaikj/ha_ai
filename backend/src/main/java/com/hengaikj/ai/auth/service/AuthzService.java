@@ -84,6 +84,20 @@ public class AuthzService {
         throw new AccessDeniedException("无权执行该操作");
     }
 
+    /**
+     * 项目列表同时支持企业级 project:read 和项目成员范围。
+     * 项目成员没有全局权限码时，仍可读取自己被授予角色的项目；具体项目
+     * 的读取范围由 ProjectService 按 projectIds 过滤。
+     */
+    public void requireProjectListAccess(AuthUserContext user) {
+        if (permissions == null) return;
+        if (user.permissionCodes().contains("project:read")) return;
+        for (Set<String> projectRoles : user.projectRoleCodes().values()) {
+            if (hasAny(projectRoles, "project-admin", "project-developer", "project-viewer")) return;
+        }
+        throw new AccessDeniedException("无权执行该操作");
+    }
+
     public ProjectScope requireProjectAccess(AuthUserContext user, long projectId, ProjectAction action) {
         ProjectEntity project = projects.selectById(projectId);
         if (project == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "项目不存在");
