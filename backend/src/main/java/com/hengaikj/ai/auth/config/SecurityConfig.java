@@ -15,12 +15,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.Map;
 
 @Configuration
 public class SecurityConfig {
+    private static final BearerTokenResolver HUMAN_JWT_RESOLVER = request -> {
+        String gatewayPath = request.getContextPath() + "/v1/";
+        if (request.getRequestURI().startsWith(gatewayPath)) return null;
+        return new DefaultBearerTokenResolver().resolve(request);
+    };
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, AuthSessionMapper sessions,
                                             AuthUserMapper users, ObjectMapper objectMapper) throws Exception {
@@ -30,7 +38,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login", "/api/captchaImage", "/v1/**").permitAll()
                         .anyRequest().authenticated())
-                .oauth2ResourceServer(resource -> resource.jwt(Customizer.withDefaults()))
+                .oauth2ResourceServer(resource -> resource
+                        .bearerTokenResolver(HUMAN_JWT_RESOLVER)
+                        .jwt(Customizer.withDefaults()))
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint((request, response, exception) -> writeError(response, objectMapper, 401, "未登录或认证失效"))
                         .accessDeniedHandler((request, response, exception) -> writeError(response, objectMapper, 403, "无权执行该操作")));

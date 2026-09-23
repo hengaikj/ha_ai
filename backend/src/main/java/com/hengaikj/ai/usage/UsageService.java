@@ -3,6 +3,7 @@ package com.hengaikj.ai.usage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hengaikj.ai.entity.UsageEntity;
 import com.hengaikj.ai.mapper.UsageMapper;
+import com.hengaikj.ai.auth.service.AuthUserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,20 @@ public class UsageService {
                         .orderByDesc("recorded_at")
                         .last("LIMIT 100"))
                 .stream().map(this::toRecord).toList();
+    }
+
+    public List<UsageSummary> recent(AuthUserContext user) {
+        if (mapper == null) {
+            return List.of();
+        }
+        boolean platformAdmin = user.roleCodes().contains("platform-admin");
+        Long enterpriseId = !platformAdmin && user.roleCodes().contains("enterprise-admin")
+                ? user.enterpriseId() : null;
+        List<Long> projectIds = !platformAdmin && enterpriseId == null ? user.projectIds() : null;
+        return mapper.selectScopedUsage(platformAdmin, enterpriseId, projectIds).stream()
+                .map(row -> new UsageSummary(row.getRequestId(), row.getProjectId() == null ? null : row.getProjectId().toString(),
+                        row.getModel(), row.getExecutionResult(), row.getCreatedAt() == null ? null : row.getCreatedAt().toInstant(ZoneOffset.UTC)))
+                .toList();
     }
 
     private UsageRecord toRecord(UsageEntity entity) {

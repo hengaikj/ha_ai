@@ -37,10 +37,14 @@ public class AuthExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(AuthApiResponse.failure(403, "无权执行该操作"));
     }
 
-    @ExceptionHandler({ResponseStatusException.class, DuplicateKeyException.class})
+    @ExceptionHandler({ResponseStatusException.class, DuplicateKeyException.class,
+            java.util.NoSuchElementException.class, IllegalArgumentException.class})
     public ResponseEntity<?> requestConflictOrMissing(Exception error, HttpServletRequest request) {
         HttpStatus status = error instanceof ResponseStatusException response
-                ? HttpStatus.valueOf(response.getStatusCode().value()) : HttpStatus.CONFLICT;
+                ? HttpStatus.valueOf(response.getStatusCode().value())
+                : error instanceof DuplicateKeyException ? HttpStatus.CONFLICT
+                : error instanceof java.util.NoSuchElementException ? HttpStatus.NOT_FOUND
+                : HttpStatus.BAD_REQUEST;
         String message = switch (status) {
             case BAD_REQUEST -> "请求参数或状态不合法";
             case NOT_FOUND -> "资源不存在";

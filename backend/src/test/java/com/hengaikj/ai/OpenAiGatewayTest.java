@@ -52,15 +52,12 @@ class OpenAiGatewayTest {
         key.enterpriseId = 1L;
         key.projectId = 1L;
         key.status = "ENABLED";
-        when(apiKeys.findActive(eq("integration-secret"), eq(1L), eq(1L))).thenReturn(key);
-        when(apiKeys.findActive(eq("integration-secret"), eq(1L))).thenReturn(key);
+        when(apiKeys.findActive(eq("integration-secret"))).thenReturn(key);
     }
 
     @Test
     void modelsReturnsAuthorizedFakeModelAndRequestId() throws Exception {
         mvc.perform(get("/v1/models")
-                        .queryParam("projectId", "1")
-                        .header("X-Enterprise-Id", "1")
                         .header("Authorization", "Bearer integration-secret"))
                 .andExpect(status().isOk())
                 .andExpect(header().exists("x-request-id"))
@@ -71,8 +68,6 @@ class OpenAiGatewayTest {
     @Test
     void chatReturnsNonStreamingCompletionAndRecordsUsage() throws Exception {
         mvc.perform(post("/v1/chat/completions")
-                        .queryParam("projectId", "1")
-                        .header("X-Enterprise-Id", "1")
                         .header("Authorization", "Bearer integration-secret")
                         .contentType("application/json")
                         .content("""
@@ -89,10 +84,8 @@ class OpenAiGatewayTest {
 
     @Test
     void invalidApiKeyReturns401WithRequestId() throws Exception {
-        when(apiKeys.findActive(anyString(), eq(1L), eq(1L))).thenReturn(null);
+        when(apiKeys.findActive(anyString())).thenReturn(null);
         mvc.perform(get("/v1/models")
-                        .queryParam("projectId", "1")
-                        .header("X-Enterprise-Id", "1")
                         .header("Authorization", "Bearer bad-secret"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(header().exists("x-request-id"));
@@ -101,7 +94,6 @@ class OpenAiGatewayTest {
     @Test
     void projectScopeCanBeDerivedFromApiKey() throws Exception {
         mvc.perform(get("/v1/models")
-                        .header("X-Enterprise-Id", "1")
                         .header("Authorization", "Bearer integration-secret"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data[0].id").value("fake-model"));

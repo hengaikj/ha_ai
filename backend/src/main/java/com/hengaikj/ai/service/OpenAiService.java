@@ -51,8 +51,8 @@ public class OpenAiService {
         this.objectMapper = objectMapper;
     }
 
-    public List<ProviderAdapter.ModelDescriptor> models(String authorization, Long enterpriseId, Long projectId) {
-        ApiKeyEntity key = authenticate(authorization, enterpriseId, projectId);
+    public List<ProviderAdapter.ModelDescriptor> models(String authorization) {
+        ApiKeyEntity key = authenticate(authorization);
         return provider.models().stream()
                 .filter(model -> policy.allowed(key.projectId, model.id()))
                 .toList();
@@ -60,12 +60,10 @@ public class OpenAiService {
 
     public Map<String, Object> chat(
             String authorization,
-            Long enterpriseId,
-            Long projectId,
             Map<String, Object> body,
             String requestId
     ) {
-        ApiKeyEntity key = authenticate(authorization, enterpriseId, projectId);
+        ApiKeyEntity key = authenticate(authorization);
         long scopedProjectId = key.projectId;
         String model = stringValue(body, "model", "fake-model");
         if (Boolean.TRUE.equals(body.get("stream"))) {
@@ -139,17 +137,15 @@ public class OpenAiService {
         return response;
     }
 
-    private ApiKeyEntity authenticate(String authorization, Long enterpriseId, Long projectId) {
-        if (enterpriseId == null || authorization == null || !authorization.startsWith("Bearer ")) {
+    private ApiKeyEntity authenticate(String authorization) {
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
             throw new GatewayException(401, "missing_api_key", "缺少有效 API Key");
         }
         String secret = authorization.substring("Bearer ".length()).trim();
         if (secret.isBlank()) {
             throw new GatewayException(401, "missing_api_key", "缺少有效 API Key");
         }
-        ApiKeyEntity key = projectId == null
-                ? apiKeys.findActive(secret, enterpriseId)
-                : apiKeys.findActive(secret, enterpriseId, projectId);
+        ApiKeyEntity key = apiKeys.findActive(secret);
         if (key == null) {
             throw new GatewayException(401, "invalid_api_key", "API Key 无效或已失效");
         }

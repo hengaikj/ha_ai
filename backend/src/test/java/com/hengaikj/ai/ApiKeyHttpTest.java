@@ -1,3 +1,28 @@
 package com.hengaikj.ai;
-import com.hengaikj.ai.controller.ApiKeyController; import com.hengaikj.ai.entity.*; import com.hengaikj.ai.service.ApiKeyService; import org.junit.jupiter.api.Test; import org.springframework.test.web.servlet.MockMvc; import org.springframework.test.web.servlet.setup.MockMvcBuilders; import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter; import java.time.Instant; import java.util.List; import static org.mockito.ArgumentMatchers.*; import static org.junit.jupiter.api.Assertions.*; import static org.mockito.Mockito.when; import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*; import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-class ApiKeyHttpTest { MockMvc mvc; ApiKeyService service=org.mockito.Mockito.mock(ApiKeyService.class); @org.junit.jupiter.api.BeforeEach void setup(){mvc=MockMvcBuilders.standaloneSetup(new ApiKeyController(service)).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();} @Test void createAndListHideHash() throws Exception {var c=new ApiKeyCreateResponse(1L,"n","ha_abc","ENABLED",null,Instant.now(),"secret-once"); when(service.create(eq(1L),eq(7L),any())).thenReturn(c); mvc.perform(post("/api/projects/1/api-keys").header("X-Enterprise-Id","7").contentType("application/json").content("{\"keyName\":\"n\"}")).andExpect(status().isCreated()); assertTrue(new com.fasterxml.jackson.databind.ObjectMapper().findAndRegisterModules().writeValueAsString(c).contains("secret-once")); when(service.list(7L,1L)).thenReturn(List.of(new ApiKeySummary(1L,"n","ha_abc","ENABLED",null,Instant.now()))); mvc.perform(get("/api/projects/1/api-keys").header("X-Enterprise-Id","7")) .andExpect(status().isOk()); assertFalse(new com.fasterxml.jackson.databind.ObjectMapper().findAndRegisterModules().writeValueAsString(new ApiKeySummary(1L,"n","ha_abc","ENABLED",null,Instant.now())).contains("keyHash")); } @Test void stateEndpoint() throws Exception {when(service.change(7L,1L,2L,"DISABLED")).thenReturn(new ApiKeySummary(2L,"n","ha_x","DISABLED",null,Instant.now())); mvc.perform(post("/api/api-keys/2/disable").queryParam("projectId","1").header("X-Enterprise-Id","7")).andExpect(status().isOk()).andExpect(jsonPath("$.status").value("DISABLED"));} }
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hengaikj.ai.entity.ApiKeyCreateResponse;
+import com.hengaikj.ai.entity.ApiKeySummary;
+import org.junit.jupiter.api.Test;
+
+import java.time.Instant;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ApiKeyHttpTest {
+    private final ObjectMapper json = new ObjectMapper().findAndRegisterModules();
+
+    @Test
+    void secretIsPresentOnlyOnCreateResponseAndListDtoContainsNoSecretOrHashFields() throws Exception {
+        var created = new ApiKeyCreateResponse("1", "n", "ha_abc", "ENABLED", null,
+                Instant.parse("2026-01-01T00:00:00Z"), "ha_abc.full-secret-once");
+        var listed = new ApiKeySummary("1", "n", "ha_abc", "ENABLED", null,
+                Instant.parse("2026-01-01T00:00:00Z"));
+        String createJson = json.writeValueAsString(created);
+        String listJson = json.writeValueAsString(listed);
+        assertTrue(createJson.contains("ha_abc.full-secret-once"));
+        assertFalse(listJson.contains("secret"));
+        assertFalse(listJson.contains("keyHash"));
+        assertFalse(listJson.contains("full-secret-once"));
+    }
+}

@@ -12,11 +12,13 @@ import com.hengaikj.ai.auth.mapper.ProjectMemberMapper;
 import com.hengaikj.ai.auth.service.AuthBootstrapRunner;
 import com.hengaikj.ai.auth.service.AuthService;
 import com.hengaikj.ai.auth.service.JwtSessionService;
+import com.hengaikj.ai.entity.ApiKeyEntity;
 import com.hengaikj.ai.mapper.ApiKeyMapper;
 import com.hengaikj.ai.mapper.ProjectMapper;
 import com.hengaikj.ai.mapper.RequestMapper;
 import com.hengaikj.ai.mapper.RoutingAttemptMapper;
 import com.hengaikj.ai.mapper.UsageMapper;
+import com.hengaikj.ai.service.ApiKeyService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -55,6 +57,7 @@ class AuthHttpTest {
     @MockBean ProjectMemberMapper projectMembers;
     @MockBean ProjectMapper projects;
     @MockBean ApiKeyMapper apiKeys;
+    @MockBean ApiKeyService apiKeyService;
     @MockBean RequestMapper requests;
     @MockBean RoutingAttemptMapper routingAttempts;
     @MockBean UsageMapper usages;
@@ -90,7 +93,22 @@ class AuthHttpTest {
     void captchaStatusIsPublicAndDisabled() throws Exception {
         mvc.perform(get("/api/captchaImage"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200))
                 .andExpect(jsonPath("$.captchaEnabled").value(false));
+    }
+
+    @Test
+    void apiKeyBearerIsNotParsedAsHumanJwtOnGatewayRoutes() throws Exception {
+        ApiKeyEntity key = new ApiKeyEntity();
+        key.id = 8L;
+        key.enterpriseId = 100L;
+        key.projectId = 11L;
+        key.status = "ENABLED";
+        when(apiKeyService.findActive("ha_test_api_key" )).thenReturn(key);
+
+        mvc.perform(get("/v1/models").header("Authorization", "Bearer ha_test_api_key"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.object").value("list"));
     }
 
     @Test
