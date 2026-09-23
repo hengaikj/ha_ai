@@ -51,6 +51,7 @@ export interface MenuNode {
 
 export interface BackendCurrentUser {
   userId: number;
+  enterpriseId?: number | null;
   username?: string;
   userName?: string;
   displayName?: string;
@@ -81,6 +82,7 @@ export interface BackendCurrentUser {
 
 export interface CurrentUser {
   id: string;
+  enterpriseId?: number | null;
   username: string;
   displayName: string;
   email?: string;

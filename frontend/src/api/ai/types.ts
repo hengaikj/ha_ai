@@ -27,9 +27,9 @@ export interface UsageSummary {
   requestId: string;
   projectId: string;
   model: string;
-  executionResult: string;
-  deliveryResult: string;
-  billingResult: string;
+  executionResult?: string;
+  deliveryResult?: string;
+  billingResult?: string;
   createdAt: string;
 }
 export type KeyAction = "enable" | "disable" | "revoke";

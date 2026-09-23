@@ -35,6 +35,11 @@ services:
       REDIS_PORT: 6379
       FLYWAY_ENABLED: "true"
       SERVER_PORT: 8080
+      AUTH_JWT_HMAC_KEY: ${AUTH_JWT_HMAC_KEY:?请在本地.env中设置至少32字节的JWT签名密钥}
+      AUTH_JWT_ISSUER: ${AUTH_JWT_ISSUER:-https://ha-ai.local}
+      AUTH_JWT_TTL_SECONDS: ${AUTH_JWT_TTL_SECONDS:-3600}
+      AUTH_BOOTSTRAP_ADMIN_USERNAME: ${AUTH_BOOTSTRAP_ADMIN_USERNAME:?请在本地.env中设置初始管理员用户名}
+      AUTH_BOOTSTRAP_ADMIN_PASSWORD: ${AUTH_BOOTSTRAP_ADMIN_PASSWORD:?请在本地.env中设置至少12位初始管理员密码}
       HENGAI_BASE_URL: ${HENGAI_BASE_URL:-https://api.hengaikj.com/v1}
     ports:
       - "${HA_BACKEND_PORT:-18080}:8080"

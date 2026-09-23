@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createMockManagementData, createMockManagementService } from "./mock";
-import { apiKeyDecoders, createHttpManagementService } from "./http";
+import { apiKeyDecoders, createHttpManagementService, managementDecoders } from "./http";
 import { allowedKeyActions } from "./types";
 import { createTemporaryProjectContextAdapter } from "./types";
 
@@ -139,6 +139,28 @@ describe("M01 管理页面端口", () => {
     ).toBe("full-secret");
     expect(() => apiKeyDecoders.createdSecret!({ apiKeyId: "k1" })).toThrow(
       "data.secret",
+    );
+  });
+
+  it("Usage Contract允许结果字段缺省并拒绝不完整核心字段", () => {
+    expect(managementDecoders.usage!([
+      {
+        requestId: "req-1",
+        projectId: "11",
+        model: "gpt-test",
+        createdAt: "2026-09-23T06:00:00Z",
+        internalHash: "must-not-pass-through",
+      },
+    ])).toEqual([
+      {
+        requestId: "req-1",
+        projectId: "11",
+        model: "gpt-test",
+        createdAt: "2026-09-23T06:00:00Z",
+      },
+    ]);
+    expect(() => managementDecoders.usage!([{ requestId: "req-1" }])).toThrow(
+      "缺少正式字段",
     );
   });
 });

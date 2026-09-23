@@ -63,6 +63,45 @@ export const apiKeyDecoders: Pick<
     return (data as ApiKeyCreated).secret;
   },
 };
+
+export const managementDecoders: ManagementDecoders = {
+  projects(data) {
+    if (!Array.isArray(data)) return invalid("项目列表响应不是数组。");
+    return data.map((value) => {
+      if (!value || typeof value !== "object") return invalid("项目列表项格式不符合契约。");
+      const item = value as Record<string, unknown>;
+      if (!text(item.projectId) || !text(item.projectCode) || !text(item.projectName) ||
+          !["BALANCE", "SUBSCRIPTION"].includes(String(item.entitlementMode)) || !text(item.status))
+        return invalid("项目列表项缺少正式字段。");
+      return {
+        projectId: item.projectId,
+        projectCode: item.projectCode,
+        projectName: item.projectName,
+        entitlementMode: item.entitlementMode as ProjectSummary["entitlementMode"],
+        status: item.status,
+      };
+    });
+  },
+  ...apiKeyDecoders,
+  usage(data) {
+    if (!Array.isArray(data)) return invalid("调用记录响应不是数组。");
+    return data.map((value) => {
+      if (!value || typeof value !== "object") return invalid("调用记录项格式不符合契约。");
+      const item = value as Record<string, unknown>;
+      if (!text(item.requestId) || !text(item.projectId) || !text(item.model) || !text(item.createdAt))
+        return invalid("调用记录项缺少正式字段。");
+      return {
+        requestId: item.requestId,
+        projectId: item.projectId,
+        model: item.model,
+        createdAt: item.createdAt,
+        ...(text(item.executionResult) ? { executionResult: item.executionResult } : {}),
+        ...(text(item.deliveryResult) ? { deliveryResult: item.deliveryResult } : {}),
+        ...(text(item.billingResult) ? { billingResult: item.billingResult } : {}),
+      };
+    });
+  },
+};
 export function createHttpManagementService(
   decoders?: ManagementDecoders,
 ): ManagementService {

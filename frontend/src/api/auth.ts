@@ -22,6 +22,7 @@ import type {
 export function mapCurrentUser(user: BackendCurrentUser): CurrentUser {
   return {
     id: String(user.userId),
+    enterpriseId: user.enterpriseId ?? null,
     username: user.username || user.userName || "",
     displayName:
       user.displayName || user.nickName || user.username || user.userName || "",

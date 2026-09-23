@@ -20,11 +20,9 @@ public class OpenAiController {
 
     @GetMapping("/models")
     public Map<String, Object> models(
-            @RequestHeader(value = "Authorization", required = false) String authorization,
-            @RequestHeader(value = "X-Enterprise-Id", required = false) Long enterpriseId,
-            @RequestParam(required = false) Long projectId
+            @RequestHeader(value = "Authorization", required = false) String authorization
     ) {
-        List<Map<String, Object>> data = service.models(authorization, enterpriseId, projectId).stream()
+        List<Map<String, Object>> data = service.models(authorization).stream()
                 .map(this::model)
                 .toList();
         return Map.of("object", "list", "data", data);
@@ -33,15 +31,11 @@ public class OpenAiController {
     @PostMapping("/chat/completions")
     public Map<String, Object> chat(
             @RequestHeader(value = "Authorization", required = false) String authorization,
-            @RequestHeader(value = "X-Enterprise-Id", required = false) Long enterpriseId,
-            @RequestParam(required = false) Long projectId,
             @RequestBody Map<String, Object> body,
             HttpServletRequest request
     ) {
         return service.chat(
                 authorization,
-                enterpriseId,
-                projectId,
                 body,
                 (String) request.getAttribute(RequestIdFilter.ATTRIBUTE)
         );
