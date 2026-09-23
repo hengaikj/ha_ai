@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hengaikj.ai.auth.entity.AuthSessionEntity;
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
 import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
+import com.hengaikj.ai.auth.mapper.AuthPermissionMapper;
 import com.hengaikj.ai.auth.mapper.AuthSessionMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserRoleMapper;
@@ -51,6 +52,7 @@ class AuthHttpTest {
     @MockBean AuthBootstrapRunner bootstrapRunner;
     @MockBean AuthUserMapper authUsers;
     @MockBean AuthRoleMapper authRoles;
+    @MockBean AuthPermissionMapper authPermissions;
     @MockBean AuthUserRoleMapper authUserRoles;
     @MockBean AuthSessionMapper authSessions;
     @MockBean EnterpriseMapper enterprises;
@@ -133,12 +135,15 @@ class AuthHttpTest {
         when(authUsers.selectById(72L)).thenReturn(user);
         when(authRoles.selectRoleCodesByUserId(72L)).thenReturn(List.of("platform-admin"));
         when(projectMembers.selectProjectRolesByUserId(72L)).thenReturn(List.of());
+        when(authPermissions.selectPermissionCodesByUserId(72L)).thenReturn(List.of("project:read", "api-key:manage"));
 
         mvc.perform(get("/getInfo").header("Authorization", "Bearer " + issued.accessToken()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.user.userId").value(72))
                 .andExpect(jsonPath("$.data.user.enterpriseId").value(org.hamcrest.Matchers.nullValue()))
-                .andExpect(jsonPath("$.data.roles[0]").value("platform-admin"));
+                .andExpect(jsonPath("$.data.roles[0]").value("platform-admin"))
+                .andExpect(jsonPath("$.data.user.permissionCodes[0]").value("api-key:manage"))
+                .andExpect(jsonPath("$.data.permissions[0]").value("api-key:manage"));
         mvc.perform(post("/logout").header("Authorization", "Bearer " + issued.accessToken()))
                 .andExpect(status().isOk());
         mvc.perform(get("/getInfo").header("Authorization", "Bearer " + issued.accessToken()))

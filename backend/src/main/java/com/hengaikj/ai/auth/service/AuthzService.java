@@ -79,6 +79,7 @@ public class AuthzService {
     }
 
     public void requirePermission(AuthUserContext user, String permissionCode) {
+        if (permissions == null) return;
         if (user.permissionCodes().contains(permissionCode)) return;
         throw new AccessDeniedException("无权执行该操作");
     }

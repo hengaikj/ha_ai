@@ -29,6 +29,7 @@ public class ProjectController {
     @GetMapping
     public SuccessEnvelope<List<ProjectSummary>> list(Authentication authentication, HttpServletRequest request) {
         AuthUserContext user = authz.currentUser(authentication);
+        authz.requirePermission(user, "project:read");
         return SuccessEnvelope.of(requestId(request), service.list(user));
     }
 
@@ -36,6 +37,7 @@ public class ProjectController {
     public ResponseEntity<SuccessEnvelope<ProjectSummary>> create(Authentication authentication,
             HttpServletRequest servletRequest, @Valid @RequestBody ProjectCreateRequest request) {
         AuthUserContext user = authz.currentUser(authentication);
+        authz.requirePermission(user, "project:create");
         return ResponseEntity.ok(SuccessEnvelope.of(requestId(servletRequest), service.create(user, request)));
     }
 

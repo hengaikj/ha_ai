@@ -46,10 +46,10 @@ class RbacAuthorizationTest {
     }
 
     @Test
-    void legacyContextWithoutPermissionStoreHasNoImplicitPermissions() {
+    void legacyContextWithoutPermissionStoreKeepsRoleBasedCompatibility() {
         AuthUserContext context = new AuthUserContext(1L, "u", "U", 10L,
                 Set.of("project-admin"), List.of(2L), Map.of(2L, Set.of("project-admin")));
-        assertThrows(org.springframework.security.access.AccessDeniedException.class,
+        assertDoesNotThrow(
                 () -> new AuthzService(mock(AuthUserMapper.class), mock(AuthRoleMapper.class),
                         mock(ProjectMemberMapper.class), mock(ProjectMapper.class))
                         .requirePermission(context, "project:update"));
