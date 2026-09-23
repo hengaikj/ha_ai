@@ -58,9 +58,10 @@ public class AuthController {
     public AuthApiResponse<AuthInfoData> getInfo(Authentication authentication) {
         AuthUserContext context = authz.currentUser(authentication);
         List<String> roleCodes = context.roleCodes().stream().sorted().toList();
+        List<String> permissionCodes = context.permissionCodes().stream().sorted().toList();
         AuthUserSummary user = new AuthUserSummary(context.userId(), context.username(), context.displayName(),
-                context.enterpriseId(), roleCodes, NO_PERMISSION_CODES, context.projectIds());
-        return AuthApiResponse.success(new AuthInfoData(user, roleCodes, NO_PERMISSION_CODES));
+                context.enterpriseId(), roleCodes, permissionCodes, context.projectIds());
+        return AuthApiResponse.success(new AuthInfoData(user, roleCodes, permissionCodes));
     }
 
     @GetMapping("/getRouters")
