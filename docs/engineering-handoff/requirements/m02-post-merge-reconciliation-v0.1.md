@@ -31,15 +31,15 @@ PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面�
 
 ## Baseline 差异
 
-主线 [M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md) 当前仍标记为 `DRAFT / PENDING APPROVAL`，其业务目标、Requirement 分母、优先级、验收标准和责任人均待确认。该草案不能被解释为 PR #45/#46 已获追认的需求批准。
+主线 [M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md) 当前仍标记为 `DRAFT / PENDING APPROVAL`。本次增加了 [M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)，把 M02-A/B 已交付能力映射为待审批候选，并将管理 UI、优先级、验收责任及 Laya 纳入与否列为待决项。v0.2 仍是 DRAFT，不能被解释为 PR #45/#46 已获需求追认或新的开发授权。
 
 本地文档分支 `docs/m02-laya-model-routing` 上的 Laya 路由候选仍处于待评审状态；其候选文件引用 `M02 Requirement Baseline v0.3`，而当前 `develop` 不含该版本。这一引用在进入正式基线前需要对齐。Laya 候选不得单独授权 API、数据库、部署或业务代码变更。
 
 ## 继续推进前的审批项
 
-1. 产品确认 PR #45/#46 已交付能力对应的正式 Requirement、优先级及是否仍有用户界面需求。
+1. 产品审议 [v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)：确认 M02-IAM-001 至 004 是否进入正式 Requirement 分母及其优先级，并决定 M02-IAM-005 用户/角色管理 UI 是否纳入。
 2. 产品、架构和交付负责人完成 M02 Requirement 分母、验收条件、Contract/数据影响、依赖与发布边界的审批。
-3. 决定是否把语义模型路由纳入 M02；若纳入，先修正候选文档的基线引用并完成 API、隐私、失败降级、模型评估及运行目标审查。
+3. 单独决定是否把语义模型路由纳入 M02；若纳入，先修正候选文档的基线引用并完成 API、隐私、失败降级、模型评估及运行目标审查。
 4. 基线批准后，再拆解后续 Backend、Frontend、Integration 和 QA 工作包；在此之前，不从 Laya 提案或代码现状推定新增开发授权。
 
 ## Evidence → Finding → Path
