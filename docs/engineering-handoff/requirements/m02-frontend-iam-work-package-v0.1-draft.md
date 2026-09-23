@@ -1,6 +1,6 @@
 # M02 Frontend IAM 工作包 v0.1 Draft
 
-状态：DRAFT / SCOPE CONFIRMED; PENDING CONTRACT, ROLE-UI DEPTH AND PRIORITY APPROVAL
+状态：DRAFT / OWNER SCOPE AND PRIORITY CONFIRMED; PENDING CROSS-FUNCTIONAL CONTRACT APPROVAL
 
 适用基线：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)
 
@@ -31,14 +31,14 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 
 实现应采用独立 M02 页面或对现有页面做明确隔离的 M02 模式。鉴于现有页面含大量后端不支持的旧操作，默认建议创建精简的 M02 管理页；实现评审时再决定是否复用表格/表单组件。
 
-当前已确认必须有“用户与角色管理”界面，但界面所需角色管理深度还未确认。当前工作包只按主线后端能力提出角色目录读取和用户角色绑定；若“角色管理”还要求创建/编辑/停用角色或配置权限树，需要新增产品需求、Contract 与 Backend API，不能把旧 `/system/role/*` 功能默认带入 M02。
+Owner 已确认必须有独立纳入 M02 的“用户与角色管理”界面，建议优先级 P0；本工作包范围为角色目录读取和用户角色绑定，不含创建/编辑/停用角色或权限树。若后续需 CRUD，必须新增产品需求、Contract 与 Backend API，不能把旧 `/system/role/*` 功能默认带入 M02。
 
 ## Contract 依赖
 
 前端开始接真实 API 前，以下事项必须固定：
 
-- canonical path 采用 `/api/auth/...` 还是变更 Backend Controller。
-- 平台管理员创建用户必须选择有效企业，但 M02 Controller 当前无企业目录 API。需批准新增只读企业列表/选项 Contract，或给出经批准的现有企业数据源；不能硬编码企业 ID 或把项目列表当企业目录。
+- Owner 已选择 canonical path `/api/auth/...`；须由 Backend/Frontend/Architecture 将其写入并评审 Contract 后，才开始真实 API 对接。
+- Owner 已选择新增受权限保护的 ACTIVE 企业选项 API；端点 Contract 与权限范围仍待评审，后端需再次校验企业状态，不能硬编码企业 ID 或把项目列表当企业目录。
 - `GET /api/auth/roles` 如何提供“可展示角色”与“当前操作者可绑定角色”的区别。主线当前返回所有角色，企业管理员写入却仅能绑定 `enterprise-admin`。
 - 用户列表是否分页/检索；当前接口无查询参数且返回全量企业/平台范围记录。
 - `PUT /api/auth/users/{userId}/roles` 的全量替换及非空列表语义、解绑行为、自我停用限制。

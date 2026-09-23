@@ -51,10 +51,10 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 ## Contract、安全与数据迁移 Gate
 
-- **Contract 对齐**：实际 Controller 与 `contracts/m02-api-contract-v0.2.md` 路由不一致；先确定 canonical contract，再实现页面，避免前后端各按不同路径交付。
-- **授权失败关闭**：当前 `AuthzService.requirePermission` 和项目列表权限检查在 `permissions` mapper 为 `null` 时直接返回。需由架构/安全评审确认生产配置绝不可能缺失该依赖，并补充启动失败或 fail-closed 验证；不得把静默放行作为 M02 的验收结果。
+- **Contract 对齐**：Owner 已选定 Backend 现行 `/api/auth/**` 为 canonical path；`contracts/m02-api-contract-v0.2.md` 的路径仍待依据该决策修订并经 Backend、Frontend、Architecture/Contract 评审。在 Contract 更新前不得开始真实 UI 对接。
+- **授权失败关闭**：develop `c5db6b7` 仍有 `permissions` mapper 为 `null` 时直接返回的 fail-open 路径。修复提案在 [PR #49](https://github.com/hengaikj/ha_ai/pull/49)，commit `24eeef7`，全量构建 76 tests、0 failures/errors、3 skipped；PR 尚未合并，且跳过项包含 MySQL 迁移/Mapper 验收。合并前主线风险仍存在；合并后还须在目标 SHA 上补足真实 MySQL HTTP/迁移证据。
 - **角色可分配性**：`GET /api/auth/roles` 当前返回全部角色，而企业管理员绑定规则只允许 `enterprise-admin`。Contract/UI 需明确是否返回可分配过滤结果或增加可分配标记，并验证越权绑定被拒绝。
-- **平台管理员企业选项**：平台管理员创建用户必须指定有效企业，但当前 M02 API 没有企业目录/选项端点；批准前需决定新增只读企业选项 API 或其他受支持数据源，不允许 UI 硬编码企业 ID。
+- **平台管理员企业选项**：Owner 已选择新增经授权的 ACTIVE 企业选项 API；当前 M02 Controller 仍未提供该端点。须由 Contract/Backend 批准并实现；后端仍独立校验企业状态，UI 不得硬编码企业 ID。
 - **角色管理深度**：Owner 默认决策为本 M02 UI 提供角色目录读取和用户角色绑定，不包含角色 CRUD/权限配置；主线 API 与此范围相符。未来如需 CRUD，须提交 Baseline Change Request 并增加 Requirement、Contract 与 Backend 工作项。
 - **管理不变量**：确认是否禁止管理员停用自己或最后一个有效平台管理员；当前候选代码未体现这些保护。确认是否要求用户操作审计、检索/分页，或将其明确排除在 M02 管理界面的最小范围之外。
 - **迁移与持久化**：必须在合并 SHA 对应源码上验证干净安装和升级路径、V4 权限种子幂等、真实 MySQL HTTP 的授权/跨企业/状态/绑定/密码散列不泄露。当前 `mvn clean package` 中 Spring 测试排除了真实 DataSource/Flyway；PR #46 真实 MySQL 记录没有在合并 SHA 上重跑。
@@ -108,4 +108,4 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 | 版本 | 说明 |
 | --- | --- |
-| v0.2 candidate | 记录 Owner 对 IAM/RBAC、独立管理 UI、Laya 独立工作流和推荐默认范围/优先级的确认；跨职能审批、Contract 发布和验收证据仍待完成 |
+| v0.2 candidate | 记录 Owner 对 IAM/RBAC、独立管理 UI、Laya 独立工作流和推荐默认范围/优先级的确认；补充 PR #49 修复状态；跨职能审批、Contract 发布和验收证据仍待完成 |

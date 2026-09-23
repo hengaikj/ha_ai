@@ -6,11 +6,11 @@
 
 代码核对基准：`develop` `c5db6b7dea9867c466f91180d6a81c69acec3559`
 
-本文对照现有 Contract 草案与主线 M02 Controller/DTO，提出供评审的统一 API 表面。它不替换 `contracts/m02-api-contract-v0.2.md`，也不是实现授权。建议先确认 canonical 路径和行为，再决定更新 Contract 文档还是修改 Controller。
+本文对照现有 Contract 草案与主线 M02 Controller/DTO，提出统一 API 表面。它不替换 `contracts/m02-api-contract-v0.2.md`，也不是实现授权。Owner 已按建议选择 `/api/auth/**` 为 canonical 路径；此决策仍需 Backend、Frontend、Architecture/Contract 评审，并更新 Contract 后才能作为实现依据。
 
 ## 差异摘要
 
-当前 [M02 API Contract v0.2](../../../contracts/m02-api-contract-v0.2.md) 仅列出 `GET /api/users`、`GET /api/roles`、`GET /api/permissions`、项目成员和 Usage/Audit 路径；它与主线用户/角色管理实现不一致。主线 Controller 的 base path 为 `/api/auth`，且包含创建用户、状态变更和角色绑定操作。前端目前调用更早的 `/system/**` 路径。本提案建议以 `/api/auth/...` 为 M02 管理 API 的 canonical surface，避免新 UI 继续依赖传统 `/system/**` API；该选择需 Backend、Frontend 和 Contract 负责人共同批准。
+当前 [M02 API Contract v0.2](../../../contracts/m02-api-contract-v0.2.md) 仅列出 `GET /api/users`、`GET /api/roles`、`GET /api/permissions`、项目成员和 Usage/Audit 路径；它与主线用户/角色管理实现不一致。主线 Controller 的 base path 为 `/api/auth`，且包含创建用户、状态变更和角色绑定操作。前端目前调用更早的 `/system/**` 路径。Owner 已选定 `/api/auth/...` 为 canonical surface；需由 Backend、Frontend 和 Contract 负责人评审并修订 Contract，避免新 UI 继续依赖传统 `/system/**` API。
 
 ## 用户与角色 API 提案
 
@@ -75,9 +75,11 @@
 
 错误消息文本不应作为前端分支协议；前端按 HTTP 状态和稳定 `error.type` 处理。401 的实际响应仍是 Contract/HTTP 验收缺口。
 
-## 角色可分配性待决
+## 角色可分配性与企业选项 API 待 Contract 确认
 
-主线 `GET /api/auth/roles` 会返回角色表中的全部角色；企业管理员的写入路径却只允许绑定 `enterprise-admin`，且项目角色必须由项目成员关系单独授予。若直接把全量目录作为可选项，UI 会提供不可提交的角色选择。推荐 Contract 增加调用者可分配角色表达（例如每项 `assignable` 或区分 catalog 与 assignable options），并在真实 HTTP 中验证企业管理员、平台管理员和项目角色边界。该字段是提案，不是当前响应事实。
+主线 `GET /api/auth/roles` 会返回角色表中的全部角色；企业管理员的写入路径却只允许绑定 `enterprise-admin`，且项目角色必须由项目成员关系单独授予。若直接把全量目录作为可选项，UI 会提供不可提交的角色选择。推荐 Contract 增加调用者可分配角色表达（例如每项 `assignable` 或区分 catalog 与 assignable options），并在真实 HTTP 中验证企业管理员、平台管理员和项目角色边界。该字段是提案，不是当前响应事实。Owner 已确认本 M02 UI 限目录读取和现有角色绑定，角色 CRUD/权限树排除。
+
+Owner 已确认新增受权限保护的 ACTIVE 企业选项 API，供平台管理员创建用户时选择企业；端点路径、响应 DTO、权限码及是否可复用现有稳定端点仍须在 Contract Review 中固定。Backend 必须独立校验目标企业 ACTIVE，不能信任 UI 选择。
 
 还需产品/安全评审是否禁止停用自身或最后一个有效平台管理员，以及用户/角色变更是否必须生成审计事件。当前代码和此提案均不能假设这些业务规则已实现。
 
@@ -92,7 +94,9 @@
 
 ## 待签署的 Contract 决定
 
-- canonical path 是否采用主线 `/api/auth/...`；旧 v0.2 路径是文档过时还是仍有另一个模块使用。
+- 更新 M02 Contract 以采用主线 `/api/auth/...`；确认旧 v0.2 路径是文档过时还是供其他模块使用。
+- 定义新增 ACTIVE 企业选项 API 的 path、DTO、权限码、企业范围和错误语义。
+- 采用已确认 UI 范围：用户管理、角色目录读取与现有角色绑定；角色 CRUD/权限树当前不纳入。
 - 角色目录响应是否只返回可绑定角色，或增加 `assignable` 能力字段。
 - 是否增加分页/筛选、角色清空/解绑流程、自我/最后管理员保护和审计记录。
 - 统一所有 API 错误的 401 envelope；验证 `x-request-id` 在错误响应也回传。
