@@ -34,6 +34,13 @@ class RbacAuthorizationTest {
     }
 
     @Test
+    void directConstructionRejectsMissingPermissionMapper() {
+        assertThrows(NullPointerException.class,
+                () -> new AuthzService(mock(AuthUserMapper.class), mock(AuthRoleMapper.class),
+                        mock(ProjectMemberMapper.class), mock(ProjectMapper.class), null));
+    }
+
+    @Test
     void userContextIncludesDatabasePermissions() {
         AuthUserMapper users = mock(AuthUserMapper.class);
         AuthRoleMapper roles = mock(AuthRoleMapper.class);

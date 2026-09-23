@@ -33,7 +33,7 @@ public class AuthzService {
         this.roles = roles;
         this.members = members;
         this.projects = projects;
-        this.permissions = permissions;
+        this.permissions = Objects.requireNonNull(permissions, "permissions");
     }
 
     public AuthUserContext currentUser(Authentication authentication) {
@@ -61,11 +61,10 @@ public class AuthzService {
         projectRoles.values().forEach(exposedRoles::addAll);
         return new AuthUserContext(user.id, user.username, user.displayName, user.enterpriseId, exposedRoles,
                 projectRoles.keySet().stream().sorted().toList(), projectRoles,
-                permissions == null ? Set.of() : new HashSet<>(safe(permissions.selectPermissionCodesByUserId(userId))));
+                new HashSet<>(safe(permissions.selectPermissionCodesByUserId(userId))));
     }
 
     public void requirePermission(AuthUserContext user, String permissionCode) {
-        if (permissions == null) return;
         if (user.permissionCodes().contains(permissionCode)) return;
         throw new AccessDeniedException("无权执行该操作");
     }
@@ -76,7 +75,6 @@ public class AuthzService {
      * 的读取范围由 ProjectService 按 projectIds 过滤。
      */
     public void requireProjectListAccess(AuthUserContext user) {
-        if (permissions == null) return;
         if (user.permissionCodes().contains("project:read")) return;
         for (Set<String> projectRoles : user.projectRoleCodes().values()) {
             if (hasAny(projectRoles, "project-admin", "project-developer", "project-viewer")) return;
