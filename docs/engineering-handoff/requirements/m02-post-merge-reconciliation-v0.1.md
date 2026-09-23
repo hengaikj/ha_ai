@@ -31,16 +31,16 @@ PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面�
 
 ## Baseline 差异
 
-主线 [M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md) 当前仍标记为 `DRAFT / PENDING APPROVAL`。本次增加了 [M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)，把 M02-A/B 已交付能力映射为待审批候选，并将管理 UI、优先级、验收责任及 Laya 纳入与否列为待决项。v0.2 仍是 DRAFT，不能被解释为 PR #45/#46 已获需求追认或新的开发授权。
+主线 [M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md) 仍是原始需求收集入口。用户已确认 IAM/RBAC 进入 M02、用户/角色管理必须提供界面、Laya 独立纳入 M02。本次更新的 [M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md) 已记录这些范围决定；Laya 细分需求与架构材料独立归档于 `requirements/laya/`。v0.2 仍是 DRAFT，优先级、Contract/技术验收责任及正式审批待完成，不代表既有实现已完成需求验收或授权新实现。
 
-本地文档分支 `docs/m02-laya-model-routing` 上的 Laya 路由候选仍处于待评审状态；其候选文件引用 `M02 Requirement Baseline v0.3`，而当前 `develop` 不含该版本。这一引用在进入正式基线前需要对齐。Laya 候选不得单独授权 API、数据库、部署或业务代码变更。
+原文档分支 `docs/m02-laya-model-routing` 上的 Laya 路由候选已复制到本 PR 的独立文档目录，并将其过时的 v0.3 基线引用修订为 M02 v0.2 Candidate。范围虽已确认，API、数据库、部署或业务实现仍须通过各自 Contract/架构审批。
 
 ## 继续推进前的审批项
 
-1. 产品审议 [v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)：确认 M02-IAM-001 至 004 是否进入正式 Requirement 分母及其优先级，并决定 M02-IAM-005 用户/角色管理 UI 是否纳入。
-2. 产品、架构和交付负责人完成 M02 Requirement 分母、验收条件、Contract/数据影响、依赖与发布边界的审批。
-3. 单独决定是否把语义模型路由纳入 M02；若纳入，先修正候选文档的基线引用并完成 API、隐私、失败降级、模型评估及运行目标审查。
-4. 基线批准后，再拆解后续 Backend、Frontend、Integration 和 QA 工作包；在此之前，不从 Laya 提案或代码现状推定新增开发授权。
+1. 产品、架构和交付负责人确认 [v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md) 的优先级、每项验收条件与责任人。
+2. 为 M02 用户/角色管理界面确定页面范围、角色可见性、交互流程和真实浏览器验收；现有界面实现状态尚未核实为完成。
+3. 独立评审 [Laya 需求草案](./laya/m02-laya-routing-requirements-v0.1-draft.md) 与 [架构提案](./laya/m02-laya-routing-architecture-v0.2-proposal.md)，确定 Contract、隐私、失败策略、模型评估阈值、目标运行环境及发布 Gate。
+4. 完成正式基线审批后，再拆解 Backend、Frontend、Integration 和 QA 工作包；范围决定本身不作为 API、数据库、部署或业务实现授权。
 
 ## Evidence → Finding → Path
 
@@ -49,4 +49,4 @@ PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面�
 | PR #45/#46 已合并，`develop` 为 `c5db6b7` | M02-A/B 已成为当前代码事实 | GitHub PR 页面及本文件“已合并内容” |
 | Backend `mvn clean package` 全量结果 | 合并主线 Maven 构建通过；MySQL 专项验收被跳过 | 主线 worktree `backend/target/surefire-reports/` 与 Maven 输出 |
 | Frontend 类型检查和构建退出码均为 0 | 合并主线前端可通过类型检查与生产构建 | 主线 worktree `frontend/` 构建输出 |
-| 主线 M02 Draft 状态及 Laya 候选基线引用 | 需求批准仍缺失，候选文档版本引用不一致 | `docs/engineering-handoff/requirements/requirement-baseline-m02-v0.1-draft.md`；分支 `docs/m02-laya-model-routing` |
+| 主线 M02 Draft 与 v0.2 范围决定记录 | 范围已确认，正式审批及技术细化仍待完成；旧 Laya 基线引用已在 PR 文档副本中修正 | `docs/engineering-handoff/requirements/requirement-baseline-m02-v0.2-candidate.md`；`requirements/laya/` |
