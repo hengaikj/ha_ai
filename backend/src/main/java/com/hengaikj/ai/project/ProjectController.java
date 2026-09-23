@@ -29,7 +29,7 @@ public class ProjectController {
     @GetMapping
     public SuccessEnvelope<List<ProjectSummary>> list(Authentication authentication, HttpServletRequest request) {
         AuthUserContext user = authz.currentUser(authentication);
-        authz.requirePermission(user, "project:read");
+        authz.requireProjectListAccess(user);
         return SuccessEnvelope.of(requestId(request), service.list(user));
     }
 

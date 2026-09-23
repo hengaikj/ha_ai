@@ -2,10 +2,12 @@ package com.hengaikj.ai;
 
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
 import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
+import com.hengaikj.ai.auth.mapper.AuthPermissionMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.ProjectMemberMapper;
 import com.hengaikj.ai.auth.service.AuthzService;
 import com.hengaikj.ai.auth.service.AuthzService.ProjectAction;
+import com.hengaikj.ai.auth.service.AuthUserContext;
 import com.hengaikj.ai.entity.ProjectEntity;
 import com.hengaikj.ai.mapper.ProjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -27,7 +31,7 @@ class AuthzServiceTest {
 
     @BeforeEach
     void setUp() {
-        authz = new AuthzService(users, roles, members, projects);
+        authz = new AuthzService(users, roles, members, projects, mock(AuthPermissionMapper.class));
         ProjectEntity projectA = new ProjectEntity();
         projectA.id = 10L;
         projectA.enterpriseId = 100L;
@@ -92,6 +96,21 @@ class AuthzServiceTest {
         assertNull(user.enterpriseId());
         assertDoesNotThrow(() -> authz.requireProjectAccess(user, 20, ProjectAction.MANAGE_KEYS));
         assertDoesNotThrow(() -> authz.requireProjectCreation(user, 200L));
+    }
+
+    @Test
+    void projectMemberCanReadProjectListWithoutGlobalProjectPermission() {
+        principal(8, 100L, List.of(), List.of(
+                new ProjectMemberMapper.ProjectRoleRow(10L, "project-viewer")));
+        AuthUserContext user = authz.currentUser(authentication(8));
+        assertDoesNotThrow(() -> authz.requireProjectListAccess(user));
+    }
+
+    @Test
+    void unrelatedUserCannotReadProjectListWithoutGlobalPermission() {
+        principal(9, 100L, List.of(), List.of());
+        AuthUserContext user = authz.currentUser(authentication(9));
+        assertThrows(AccessDeniedException.class, () -> authz.requireProjectListAccess(user));
     }
 
     private void principal(long userId, Long enterpriseId, List<String> globalRoles,

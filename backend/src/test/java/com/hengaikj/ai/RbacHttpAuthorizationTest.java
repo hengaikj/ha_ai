@@ -46,7 +46,7 @@ class RbacHttpAuthorizationTest {
     void permissionDeniesProjectListWith403() throws Exception {
         when(authz.currentUser(any())).thenReturn(context());
         doThrow(new AccessDeniedException("无权执行该操作"))
-                .when(authz).requirePermission(any(), org.mockito.ArgumentMatchers.eq("project:read"));
+                .when(authz).requireProjectListAccess(any());
         mvc.perform(get("/api/projects").with(user("7")))
                 .andExpect(status().isForbidden());
     }
