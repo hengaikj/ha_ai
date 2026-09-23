@@ -29,6 +29,19 @@ PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面�
 | Real MySQL HTTP | PR #46 head `00e4cb4fee582f720cedc4e6fb617ac727f5bfd6` 的验收记录 | PR 中记录 MySQL 8 + MyBatis 项目成员 HTTP 验收 1/1 PASS | 未在合并提交 `c5db6b7` 上重跑 |
 | Live Frontend + Backend | 合并提交上的浏览器端到端验收 | NOT_RUN | 当次核验没有 Frontend `5173` 监听；现有 Backend 进程未证明运行的是合并提交构建；未启动第二套环境 |
 
+### 2026-09-24 运行实例只读探测
+
+本次未重启或替换任何服务，仅对当前监听端口发起未认证 GET 请求，并记录端口与实例差异：
+
+| 实例 | 探测 | 结果 | 结论 |
+| --- | --- | --- | --- |
+| Docker Backend `127.0.0.1:18080` | `GET /api/auth/users`、`GET /api/auth/roles` | `404`，均带 `x-request-id` | 该实例不是可用于 M02 IAM 验收的当前 Backend，不能据此判定 Controller 缺失于合并代码 |
+| Docker Backend `127.0.0.1:18080` | `GET /api/captchaImage`、`GET /api/usage` | `200` | 旧实例仍提供 M01/基础接口 |
+| Java `127.0.0.1:18081` | `GET /api/auth/users`、`GET /api/auth/roles`、`GET /api/usage` | `401`；认证过滤器生效 | 路径已进入认证保护层，但尚未完成已认证 HTTP 验收 |
+| Java `127.0.0.1:18081` | `GET /api/captchaImage` | `200` | 开放探针正常 |
+
+该探测没有提供登录凭证，也没有执行创建、状态变更、角色绑定或其他写操作；因此仍不能作为 M02 UI/API PASS 证据。当前两个实例的构建 SHA 未由进程信息证明，后续必须在目标 SHA 上使用已授权测试身份完成真实 HTTP 和浏览器验收。
+
 ## Baseline 差异
 
 主线 [M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md) 仍是原始需求收集入口。用户已确认 IAM/RBAC 进入 M02、用户/角色管理必须提供界面、Laya 独立纳入 M02。本次更新的 [M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md) 已记录这些范围决定；Laya 细分需求与架构材料独立归档于 `requirements/laya/`。v0.2 仍是 DRAFT，优先级、Contract/技术验收责任及正式审批待完成，不代表既有实现已完成需求验收或授权新实现。
