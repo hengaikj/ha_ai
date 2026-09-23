@@ -19,7 +19,7 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 | 工作项 | 工作范围 | 完成条件 / 证据 | 依赖 |
 | --- | --- | --- | --- |
 | BE-IAM-01 Contract 对齐 | 与 Frontend/架构确认 canonical path、DTO、envelope/error、状态码、权限码、角色替换与列表语义；更新 Contract/OpenAPI 或实现路由，禁止文档和代码双轨 | 批准的单一 Contract；契约测试覆盖所有方法/字段/错误；Frontend 可按该版本接入 | Baseline/Contract 审批 |
-| BE-IAM-02 授权 fail-closed | 删除所有构造路径中缺少权限 Mapper 时放行的路径；启动时缺少授权组件应失败 | PR #49（commit `24eeef7`）要求 AuthPermissionMapper 且增加缺失 Bean 启动失败测试；Review/合并后仍需在目标 develop SHA 复验。再以真实 HTTP 验证缺少权限码返回 403，并覆盖平台管理员/企业管理员/项目成员矩阵 | BE-IAM-01；安全评审；PR #49 Review |
+| BE-IAM-02 授权 fail-closed | 删除所有构造路径中缺少权限 Mapper 时放行的路径；启动时缺少授权组件应失败 | PR #49（head `b6e9751`）强制 AuthPermissionMapper、拒绝直接 null 注入，并测试缺 Bean 启动失败/null 构造拒绝；77 项全量测试通过（3 项 MySQL 条件测试跳过）。Review/合并后仍需在目标 develop SHA 复验，再以真实 HTTP 验证缺少权限码返回 403 和角色矩阵 | BE-IAM-01；安全评审；PR #49 Review |
 | BE-IAM-03 用户生命周期 API | 覆盖用户 list/create/status 的真实鉴权、字段校验、企业作用域、有效企业、用户名唯一冲突、状态限制、响应脱敏 | 真正数据库 HTTP 创建/查询/状态读回；平台管理员、同企业、跨企业、无权、未认证、禁用用户、无效状态、重复用户名等正负路径 | BE-IAM-01、BE-IAM-02 |
 | BE-IAM-04 角色读取与绑定 | 明确全量目录与可分配选项；处理企业管理员与平台管理员各自可分配角色；防止项目角色通过全局绑定写入；明确替换和解绑语义 | 真实 HTTP 读取角色、绑定、刷新读回；未授权角色被拒绝；项目角色经项目成员 API 管理；角色替换失败时原绑定保持完整；角色结果与 Contract 一致 | BE-IAM-01、BE-IAM-02 |
 | BE-IAM-05 项目数据范围 | 验证平台/企业管理员/项目成员项目列表和项目操作按 `projectIds`、企业及角色范围隔离 | 合并目标 SHA 的 MySQL HTTP 数据夹具覆盖授权与跨租户拒绝，保留请求/响应、Request ID 和查询结果 | BE-IAM-02 |

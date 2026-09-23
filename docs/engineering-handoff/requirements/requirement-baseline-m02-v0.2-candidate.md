@@ -52,7 +52,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 ## Contract、安全与数据迁移 Gate
 
 - **Contract 对齐**：Owner 已选定 Backend 现行 `/api/auth/**` 为 canonical path；`contracts/m02-api-contract-v0.2.md` 的路径仍待依据该决策修订并经 Backend、Frontend、Architecture/Contract 评审。在 Contract 更新前不得开始真实 UI 对接。
-- **授权失败关闭**：develop `c5db6b7` 仍有 `permissions` mapper 为 `null` 时直接返回的 fail-open 路径。修复提案在 [PR #49](https://github.com/hengaikj/ha_ai/pull/49)，commit `24eeef7`，全量构建 76 tests、0 failures/errors、3 skipped；PR 尚未合并，且跳过项包含 MySQL 迁移/Mapper 验收。合并前主线风险仍存在；合并后还须在目标 SHA 上补足真实 MySQL HTTP/迁移证据。
+- **授权失败关闭**：develop `c5db6b7` 仍有 `permissions` mapper 为 `null` 时直接返回的 fail-open 路径。修复提案在 [PR #49](https://github.com/hengaikj/ha_ai/pull/49)，head `b6e9751`，全量构建 77 tests、0 failures/errors、3 skipped；PR 尚未合并，且跳过项包含 MySQL 迁移/Mapper 验收。合并前主线风险仍存在；合并后还须在目标 SHA 上补足真实 MySQL HTTP/迁移证据。
 - **角色可分配性**：`GET /api/auth/roles` 当前返回全部角色，而企业管理员绑定规则只允许 `enterprise-admin`。Contract/UI 需明确是否返回可分配过滤结果或增加可分配标记，并验证越权绑定被拒绝。
 - **平台管理员企业选项**：Owner 已选择新增经授权的 ACTIVE 企业选项 API；当前 M02 Controller 仍未提供该端点。须由 Contract/Backend 批准并实现；后端仍独立校验企业状态，UI 不得硬编码企业 ID。
 - **角色管理深度**：Owner 默认决策为本 M02 UI 提供角色目录读取和用户角色绑定，不包含角色 CRUD/权限配置；主线 API 与此范围相符。未来如需 CRUD，须提交 Baseline Change Request 并增加 Requirement、Contract 与 Backend 工作项。
