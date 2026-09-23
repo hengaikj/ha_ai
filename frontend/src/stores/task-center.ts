@@ -13,6 +13,7 @@ import type {
 } from "@/types/task-center";
 
 const STORAGE_LAST_EVENT_ID = "bq_task_center_last_event_id";
+const TASK_CENTER_ENABLED = import.meta.env.VITE_ENABLE_TASK_CENTER === "true";
 const MAX_LATEST_TASKS = 8;
 const POLLING_INTERVAL_MS = 10_000;
 const TERMINAL_STATUSES = new Set<TaskCenterStatus>([
@@ -41,6 +42,9 @@ export const useTaskCenterStore = defineStore("taskCenter", () => {
   const latestTask = computed(() => latestTasks.value[0] ?? null);
 
   function refreshRecentTasks() {
+    if (!TASK_CENTER_ENABLED) {
+      return Promise.resolve();
+    }
     if (recentTasksRefresh) {
       return recentTasksRefresh;
     }
@@ -87,6 +91,9 @@ export const useTaskCenterStore = defineStore("taskCenter", () => {
   }
 
   function loadTaskFiles(taskId: string | number, force = false) {
+    if (!TASK_CENTER_ENABLED) {
+      return Promise.resolve();
+    }
     const key = String(taskId);
     if (!force && Object.hasOwn(downloadableFilesByTask.value, key)) {
       return Promise.resolve();
@@ -171,6 +178,9 @@ export const useTaskCenterStore = defineStore("taskCenter", () => {
   }
 
   function connect() {
+    if (!TASK_CENTER_ENABLED) {
+      return;
+    }
     if (eventSource) {
       return;
     }
@@ -233,6 +243,7 @@ export const useTaskCenterStore = defineStore("taskCenter", () => {
   }
 
   return {
+    enabled: TASK_CENTER_ENABLED,
     latestTasks,
     latestTask,
     unreadCount,
