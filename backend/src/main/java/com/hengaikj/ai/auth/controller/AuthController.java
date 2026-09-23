@@ -60,7 +60,8 @@ public class AuthController {
         List<String> roleCodes = context.roleCodes().stream().sorted().toList();
         AuthUserSummary user = new AuthUserSummary(context.userId(), context.username(), context.displayName(),
                 context.enterpriseId(), roleCodes, NO_PERMISSION_CODES, context.projectIds());
-        return AuthApiResponse.success(new AuthInfoData(user, roleCodes, NO_PERMISSION_CODES));
+        List<String> permissionCodes = user.permissionCodes().stream().sorted().toList();
+        return AuthApiResponse.success(new AuthInfoData(user, roleCodes, permissionCodes));
     }
 
     @GetMapping("/getRouters")

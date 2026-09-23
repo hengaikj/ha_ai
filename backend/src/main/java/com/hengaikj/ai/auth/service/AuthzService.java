@@ -2,11 +2,14 @@ package com.hengaikj.ai.auth.service;
 
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
 import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
+import com.hengaikj.ai.auth.mapper.AuthPermissionMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.ProjectMemberMapper;
 import com.hengaikj.ai.entity.ProjectEntity;
 import com.hengaikj.ai.mapper.ProjectMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -22,12 +25,29 @@ public class AuthzService {
     private final AuthRoleMapper roles;
     private final ProjectMemberMapper members;
     private final ProjectMapper projects;
+    private final AuthPermissionMapper permissions;
 
-    public AuthzService(AuthUserMapper users, AuthRoleMapper roles, ProjectMemberMapper members, ProjectMapper projects) {
+    @Autowired
+    public AuthzService(AuthUserMapper users, AuthRoleMapper roles, ProjectMemberMapper members,
+                        ProjectMapper projects, ObjectProvider<AuthPermissionMapper> permissions) {
         this.users = users;
         this.roles = roles;
         this.members = members;
         this.projects = projects;
+        this.permissions = permissions.getIfAvailable();
+    }
+
+    public AuthzService(AuthUserMapper users, AuthRoleMapper roles, ProjectMemberMapper members,
+                        ProjectMapper projects, AuthPermissionMapper permissions) {
+        this.users = users;
+        this.roles = roles;
+        this.members = members;
+        this.projects = projects;
+        this.permissions = permissions;
+    }
+
+    public AuthzService(AuthUserMapper users, AuthRoleMapper roles, ProjectMemberMapper members, ProjectMapper projects) {
+        this(users, roles, members, projects, (AuthPermissionMapper) null);
     }
 
     public AuthUserContext currentUser(Authentication authentication) {
@@ -54,7 +74,13 @@ public class AuthzService {
         Set<String> exposedRoles = new HashSet<>(globalRoles);
         projectRoles.values().forEach(exposedRoles::addAll);
         return new AuthUserContext(user.id, user.username, user.displayName, user.enterpriseId, exposedRoles,
-                projectRoles.keySet().stream().sorted().toList(), projectRoles);
+                projectRoles.keySet().stream().sorted().toList(), projectRoles,
+                permissions == null ? Set.of() : new HashSet<>(safe(permissions.selectPermissionCodesByUserId(userId))));
+    }
+
+    public void requirePermission(AuthUserContext user, String permissionCode) {
+        if (user.permissionCodes().contains(permissionCode)) return;
+        throw new AccessDeniedException("无权执行该操作");
     }
 
     public ProjectScope requireProjectAccess(AuthUserContext user, long projectId, ProjectAction action) {

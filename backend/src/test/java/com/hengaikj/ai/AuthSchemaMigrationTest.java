@@ -32,9 +32,12 @@ class AuthSchemaMigrationTest {
                 assertTableExists(statement, "ha_auth_user_role");
                 assertTableExists(statement, "ha_auth_project_member");
                 assertTableExists(statement, "ha_auth_session");
+                assertTableExists(statement, "ha_auth_permission");
+                assertTableExists(statement, "ha_auth_role_permission");
                 assertColumnExists(statement, "ha_project", "project_code");
                 assertColumnExists(statement, "ha_project", "status");
                 assertEquals(5, scalarInt(statement, "SELECT COUNT(*) FROM ha_auth_role"));
+                assertEquals(5, scalarInt(statement, "SELECT COUNT(*) FROM ha_auth_permission"));
                 migrate(schema, null);
                 assertEquals(5, scalarInt(statement, "SELECT COUNT(*) FROM ha_auth_role"));
             }
