@@ -8,6 +8,8 @@ import com.hengaikj.ai.auth.mapper.ProjectMemberMapper;
 import com.hengaikj.ai.auth.service.AuthUserContext;
 import com.hengaikj.ai.auth.service.AuthzService;
 import com.hengaikj.ai.mapper.ProjectMapper;
+import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,6 +22,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class RbacAuthorizationTest {
+    @Test
+    void springContextFailsWhenPermissionMapperBeanIsMissing() {
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
+            context.registerBean(AuthUserMapper.class, () -> mock(AuthUserMapper.class));
+            context.registerBean(AuthRoleMapper.class, () -> mock(AuthRoleMapper.class));
+            context.registerBean(ProjectMemberMapper.class, () -> mock(ProjectMemberMapper.class));
+            context.registerBean(ProjectMapper.class, () -> mock(ProjectMapper.class));
+            context.register(AuthzService.class);
+
+            assertThrows(BeanCreationException.class, context::refresh);
+        }
+    }
+
     @Test
     void userContextIncludesDatabasePermissions() {
         AuthUserMapper users = mock(AuthUserMapper.class);

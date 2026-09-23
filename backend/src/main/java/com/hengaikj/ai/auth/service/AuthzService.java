@@ -9,7 +9,6 @@ import com.hengaikj.ai.entity.ProjectEntity;
 import com.hengaikj.ai.mapper.ProjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -28,15 +27,6 @@ public class AuthzService {
     private final AuthPermissionMapper permissions;
 
     @Autowired
-    public AuthzService(AuthUserMapper users, AuthRoleMapper roles, ProjectMemberMapper members,
-                        ProjectMapper projects, ObjectProvider<AuthPermissionMapper> permissions) {
-        this.users = users;
-        this.roles = roles;
-        this.members = members;
-        this.projects = projects;
-        this.permissions = permissions.getIfAvailable();
-    }
-
     public AuthzService(AuthUserMapper users, AuthRoleMapper roles, ProjectMemberMapper members,
                         ProjectMapper projects, AuthPermissionMapper permissions) {
         this.users = users;
