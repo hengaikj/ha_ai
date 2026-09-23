@@ -1,6 +1,6 @@
 # M02 Frontend IAM 工作包 v0.1 Draft
 
-状态：DRAFT / SCOPE CONFIRMED; PENDING CONTRACT AND PRIORITY APPROVAL
+状态：DRAFT / SCOPE CONFIRMED; PENDING CONTRACT, ROLE-UI DEPTH AND PRIORITY APPROVAL
 
 适用基线：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)
 

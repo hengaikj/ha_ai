@@ -12,6 +12,8 @@
 
 本文把已合并的 M02-A/B 能力整理成需求基线候选，并记录已确认的产品范围决定。`IMPLEMENTED` 只表示代码已在主线，不表示验收完成。本文不授权新的代码、数据库、API Contract 或部署工作；优先级、技术边界、验收责任和正式审批完成前维持 DRAFT。
 
+待定事项的单页审批入口：[M02 Baseline Approval Checklist v0.1 Draft](./m02-baseline-approval-checklist-v0.1-draft.md)。
+
 ## 已确认的 M02 范围决定
 
 2026-09-23，用户确认：M02-A/B IAM 与 RBAC 需求进入 M02；用户和角色管理必须提供可用的前端界面；Laya 语义模型路由纳入 M02，但作为独立工作流管理。下表将这些决定落实为需求分母候选。优先级仍待确认；验收条件还需由产品、架构、Backend、Frontend、Integration 与 QA 评审。
