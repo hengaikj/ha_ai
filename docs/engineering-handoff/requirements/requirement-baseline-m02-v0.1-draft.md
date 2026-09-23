@@ -1,7 +1,7 @@
 # M02 Requirement Baseline v0.1 Draft
 
-状态：DRAFT / PENDING APPROVAL  
-创建日期：2026-09-23（Asia/Shanghai）  
+状态：DRAFT / PENDING APPROVAL
+创建日期：2026-09-23（Asia/Shanghai）
 前置基线：[M01 Release Candidate Baseline v1.0](../release/M01-release-candidate-baseline-v1.0.md)
 
 本文件是 M02 的需求收集和评审入口，不是开发授权，也不是已批准 Requirement。M01 冻结期间不得用本文件驱动代码、数据库、API Contract 或部署变更。

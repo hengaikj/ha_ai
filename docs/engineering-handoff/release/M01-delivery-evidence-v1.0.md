@@ -1,7 +1,7 @@
 # M01 Delivery Evidence v1.0
 
-日期：2026-09-23（Asia/Shanghai）  
-对应 RC：`79fc320492427fc3fbf8c502ecff42621815f14e`  
+日期：2026-09-23（Asia/Shanghai）
+对应 RC：`79fc320492427fc3fbf8c502ecff42621815f14e`
 分支：`develop`
 
 ## 证据结论

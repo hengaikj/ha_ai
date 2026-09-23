@@ -1,8 +1,8 @@
 # M01 Release Candidate Baseline v1.0
 
-状态：FROZEN  
-冻结日期：2026-09-23（Asia/Shanghai）  
-基线分支：`develop`  
+状态：FROZEN
+冻结日期：2026-09-23（Asia/Shanghai）
+基线分支：`develop`
 基线 Commit：`79fc320492427fc3fbf8c502ecff42621815f14e`
 
 ## Gate 结论
