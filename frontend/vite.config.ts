@@ -6,6 +6,14 @@ const legacyDashboardFiles = [
   "/src/pages/legacy-dashboard/PurchaseDashboardPage.vue",
 ];
 
+const apiPassthroughPrefixes = [
+  "/api/captchaImage",
+  "/api/projects",
+  "/api/api-keys",
+  "/api/usage",
+  "/api/platform",
+];
+
 function legacyDashboardViewportPlugin() {
   return {
     postcssPlugin: "legacy-dashboard-px-to-vw",
@@ -83,9 +91,16 @@ export default defineConfig(({ mode }) => {
         "/api": {
           target: apiProxyTarget,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api(?=\/|$)/, ""),
+          rewrite: (path) =>
+            apiPassthroughPrefixes.some((prefix) => path.startsWith(prefix))
+              ? path
+              : path.replace(/^\/api(?=\/|$)/, ""),
         },
         "/v3": {
+          target: apiProxyTarget,
+          changeOrigin: true,
+        },
+        "/v1": {
           target: apiProxyTarget,
           changeOrigin: true,
         },
