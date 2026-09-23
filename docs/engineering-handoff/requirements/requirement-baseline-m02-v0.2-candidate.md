@@ -75,6 +75,14 @@
 | M02-IAM-005 | 经授权管理员可打开用户和角色页面；页面分别读取 `GET /api/auth/users`、`GET /api/auth/roles`；创建、状态变更和绑定分别调用已批准的 M02 API，刷新后显示持久结果；401/403 不产生假成功 | 仓库有通用用户/角色页面文件 | 当前页面调用 `/system/user/*`、`/system/role/*` 等传统端点；没有适配 M02 API 的前端代码。页面还含组织/岗位、角色 CRUD 等超出当前 M02 API 的旧能力；需缩到已批准 M02 功能或另行批准后端范围，再提供真实浏览器 Network、Request ID 和截图证据。浏览器角色目录只读，现有角色绑定，不包含角色 CRUD |
 | M02-LAYA-001 | 经批准的显式自动路由模式只从项目允许模型中选择；拒绝越权输出；故障/低信心遵循项目默认值或批准错误；可追溯且不泄露敏感输入 | 仅有需求和架构提案 | 产品/架构/隐私/QA 批准 Contract、样本与阈值、时延/资源目标及降级语义后，单独实现和测试；生产启用另设 Gate |
 
+### 建议交付顺序（待批准，不是开发授权）
+
+1. **Baseline 与 Contract Gate**：确定正式需求分母、优先级和责任人；对齐 M02 Contract 的 canonical 路径、请求/响应 envelope、状态码、权限语义、可分配角色结果及错误语义。
+2. **Backend 安全与持久化 Gate**：确认权限 Mapper 缺失时启动失败或授权 fail-closed；补齐创建、列表、状态、角色绑定的真实 HTTP + MySQL 矩阵、跨企业隔离、无 password hash 响应、V4 种子及迁移升级/幂等验证。
+3. **Frontend IAM/UI 工作包**：按批准后的 Contract 提供 M02 用户列表/创建/启停、角色目录读取/绑定页面；不呈现后端未支持的角色 CRUD、组织/岗位操作；正确展示 401/403/冲突/校验错误。
+4. **Integration Gate**：在准确的合并 SHA 上执行 Spring 启动、MySQL + Redis 配置验收、HTTP 正负向调用和浏览器完整操作；保存 Network、Request ID、服务日志、数据库结果与页面截图。
+5. **Laya 独立 Gate**：先审阅独立 Requirement/Contract，确定最小脱敏输入、白名单与策略执行、超时/熔断/默认路由和无默认时失败语义、评估集与通过阈值、资源/SLO 和依赖锁定；先做可关闭的 POC，生产启用须另行验收批准。
+
 ## Evidence → Finding → Path
 
 | Evidence | Finding | Path |
