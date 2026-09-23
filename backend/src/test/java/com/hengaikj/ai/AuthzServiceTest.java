@@ -82,6 +82,7 @@ class AuthzServiceTest {
         var user = authz.currentUser(authentication(6));
         assertEquals(100L, authz.requireProjectCreation(user, null));
         assertThrows(AccessDeniedException.class, () -> authz.requireProjectCreation(user, 200L));
+        assertThrows(AccessDeniedException.class, () -> authz.requireProjectCreation(user, 100L));
     }
 
     @Test

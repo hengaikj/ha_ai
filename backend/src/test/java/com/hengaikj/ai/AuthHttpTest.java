@@ -7,6 +7,7 @@ import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
 import com.hengaikj.ai.auth.mapper.AuthSessionMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserRoleMapper;
+import com.hengaikj.ai.auth.mapper.EnterpriseMapper;
 import com.hengaikj.ai.auth.mapper.ProjectMemberMapper;
 import com.hengaikj.ai.auth.service.AuthBootstrapRunner;
 import com.hengaikj.ai.auth.service.AuthService;
@@ -50,6 +51,7 @@ class AuthHttpTest {
     @MockBean AuthRoleMapper authRoles;
     @MockBean AuthUserRoleMapper authUserRoles;
     @MockBean AuthSessionMapper authSessions;
+    @MockBean EnterpriseMapper enterprises;
     @MockBean ProjectMemberMapper projectMembers;
     @MockBean ProjectMapper projects;
     @MockBean ApiKeyMapper apiKeys;

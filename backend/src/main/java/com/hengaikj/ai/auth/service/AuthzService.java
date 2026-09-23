@@ -83,9 +83,8 @@ public class AuthzService {
             return targetEnterpriseId;
         }
         if (user.roleCodes().contains(ENTERPRISE_ADMIN) && user.enterpriseId() != null) {
-            if (targetEnterpriseId == null || Objects.equals(user.enterpriseId(), targetEnterpriseId)) {
-                return user.enterpriseId();
-            }
+            if (targetEnterpriseId == null) return user.enterpriseId();
+            throw new AccessDeniedException("只有平台管理员可以指定企业");
         }
         if (targetEnterpriseId != null) throw new AccessDeniedException("无权指定企业");
         throw new AccessDeniedException("无权创建项目");
