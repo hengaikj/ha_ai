@@ -20,6 +20,7 @@ import java.util.Set;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -48,6 +49,14 @@ class RbacHttpAuthorizationTest {
                 .when(authz).requirePermission(any(), org.mockito.ArgumentMatchers.eq("project:read"));
         mvc.perform(get("/api/projects").with(user("7")))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void unauthenticatedProjectListReturns401() throws Exception {
+        when(authz.currentUser(isNull())).thenThrow(new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED, "登录状态无效"));
+        mvc.perform(get("/api/projects"))
+                .andExpect(status().isUnauthorized());
     }
 
     private static AuthUserContext context() {
