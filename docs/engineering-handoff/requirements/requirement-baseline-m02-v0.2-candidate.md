@@ -40,6 +40,8 @@
 
 上述路由和字段是代码核对结果，不是已批准的外部 API Contract。Contract 文件 [m02-api-contract-v0.2.md](../../../contracts/m02-api-contract-v0.2.md) 目前列出 `/api/users`、`/api/roles`、`/api/permissions` 等路径，与主线 Controller 的 `/api/auth/...` 实际路由不一致。开始前端对接前必须统一规范路径、字段、响应 envelope、状态码、分页/检索、权限失败与角色绑定替换语义，并明确这是文档过时还是需要修改 API。
 
+逐项差异及建议验收见 [M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliation-v0.1-draft.md)。
+
 ## Contract、安全与数据迁移 Gate
 
 - **Contract 对齐**：实际 Controller 与 `contracts/m02-api-contract-v0.2.md` 路由不一致；先确定 canonical contract，再实现页面，避免前后端各按不同路径交付。
