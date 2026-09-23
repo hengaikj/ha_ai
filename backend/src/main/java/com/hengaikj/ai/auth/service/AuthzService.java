@@ -36,10 +36,6 @@ public class AuthzService {
         this.permissions = permissions;
     }
 
-    public AuthzService(AuthUserMapper users, AuthRoleMapper roles, ProjectMemberMapper members, ProjectMapper projects) {
-        this(users, roles, members, projects, (AuthPermissionMapper) null);
-    }
-
     public AuthUserContext currentUser(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "登录状态无效");

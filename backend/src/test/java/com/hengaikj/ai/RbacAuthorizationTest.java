@@ -13,8 +13,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,13 +58,4 @@ class RbacAuthorizationTest {
                 () -> authz.requirePermission(context, "project:update"));
     }
 
-    @Test
-    void legacyContextWithoutPermissionStoreKeepsRoleBasedCompatibility() {
-        AuthUserContext context = new AuthUserContext(1L, "u", "U", 10L,
-                Set.of("project-admin"), List.of(2L), Map.of(2L, Set.of("project-admin")));
-        assertDoesNotThrow(
-                () -> new AuthzService(mock(AuthUserMapper.class), mock(AuthRoleMapper.class),
-                        mock(ProjectMemberMapper.class), mock(ProjectMapper.class))
-                        .requirePermission(context, "project:update"));
-    }
 }
