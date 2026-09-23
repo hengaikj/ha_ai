@@ -36,7 +36,7 @@ services:
       FLYWAY_ENABLED: "true"
       HENGAI_BASE_URL: ${HENGAI_BASE_URL:-https://api.hengaikj.com/v1}
     ports:
-      - "${HA_BACKEND_PORT:-18081}:8080"
+      - "${HA_BACKEND_PORT:-18080}:8080"
 
 volumes:
   ha_mysql_data:
