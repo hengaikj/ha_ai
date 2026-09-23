@@ -9,6 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface AuthRoleMapper extends BaseMapper<AuthRoleEntity> {
+    @Select("SELECT * FROM ha_auth_role WHERE role_code=#{roleCode}")
+    AuthRoleEntity selectByRoleCode(@Param("roleCode") String roleCode);
+
     @Select("SELECT r.role_code FROM ha_auth_user_role ur JOIN ha_auth_role r ON r.id=ur.role_id WHERE ur.user_id=#{userId}")
     List<String> selectRoleCodesByUserId(@Param("userId") long userId);
 }

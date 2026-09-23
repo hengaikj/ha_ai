@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.jwt.JwtValidators;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 
 @Configuration
 public class JwtConfig {
@@ -30,6 +31,11 @@ public class JwtConfig {
     public JwtEncoder jwtEncoder() {
         SecretKey key = secretKey();
         return new NimbusJwtEncoder(new ImmutableSecret<>(key));
+    }
+
+    @Bean
+    public Clock authClock() {
+        return Clock.systemUTC();
     }
 
     @Bean
