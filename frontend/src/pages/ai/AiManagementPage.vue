@@ -15,7 +15,7 @@ import {
   isAiMockEnabled,
   type MockState,
 } from "@/api/ai/mock";
-import { apiKeyDecoders, createHttpManagementService } from "@/api/ai/http";
+import { createHttpManagementService, managementDecoders } from "@/api/ai/http";
 import {
   ManagementError,
   allowedKeyActions,
@@ -62,11 +62,9 @@ const mockState = () =>
   mockStates.includes(route.query.mockState as MockState)
     ? (route.query.mockState as MockState)
     : "normal";
-const service = mock
+const service = computed(() => mock
   ? createMockManagementService(mockState, useAiDemoStore().data)
-  : createHttpManagementService(
-      kind.value === "keys" ? apiKeyDecoders : undefined,
-    );
+  : createHttpManagementService(managementDecoders));
 // 权限码未获正式映射；只在显式 Mock 模式开放交互演示，真实写操作保持禁用。
 const canWrite = computed(() =>
   kind.value === "keys"
@@ -126,13 +124,13 @@ async function load() {
   usage.value = [];
   try {
     if (kind.value === "projects") {
-      const rows = await service.projects();
+      const rows = await service.value.projects();
       if (current === generation) projects.value = rows;
     } else if (kind.value === "keys") {
-      const rows = await service.keys(projectId.value);
+      const rows = await service.value.keys(projectId.value);
       if (current === generation) keys.value = rows;
     } else {
-      const rows = await service.usage();
+      const rows = await service.value.usage();
       if (current === generation) usage.value = rows;
     }
   } catch (e) {
@@ -159,9 +157,9 @@ async function save() {
   const current = generation;
   try {
     if (kind.value === "projects")
-      await service.createProject({ ...projectForm.value });
+      await service.value.createProject({ ...projectForm.value });
     else {
-      const value = await service.createKey(projectId.value, {
+      const value = await service.value.createKey(projectId.value, {
         ...keyForm.value,
       });
       // 离开页面后到达的响应不得重新显示 Secret。
@@ -193,7 +191,7 @@ async function changeKey(row: ApiKeySummary, action: KeyAction) {
       "确认操作",
       { confirmButtonText: "确认", cancelButtonText: "取消", type: "warning" },
     );
-    await service.changeKey(projectContext, row.apiKeyId, action);
+    await service.value.changeKey(projectContext, row.apiKeyId, action);
     await load();
   } catch (e) {
     if (e !== "cancel" && e !== "close") await handleError(e);
