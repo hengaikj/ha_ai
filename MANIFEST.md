@@ -4,10 +4,11 @@
 
 ADD:
 - requirements/requirement-baseline-m02-v0.3.md
+- requirements/m02-model-routing-requirement-candidate-v0.1.md
 - handoff/engineering-handoff-m02-v1.1.md
 - architecture/m02-permission-model-analysis-v1.0.md
 - architecture/m02-technical-design-v1.1.md
-- architecture/m02-laya-model-routing-proposal-v0.1.md
+- architecture/m02-laya-model-routing-proposal-v0.2.md
 - contracts/m02-api-contract-v0.2.md
 - contracts/m02-contract-decisions-v1.0.md
 - development/m02-development-plan-v1.0.md
