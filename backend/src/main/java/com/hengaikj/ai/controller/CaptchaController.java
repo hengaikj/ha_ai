@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 import java.util.UUID;
 
+/** 开发联调验证码适配；正式认证由后续认证模块接管。 */
 @RestController
 public class CaptchaController {
     @GetMapping("/api/captchaImage")
