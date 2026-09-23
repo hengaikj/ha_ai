@@ -2,12 +2,15 @@ package com.hengaikj.ai;
 
 import com.hengaikj.ai.auth.dto.UserRoleBindingRequest;
 import com.hengaikj.ai.auth.dto.UserStatusRequest;
+import com.hengaikj.ai.auth.dto.UserCreateRequest;
+import com.hengaikj.ai.auth.entity.EnterpriseEntity;
 import com.hengaikj.ai.auth.entity.AuthRoleEntity;
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
 import com.hengaikj.ai.auth.entity.AuthUserRoleEntity;
 import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserRoleMapper;
+import com.hengaikj.ai.auth.mapper.EnterpriseMapper;
 import com.hengaikj.ai.auth.service.AuthUserContext;
 import com.hengaikj.ai.auth.service.AuthzService;
 import com.hengaikj.ai.auth.service.UserRoleManagementService;
@@ -28,9 +31,10 @@ class UserRoleManagementServiceTest {
     private final AuthUserMapper users = mock(AuthUserMapper.class);
     private final AuthRoleMapper roles = mock(AuthRoleMapper.class);
     private final AuthUserRoleMapper userRoles = mock(AuthUserRoleMapper.class);
+    private final EnterpriseMapper enterprises = mock(EnterpriseMapper.class);
     private final AuthzService authz = mock(AuthzService.class);
     private final UserRoleManagementService service = new UserRoleManagementService(
-            users, roles, userRoles, new BCryptPasswordEncoder(), authz);
+            users, roles, userRoles, enterprises, new BCryptPasswordEncoder(), authz);
 
     @Test
     void enterpriseListUsesActorEnterpriseAndNeverMapsPasswordHash() {
@@ -73,6 +77,27 @@ class UserRoleManagementServiceTest {
                 new UserStatusRequest("DISABLED")));
     }
 
+    @Test
+    void platformAdminCannotCreateUserInMissingEnterprise() {
+        when(enterprises.selectById(999L)).thenReturn(null);
+        assertThrows(org.springframework.web.server.ResponseStatusException.class,
+                () -> service.create(platformActor(), new UserCreateRequest(
+                        "new-user", "VerySecurePass123", "New User", 999L, List.of())));
+        verify(users, never()).insert(org.mockito.ArgumentMatchers.<AuthUserEntity>any());
+    }
+
+    @Test
+    void platformAdminCannotCreateUserInInactiveEnterprise() {
+        EnterpriseEntity enterprise = new EnterpriseEntity();
+        enterprise.id = 100L;
+        enterprise.status = "DISABLED";
+        when(enterprises.selectById(100L)).thenReturn(enterprise);
+        assertThrows(org.springframework.web.server.ResponseStatusException.class,
+                () -> service.create(platformActor(), new UserCreateRequest(
+                        "new-user", "VerySecurePass123", "New User", 100L, List.of())));
+        verify(users, never()).insert(org.mockito.ArgumentMatchers.<AuthUserEntity>any());
+    }
+
     private static AuthUserEntity user(long id, long enterpriseId) {
         AuthUserEntity user = new AuthUserEntity();
         user.id = id; user.username = "user-" + id; user.displayName = "User"; user.enterpriseId = enterpriseId; user.status = "ACTIVE";
@@ -83,5 +108,10 @@ class UserRoleManagementServiceTest {
     private static AuthUserContext actor(long id, long enterpriseId, String role) {
         return new AuthUserContext(id, "actor", "Actor", enterpriseId, Set.of(role), List.of(), Map.of(),
                 Set.of("user:read", "user:update", "user:role:manage", "role:read"));
+    }
+
+    private static AuthUserContext platformActor() {
+        return new AuthUserContext(1L, "platform", "Platform", null, Set.of("platform-admin"), List.of(), Map.of(),
+                Set.of("user:create", "user:role:manage"));
     }
 }

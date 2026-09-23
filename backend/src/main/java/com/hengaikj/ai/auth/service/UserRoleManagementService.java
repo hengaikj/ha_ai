@@ -6,12 +6,14 @@ import com.hengaikj.ai.auth.dto.UserCreateRequest;
 import com.hengaikj.ai.auth.dto.UserRoleBindingRequest;
 import com.hengaikj.ai.auth.dto.UserStatusRequest;
 import com.hengaikj.ai.auth.dto.UserSummary;
+import com.hengaikj.ai.auth.entity.EnterpriseEntity;
 import com.hengaikj.ai.auth.entity.AuthRoleEntity;
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
 import com.hengaikj.ai.auth.entity.AuthUserRoleEntity;
 import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserRoleMapper;
+import com.hengaikj.ai.auth.mapper.EnterpriseMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,14 +31,16 @@ public class UserRoleManagementService {
     private final AuthUserMapper users;
     private final AuthRoleMapper roles;
     private final AuthUserRoleMapper userRoles;
+    private final EnterpriseMapper enterprises;
     private final PasswordEncoder passwords;
     private final AuthzService authz;
 
     public UserRoleManagementService(AuthUserMapper users, AuthRoleMapper roles, AuthUserRoleMapper userRoles,
-                                     PasswordEncoder passwords, AuthzService authz) {
+                                     EnterpriseMapper enterprises, PasswordEncoder passwords, AuthzService authz) {
         this.users = users;
         this.roles = roles;
         this.userRoles = userRoles;
+        this.enterprises = enterprises;
         this.passwords = passwords;
         this.authz = authz;
     }
@@ -138,11 +142,19 @@ public class UserRoleManagementService {
     private Long targetEnterprise(AuthUserContext actor, Long requested) {
         if (isPlatform(actor)) {
             if (requested == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "enterpriseId不能为空");
-            return requested;
+            return requireActiveEnterprise(requested);
         }
         Long own = requireEnterprise(actor);
         if (requested != null && !own.equals(requested)) throw new AccessDeniedException("无权指定其他企业");
-        return own;
+        return requireActiveEnterprise(own);
+    }
+
+    private Long requireActiveEnterprise(Long enterpriseId) {
+        EnterpriseEntity enterprise = enterprises.selectById(enterpriseId);
+        if (enterprise == null || !"ACTIVE".equals(enterprise.status)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "企业不存在或不可用");
+        }
+        return enterpriseId;
     }
 
     private long requireEnterprise(AuthUserContext actor) {
