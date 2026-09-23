@@ -1,6 +1,6 @@
 # M02 Requirement Baseline v0.2 Candidate
 
-状态：DRAFT / SCOPE CONFIRMED; PENDING PRIORITY, ARCHITECTURE AND DELIVERY APPROVAL
+状态：DRAFT / SCOPE AND OWNER DEFAULTS CONFIRMED; PENDING CROSS-FUNCTIONAL BASELINE APPROVAL
 
 日期：2026-09-23（Asia/Shanghai）
 
@@ -20,15 +20,15 @@
 
 | Requirement | 候选需求 | 建议验收条件 | 代码状态 | 优先级 / 决定 |
 | --- | --- | --- | --- | --- |
-| M02-IAM-001 | 用户认证上下文提供角色与权限码，受保护操作按权限执行；无权限请求被拒绝 | 登录用户信息包含其角色和权限码；权限不足的 API 返回拒绝；权限允许的 API 按已批准数据范围返回 | IMPLEMENTED（M02-A） | SCOPE CONFIRMED；建议 P0 |
-| M02-IAM-002 | 平台管理员和企业管理员可按授权范围查询用户；可创建用户并更新 ACTIVE/DISABLED 状态 | 平台管理员可指定有效企业；企业管理员只能操作自身企业；用户列表和写入响应不含 password/hash；无权限、越权、无效状态分别有明确 HTTP 结果 | IMPLEMENTED（M02-B） | SCOPE CONFIRMED；建议 P0 |
-| M02-IAM-003 | 管理员可读取可用角色，并在授权范围内管理用户的全局角色绑定 | 角色读取要求 `role:read`；绑定要求 `user:role:manage`；越权绑定与项目角色绕过项目成员关系均被拒绝；绑定结果可由后续用户查询核实 | IMPLEMENTED（M02-B） | SCOPE CONFIRMED；建议 P0 |
-| M02-IAM-004 | 项目成员只能读取其成员关系授权的项目；平台管理员和企业管理员遵循各自范围 | 项目成员的项目列表限于 `projectIds`；企业管理员限于本企业；平台管理员可按现有规则读取；跨范围数据不可见 | IMPLEMENTED（M02-A/B） | SCOPE CONFIRMED；建议 P0 |
-| M02-IAM-005 | 提供可用的用户与角色管理前端界面，并接通 M02 用户/角色 API | 管理员可在界面完成用户查询、创建、启停、角色查询与现有角色绑定；角色目录为读取/绑定界面，不暗示 M02 后端支持角色 CRUD；界面遵循权限和企业范围；真实浏览器操作与 HTTP 请求/响应通过验收 | NOT IMPLEMENTED / NOT VERIFIED | SCOPE CONFIRMED；建议 P0 |
-| M02-IAM-006 | 明确“角色管理界面”是否包括角色创建、编辑、停用和权限配置 | 若纳入，需定义角色生命周期、权限变更 Contract、平台/企业管理范围、审计与迁移兼容 | NOT IMPLEMENTED；主线没有对应 M02 API | PRODUCT SCOPE DETAIL TBD |
-| M02-LAYA-001 | 以独立工作流把 Laya 语义模型路由作为 M02 能力进行评估和集成 | 按独立候选文档完成目标与边界、路由决策/API、数据隐私、失败降级、评估指标、运行目标、审计与发布/回滚验收 | PROPOSAL ONLY | SCOPE CONFIRMED；建议 P1，生产启用另设 Gate |
+| M02-IAM-001 | 用户认证上下文提供角色与权限码，受保护操作按权限执行；无权限请求被拒绝 | 登录用户信息包含其角色和权限码；权限不足的 API 返回拒绝；权限允许的 API 按已批准数据范围返回 | IMPLEMENTED（M02-A） | SCOPE / P0 CONFIRMED BY OWNER；跨职能验收待签署 |
+| M02-IAM-002 | 平台管理员和企业管理员可按授权范围查询用户；可创建用户并更新 ACTIVE/DISABLED 状态 | 平台管理员可指定有效企业；企业管理员只能操作自身企业；用户列表和写入响应不含 password/hash；无权限、越权、无效状态分别有明确 HTTP 结果 | IMPLEMENTED（M02-B） | SCOPE / P0 CONFIRMED BY OWNER；跨职能验收待签署 |
+| M02-IAM-003 | 管理员可读取可用角色，并在授权范围内管理用户的全局角色绑定 | 角色读取要求 `role:read`；绑定要求 `user:role:manage`；越权绑定与项目角色绕过项目成员关系均被拒绝；绑定结果可由后续用户查询核实 | IMPLEMENTED（M02-B） | SCOPE / P0 CONFIRMED BY OWNER；跨职能验收待签署 |
+| M02-IAM-004 | 项目成员只能读取其成员关系授权的项目；平台管理员和企业管理员遵循各自范围 | 项目成员的项目列表限于 `projectIds`；企业管理员限于本企业；平台管理员可按现有规则读取；跨范围数据不可见 | IMPLEMENTED（M02-A/B） | SCOPE / P0 CONFIRMED BY OWNER；跨职能验收待签署 |
+| M02-IAM-005 | 提供独立纳入 M02 的用户与角色管理前端界面，并接通 M02 用户/角色 API | 管理员可在界面完成用户查询、创建、启停、角色查询与现有角色绑定；角色目录为读取/绑定界面，不暗示 M02 后端支持角色 CRUD；界面遵循权限和企业范围；真实浏览器操作与 HTTP 请求/响应通过验收 | NOT IMPLEMENTED / NOT VERIFIED | SCOPE / P0 CONFIRMED BY OWNER；跨职能验收待签署 |
+| M02-IAM-006 | 角色创建、编辑、停用和权限配置 | 当前 M02 不纳入；若后续纳入，需新增 Requirement、角色生命周期/API、平台/企业范围、审计与迁移兼容 | NOT IMPLEMENTED；主线没有对应 M02 API | EXCLUDED FROM CURRENT M02 SCOPE BY OWNER DEFAULT; future change request required |
+| M02-LAYA-001 | 以独立工作流把 Laya 语义模型路由作为 M02 能力进行评估和集成 | 按独立候选文档完成目标与边界、路由决策/API、数据隐私、失败降级、评估指标、运行目标、审计与发布/回滚验收 | PROPOSAL ONLY | SCOPE / P1 CONFIRMED BY OWNER；生产启用另设 Gate；跨职能验收待签署 |
 
-上述 P0/P1 是供审批的建议，不是已批准优先级。IAM 和 UI 构成同一管理能力的完整交付路径；Laya 仍需先独立评审与评估，生产自动路由另设 Gate。
+上述 P0/P1 与角色 UI 深度按用户“按建议推进”记录为 Owner 决策：M02 包含独立的用户/角色 UI，范围为用户管理、角色目录读取和用户现有角色绑定；角色 CRUD/权限树暂不纳入；Laya 是独立 P1 工作流，生产自动路由另设 Gate。其他责任职能的 Baseline 审批尚未完成。
 
 ### 候选接口清单（以主线实现为事实）
 
@@ -55,7 +55,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 - **授权失败关闭**：当前 `AuthzService.requirePermission` 和项目列表权限检查在 `permissions` mapper 为 `null` 时直接返回。需由架构/安全评审确认生产配置绝不可能缺失该依赖，并补充启动失败或 fail-closed 验证；不得把静默放行作为 M02 的验收结果。
 - **角色可分配性**：`GET /api/auth/roles` 当前返回全部角色，而企业管理员绑定规则只允许 `enterprise-admin`。Contract/UI 需明确是否返回可分配过滤结果或增加可分配标记，并验证越权绑定被拒绝。
 - **平台管理员企业选项**：平台管理员创建用户必须指定有效企业，但当前 M02 API 没有企业目录/选项端点；批准前需决定新增只读企业选项 API 或其他受支持数据源，不允许 UI 硬编码企业 ID。
-- **角色管理深度**：已确认必须提供用户与角色管理界面，但是否包含角色 CRUD/权限配置尚未明确；主线 M02 API 只有角色读取和用户角色绑定。若需 CRUD，须增加 Requirement、Contract 与 Backend 工作项。
+- **角色管理深度**：Owner 默认决策为本 M02 UI 提供角色目录读取和用户角色绑定，不包含角色 CRUD/权限配置；主线 API 与此范围相符。未来如需 CRUD，须提交 Baseline Change Request 并增加 Requirement、Contract 与 Backend 工作项。
 - **管理不变量**：确认是否禁止管理员停用自己或最后一个有效平台管理员；当前候选代码未体现这些保护。确认是否要求用户操作审计、检索/分页，或将其明确排除在 M02 管理界面的最小范围之外。
 - **迁移与持久化**：必须在合并 SHA 对应源码上验证干净安装和升级路径、V4 权限种子幂等、真实 MySQL HTTP 的授权/跨企业/状态/绑定/密码散列不泄露。当前 `mvn clean package` 中 Spring 测试排除了真实 DataSource/Flyway；PR #46 真实 MySQL 记录没有在合并 SHA 上重跑。
 
@@ -69,7 +69,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 本候选转为 APPROVED 前，负责人须在 PR 或基线审批记录中逐项确认：
 
-1. 将用户已确认范围固化为正式 Requirement 分母；确认本文件建议的 IAM/UI P0、Laya P1 优先级及责任人，或记录替代决定；明确 M02-IAM-005 是否只覆盖角色目录/绑定，或将 M02-IAM-006 角色 CRUD 纳入。
+1. 将 Owner 已确认范围/默认优先级（IAM/RBAC 与独立管理 UI P0；Laya 独立 P1）固化为正式 Requirement 分母；确认责任人及 M02-IAM-006 当前排除决定，或提交替代 Change Request。
 2. 表中验收条件是否满足业务预期，尤其是平台级/企业级角色范围、项目角色绑定边界和数据隔离。
 3. API Contract、数据迁移与兼容性是否接受；当前证据只验证合并代码和已有测试，不代替重新签署 Contract。
 4. 每项验收的责任人、测试环境、HTTP/浏览器证据、审计要求、发布及回滚责任人。
@@ -108,4 +108,4 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 | 版本 | 说明 |
 | --- | --- |
-| v0.2 candidate | 记录 IAM/RBAC 入围、管理 UI 必须交付、Laya 独立纳入 M02 的范围决定；保留优先级、技术验收和正式审批为待决项 |
+| v0.2 candidate | 记录 Owner 对 IAM/RBAC、独立管理 UI、Laya 独立工作流和推荐默认范围/优先级的确认；跨职能审批、Contract 发布和验收证据仍待完成 |
