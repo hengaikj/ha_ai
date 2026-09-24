@@ -28,8 +28,10 @@ public class UserRoleManagementController {
     }
 
     @GetMapping("/users")
-    public SuccessEnvelope<List<UserSummary>> users(Authentication authentication, HttpServletRequest request) {
-        return SuccessEnvelope.of(requestId(request), service.list(authz.currentUser(authentication)));
+    public SuccessEnvelope<UserPage> users(Authentication authentication, HttpServletRequest request,
+                                           @RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="20") int pageSize,
+                                           @RequestParam(required=false) String keyword, @RequestParam(required=false) String status) {
+        return SuccessEnvelope.of(requestId(request), service.list(authz.currentUser(authentication), page, pageSize, keyword, status));
     }
 
     @PostMapping("/users")

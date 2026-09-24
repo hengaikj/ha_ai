@@ -13,4 +13,6 @@ public interface AuthUserMapper extends BaseMapper<AuthUserEntity> {
 
     @Select("SELECT COUNT(*) FROM ha_auth_user u JOIN ha_auth_user_role ur ON ur.user_id=u.id JOIN ha_auth_role r ON r.id=ur.role_id WHERE r.role_code='platform-admin'")
     long countPlatformAdmins();
+    @Select("SELECT COUNT(*) FROM ha_auth_user u JOIN ha_auth_user_role ur ON ur.user_id=u.id JOIN ha_auth_role r ON r.id=ur.role_id WHERE r.role_code='platform-admin' AND u.status='ACTIVE'")
+    long countActivePlatformAdmins();
 }

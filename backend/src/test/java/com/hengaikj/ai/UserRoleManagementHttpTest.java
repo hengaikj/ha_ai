@@ -4,6 +4,7 @@ import com.hengaikj.ai.auth.controller.AuthExceptionHandler;
 import com.hengaikj.ai.auth.dto.RoleSummary;
 import com.hengaikj.ai.auth.dto.EnterpriseOption;
 import com.hengaikj.ai.auth.dto.UserSummary;
+import com.hengaikj.ai.auth.dto.UserPage;
 import com.hengaikj.ai.auth.service.AuthUserContext;
 import com.hengaikj.ai.auth.service.AuthzService;
 import com.hengaikj.ai.auth.service.UserRoleManagementService;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -42,9 +44,10 @@ class UserRoleManagementHttpTest {
     @Test
     void authorizedUserListReturns200() throws Exception {
         when(authz.currentUser(any())).thenReturn(actor());
-        when(service.list(any())).thenReturn(List.of(new UserSummary(1L, "u", "U", 100L, "ACTIVE", List.of("enterprise-admin"))));
+        when(service.list(any(), anyInt(), anyInt(), any(), any())).thenReturn(new UserPage(1, 1, 20,
+                List.of(new UserSummary(1L, "u", "U", 100L, "ACTIVE", List.of("enterprise-admin")))));
         mvc.perform(get("/api/auth/users").with(user("7")))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.data[0].username").value("u"));
+                .andExpect(status().isOk()).andExpect(jsonPath("$.data.items[0].username").value("u"));
     }
 
     @Test
@@ -59,7 +62,7 @@ class UserRoleManagementHttpTest {
     @Test
     void missingPermissionReturns403() throws Exception {
         when(authz.currentUser(any())).thenReturn(actor());
-        when(service.list(any())).thenThrow(new AccessDeniedException("无权限"));
+        when(service.list(any(), anyInt(), anyInt(), any(), any())).thenThrow(new AccessDeniedException("无权限"));
         mvc.perform(get("/api/auth/users").with(user("7")))
                 .andExpect(status().isForbidden());
     }
