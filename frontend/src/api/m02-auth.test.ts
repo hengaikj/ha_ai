@@ -2,7 +2,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { requestMock } = vi.hoisted(() => ({ requestMock: vi.fn() }));
 
-vi.mock("@/api/http", () => ({ request: requestMock }));
+vi.mock("@/api/http", () => ({
+  ApiBusinessError: class extends Error {},
+  httpClient: { request: requestMock },
+}));
 
 import {
   bindM02UserRoles,
@@ -14,7 +17,7 @@ import {
 } from "./m02-auth";
 
 describe("M02 auth API adapter", () => {
-  beforeEach(() => requestMock.mockReset().mockResolvedValue([]));
+  beforeEach(() => requestMock.mockReset().mockResolvedValue({ data: { success: true, requestId: "test", data: [] } }));
 
   it("uses the canonical user and role paths", async () => {
     await fetchM02Users();
