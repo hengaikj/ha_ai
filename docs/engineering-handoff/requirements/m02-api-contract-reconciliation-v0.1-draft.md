@@ -108,9 +108,9 @@ PR #51 已实现 `GET /api/auth/enterprises/options`：要求 `user:create` 权�
 | --- | --- | --- |
 | `UserRoleManagementController`、DTO 与 Service | 主线路由、字段、状态码、权限和绑定语义如本文所述 | `backend/src/main/java/com/hengaikj/ai/auth/controller/`、`auth/dto/`、`auth/service/UserRoleManagementService.java` |
 | M02 API Contract v0.2 | 文档路由与主线实现不一致 | `contracts/m02-api-contract-v0.2.md` |
-| 前端 `platform-system.ts` 与系统页面 | 当前用户/角色 UI 走旧 `/system/**` API | `frontend/src/api/platform-system.ts`、`frontend/src/pages/system/SystemUserPage.vue`、`SystemRolePage.vue` |
+| PR #52 M02 前端适配器与页面 | M02 用户/角色 UI 使用 `/api/auth/**`；旧 `/system/**` 页面不作为 M02 验收入口 | `frontend/src/api/m02-auth.ts`、`frontend/src/pages/m02/M02UserRolePage.vue`、PR #52 |
 | Backend M02 HTTP 测试 | 现有 Controller MockMvc 测试 mock service 且关闭过滤器；不能证明真实鉴权、数据库范围或迁移结果 | `backend/src/test/java/com/hengaikj/ai/UserRoleManagementHttpTest.java` |
 
 ## 2026-09-24 后端基线更新
 
-PR #49、#50、#51 已合并，当前主线构建为 83 tests、0 failures、0 errors、3 conditional skips。后端团队提交当前 18080 上 73/73 真实 JWT/MySQL HTTP 验收；证据位于 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/`。该证据不等同于前端浏览器验收，也不覆盖所有尚未决定的产品规则。角色目录仍没有 `assignable` 字段；不得将提案字段当作响应事实。创建用户时非空角色列表额外要求 `user:role:manage`。角色绑定 PUT 的空列表仍被 DTO 校验拒绝。
+PR #49、#50、#51 已合并，当前主线构建为 83 tests、0 failures、0 errors、3 conditional skips。后端团队提交当前 18080 上 73/73 真实 JWT/MySQL HTTP 验收；证据位于 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/`。该证据不等同于前端浏览器验收；PR #52 已补充真实浏览器证据，但仍不覆盖所有尚未决定的产品规则。角色目录仍没有 `assignable` 字段；不得将提案字段当作响应事实。创建用户时非空角色列表额外要求 `user:role:manage`。角色绑定 PUT 的空列表仍被 DTO 校验拒绝。

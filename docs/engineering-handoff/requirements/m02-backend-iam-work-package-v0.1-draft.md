@@ -44,10 +44,10 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 
 ## 当前明确的技术风险与未决业务语义
 
-- develop `69f8dc7` 的 `AuthzService` 可选 `AuthPermissionMapper` 在为 `null` 时会使 `requirePermission` / 项目列表权限检查直接返回；PR #49 已提出移除所有缺省构造路径，但尚未合并/复验。
+- PR #49 已合并到 develop `69f8dc7`；缺失 `AuthPermissionMapper` 时启动失败，授权路径不再 fail-open。PR #51 同步提供 ACTIVE 企业选项；后端真实 HTTP 证据已在 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/` 归档。
 - 停用用户会使后续受保护请求因用户状态检查返回 401，但当前状态更新未撤销持久化的 session；是否需即时撤销 session 要产品/安全确认并纳入测试。
 - 当前角色目录返回所有角色，但企业管理员写入仅接受 `enterprise-admin`；角色 API 需过滤可分配项或显式返回可分配能力。
-- 平台管理员创建用户需要有效的企业选项，但当前 M02 Controller 未暴露企业列表 API；必须先确定安全且稳定的数据源。
+- 平台管理员创建用户使用经授权的 ACTIVE 企业选项 API；PR #51 已提供该端点，前端 PR #52 已接入，后端仍需独立校验企业状态。
 - Owner 已确认 M02“角色管理界面”限角色目录读取与用户绑定；当前后端不支持角色 CRUD、状态切换或权限树，若新增须走 Baseline Change Request。
 - 当前角色绑定 PUT 语义为全量替换，HTTP DTO 拒绝空列表；Contract 应说明如何清空/解绑，以及企业管理员至少保留什么全局角色。
 - 当前用户列表没有分页和过滤。是否纳入 M02 需产品/架构决定；不能在不设上限的前提下声称适合大规模用户目录。

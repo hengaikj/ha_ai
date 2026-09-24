@@ -102,7 +102,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 | `UserRoleManagementController` 和 `UserRoleManagementService` | 用户、角色接口、权限门禁、企业范围、状态限制及无密码字段摘要已实现 | `backend/src/main/java/com/hengaikj/ai/auth/controller/UserRoleManagementController.java`、`backend/src/main/java/com/hengaikj/ai/auth/service/UserRoleManagementService.java` |
 | `ProjectService.list` 按角色及 `projectIds` 生成项目查询范围 | 项目可见范围已在服务层实施 | `backend/src/main/java/com/hengaikj/ai/project/ProjectService.java` |
 | Backend `mvn clean package`、前端测试/构建及 PR #52 浏览器证据 | 合并主线和现有运行环境验证通过；Baseline 仍需签署和证据归档 | [合并后状态对账](./m02-post-merge-reconciliation-v0.1.md#主线验证证据) |
-| PR #52 页面、测试、构建和浏览器证据 | M02 管理界面已接通并通过真实操作；Baseline 仍需跨职能签署 | `frontend/src/pages/system/SystemUserPage.vue`、`SystemRolePage.vue`；禁止据此宣称 M02 前端验收通过 |
+| PR #52 页面、测试、构建和浏览器证据 | M02 管理界面已接通并通过真实操作；Baseline 仍需跨职能签署 | `frontend/src/pages/m02/M02UserRolePage.vue`、`frontend/src/api/m02-auth.ts`、PR #52 |
 
 ## 变更记录
 
