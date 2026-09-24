@@ -2,6 +2,7 @@ package com.hengaikj.ai.auth.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hengaikj.ai.auth.dto.RoleSummary;
+import com.hengaikj.ai.auth.dto.EnterpriseOption;
 import com.hengaikj.ai.auth.dto.UserCreateRequest;
 import com.hengaikj.ai.auth.dto.UserRoleBindingRequest;
 import com.hengaikj.ai.auth.dto.UserStatusRequest;
@@ -57,6 +58,14 @@ public class UserRoleManagementService {
         authz.requirePermission(actor, "role:read");
         return roles.selectList(new QueryWrapper<AuthRoleEntity>().orderByAsc("id")).stream()
                 .map(role -> new RoleSummary(role.id, role.roleCode, role.displayName)).toList();
+    }
+
+    public List<EnterpriseOption> activeEnterpriseOptions(AuthUserContext actor) {
+        authz.requirePermission(actor, "user:create");
+        if (!isPlatform(actor)) throw new AccessDeniedException("只有平台管理员可以选择企业");
+        return enterprises.selectList(new QueryWrapper<EnterpriseEntity>()
+                        .eq("status", "ACTIVE").orderByAsc("id"))
+                .stream().map(enterprise -> new EnterpriseOption(enterprise.id, enterprise.displayName)).toList();
     }
 
     @Transactional

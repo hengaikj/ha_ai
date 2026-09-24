@@ -3,6 +3,7 @@ package com.hengaikj.ai;
 import com.hengaikj.ai.auth.dto.UserRoleBindingRequest;
 import com.hengaikj.ai.auth.dto.UserStatusRequest;
 import com.hengaikj.ai.auth.dto.UserCreateRequest;
+import com.hengaikj.ai.auth.dto.EnterpriseOption;
 import com.hengaikj.ai.auth.entity.EnterpriseEntity;
 import com.hengaikj.ai.auth.entity.AuthRoleEntity;
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
@@ -96,6 +97,24 @@ class UserRoleManagementServiceTest {
                 () -> service.create(platformActor(), new UserCreateRequest(
                         "new-user", "VerySecurePass123", "New User", 100L, List.of())));
         verify(users, never()).insert(org.mockito.ArgumentMatchers.<AuthUserEntity>any());
+    }
+
+    @Test
+    void platformAdminGetsOnlyActiveEnterpriseOptions() {
+        EnterpriseEntity active = new EnterpriseEntity();
+        active.id = 100L;
+        active.displayName = "Active Enterprise";
+        active.status = "ACTIVE";
+        when(enterprises.selectList(any())).thenReturn(List.of(active));
+        assertEquals(List.of(new EnterpriseOption(100L, "Active Enterprise")),
+                service.activeEnterpriseOptions(platformActor()));
+    }
+
+    @Test
+    void enterpriseAdminCannotReadGlobalEnterpriseOptions() {
+        assertThrows(AccessDeniedException.class,
+                () -> service.activeEnterpriseOptions(actor(7L, 100L, "enterprise-admin")));
+        verify(enterprises, never()).selectList(any());
     }
 
     private static AuthUserEntity user(long id, long enterpriseId) {
