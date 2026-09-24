@@ -4,7 +4,7 @@
 
 日期：2026-09-23（Asia/Shanghai）
 
-主线证据基准：`develop` `60d816f5a5814266ea115977588e15737b4ea564`
+主线证据基准：`develop` `61b3ae484c972bf6054e27da2f605bae4728451d`
 
 上游草案：[M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md)
 
@@ -52,7 +52,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 ## Contract、安全与数据迁移 Gate
 
 - **Contract 对齐**：Owner 已选定 Backend 现行 `/api/auth/**` 为 canonical path；PR #52 已按该路径完成真实 UI 适配并合并。`contracts/m02-api-contract-v0.2.md` 仍需由 Backend、Frontend、Architecture/Contract 评审后修订；后续新增实现仍须遵守正式 Contract Gate。
-- **授权失败关闭**：PR #49 已合并，缺失 `AuthPermissionMapper` 时 Spring 启动失败而不是 fail-open；PR #50/#51 也已合并。当前 develop `69f8dc7` 的后端镜像已完成真实启动与 HTTP 验收，仍需在 Baseline 审批记录中归档最终证据。
+- **授权失败关闭**：PR #49 已合并，缺失 `AuthPermissionMapper` 时 Spring 启动失败而不是 fail-open；PR #50/#51 也已合并。当前 develop `61b3ae4` 对应的运行实例已完成真实启动与 HTTP 验收，后端运行时 SHA 为 `89aa6021c38d693d75e73225317b8c313b6e5018`；正式 Baseline 审批仍待完成。
 - **角色可分配性**：`GET /api/auth/roles` 当前返回全部角色，而企业管理员绑定规则只允许 `enterprise-admin`。Contract/UI 需明确是否返回可分配过滤结果或增加可分配标记，并验证越权绑定被拒绝。
 - **平台管理员企业选项**：PR #51 已提供经授权的 ACTIVE 企业选项 API，PR #52 已接入真实 UI；Contract/Backend 仍需在 Baseline 记录中固化其路径和权限语义，后端继续独立校验企业状态，UI 不得硬编码企业 ID。
 - **角色管理深度**：Owner 默认决策为本 M02 UI 提供角色目录读取和用户角色绑定，不包含角色 CRUD/权限配置；主线 API 与此范围相符。未来如需 CRUD，须提交 Baseline Change Request 并增加 Requirement、Contract 与 Backend 工作项。
@@ -79,10 +79,10 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 | Requirement | 可验收结果 | 已有证据 | 尚缺证据 / Gate |
 | --- | --- | --- | --- |
-| M02-IAM-001 | 登录后的用户信息含角色和权限码；授权请求通过、未授权请求拒绝；企业/平台范围正确 | `AuthHttpTest`、`AuthzServiceTest`、主线 Maven 构建通过 | 使用真实持久化数据和真实 HTTP 覆盖关键角色矩阵；给出权限种子部署验证 |
-| M02-IAM-002 | 列表、创建、启停 API 的 200/201、401/403/400/404/409 语义稳定；越权企业数据不可见；响应无凭证散列 | `UserRoleManagementHttpTest` 覆盖 mock service 的列表、创建、401、403；`UserRoleManagementServiceTest` 覆盖部分企业范围和密码字段映射 | HTTP 测试尚未覆盖全部端点；生产式 HTTP + MySQL 正向/负向验收及响应字段扫描 |
-| M02-IAM-003 | 角色读取与角色绑定 API 按 permission code 授权；企业管理员不能绑定平台/项目角色；绑定可读回 | `UserRoleManagementServiceTest` 部分验证角色限制 | `GET /api/auth/roles` 与 `PUT /api/auth/users/{userId}/roles` 的端到端 HTTP、持久化和读回验证 |
-| M02-IAM-004 | `/api/projects` 对成员按 `projectIds` 过滤，对企业管理员按企业过滤，对平台管理员按平台范围读取 | `ProjectHttpTest` 查询条件断言；PR #46 记录真实 MySQL Mapper HTTP 1/1 | 在合并提交上重跑真实 MySQL HTTP，并附请求/响应、数据库夹具和 Request ID |
+| M02-IAM-001 | 登录后的用户信息含角色和权限码；授权请求通过、未授权请求拒绝；企业/平台范围正确 | `AuthHttpTest`、`AuthzServiceTest`；真实 JWT/SecurityFilterChain HTTP 矩阵 73/73 PASS；权限种子与 Flyway 记录已归档 | Product/Architecture/Security 对 Contract 和验收结果正式签署 |
+| M02-IAM-002 | 列表、创建、启停 API 的 200/201、401/403/400/404/409 语义稳定；越权企业数据不可见；响应无凭证散列 | 真实 MySQL/JWT HTTP 证据覆盖用户查询、创建、状态、跨企业/无权限/未认证及响应脱敏；Backend `mvn clean package` 83 tests PASS | Contract 语义与跨职能 Baseline 签署 |
+| M02-IAM-003 | 角色读取与角色绑定 API 按 permission code 授权；企业管理员不能绑定平台/项目角色；绑定可读回 | 真实 HTTP 覆盖角色读取、角色绑定、项目角色绑定拒绝及后续读回；安全扫描未发现凭证泄露 | Contract 对可分配角色和替换语义正式签署 |
+| M02-IAM-004 | `/api/projects` 对成员按 `projectIds` 过滤，对企业管理员按企业过滤，对平台管理员按平台范围读取 | 真实 MySQL/JWT HTTP 证据覆盖平台管理员、企业管理员、项目成员、跨企业拒绝和 Request ID | Migration clean/upgrade/幂等与责任职能正式签署 |
 | M02-IAM-005 | 经授权管理员可打开用户和角色页面；页面分别读取 `GET /api/auth/users`、`GET /api/auth/roles`；创建、状态变更和绑定分别调用已批准的 M02 API，刷新后显示持久结果；401/403 不产生假成功 | PR #52 的 `M02UserRolePage.vue`、`m02-auth.ts`，真实浏览器 Network 与截图 | 已完成用户查询/创建/启停、角色读取/绑定、企业选项和权限保护验证；角色目录只读、现有角色绑定，不包含角色 CRUD。跨职能 Baseline 签署仍待完成 |
 | M02-LAYA-001 | 经批准的显式自动路由模式只从项目允许模型中选择；拒绝越权输出；故障/低信心遵循项目默认值或批准错误；可追溯且不泄露敏感输入 | 仅有需求和架构提案 | 产品/架构/隐私/QA 批准 Contract、样本与阈值、时延/资源目标及降级语义后，单独实现和测试；生产启用另设 Gate |
 
@@ -98,7 +98,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 | Evidence | Finding | Path |
 | --- | --- | --- |
-| PR #45 和 PR #46 合并至 `develop`；主线全量构建 76 tests、0 failures、0 errors、3 skipped | IAM/RBAC 与用户/角色管理能力是已交付代码事实；需求批准仍待完成 | [PR #45](https://github.com/hengaikj/ha_ai/pull/45)、[PR #46](https://github.com/hengaikj/ha_ai/pull/46)、[合并后状态对账](./m02-post-merge-reconciliation-v0.1.md) |
+| PR #45/#46/#49/#50/#51 已合并至 `develop`；Backend `mvn clean package` 83 tests、0 failures、0 errors、3 conditional skips；真实 HTTP 73/73 PASS | IAM/RBAC 与用户/角色管理能力是已交付代码事实；需求批准仍待完成 | [PR #45](https://github.com/hengaikj/ha_ai/pull/45)、[PR #46](https://github.com/hengaikj/ha_ai/pull/46)、[PR #49](https://github.com/hengaikj/ha_ai/pull/49)、[PR #50](https://github.com/hengaikj/ha_ai/pull/50)、[PR #51](https://github.com/hengaikj/ha_ai/pull/51)、[合并后状态对账](./m02-post-merge-reconciliation-v0.1.md) |
 | `UserRoleManagementController` 和 `UserRoleManagementService` | 用户、角色接口、权限门禁、企业范围、状态限制及无密码字段摘要已实现 | `backend/src/main/java/com/hengaikj/ai/auth/controller/UserRoleManagementController.java`、`backend/src/main/java/com/hengaikj/ai/auth/service/UserRoleManagementService.java` |
 | `ProjectService.list` 按角色及 `projectIds` 生成项目查询范围 | 项目可见范围已在服务层实施 | `backend/src/main/java/com/hengaikj/ai/project/ProjectService.java` |
 | Backend `mvn clean package`、前端测试/构建及 PR #52 浏览器证据 | 合并主线和现有运行环境验证通过；Baseline 仍需签署和证据归档 | [合并后状态对账](./m02-post-merge-reconciliation-v0.1.md#主线验证证据) |
