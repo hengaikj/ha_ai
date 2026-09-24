@@ -74,9 +74,9 @@ public class ApiKeyController {
 
     private SuccessEnvelope<ApiKeySummary> change(long keyId, String status, Authentication authentication,
                                                    HttpServletRequest request) {
+        AuthUserContext user = authz.currentUser(authentication);
         ApiKeyEntity key = service.findById(keyId);
         if (key == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "API Key不存在");
-        AuthUserContext user = authz.currentUser(authentication);
         AuthzService.ProjectScope scope = authz.requireProjectAccess(user, key.projectId, ProjectAction.MANAGE_KEYS);
         return SuccessEnvelope.of(requestId(request), service.change(scope.enterpriseId(), scope.projectId(), keyId, status));
     }
