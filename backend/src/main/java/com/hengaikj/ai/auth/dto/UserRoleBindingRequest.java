@@ -1,7 +1,7 @@
 package com.hengaikj.ai.auth.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-
 import java.util.List;
 
-public record UserRoleBindingRequest(@NotEmpty List<String> roleCodes) {}
+public record UserRoleBindingRequest(List<String> roleCodes) {
+    public UserRoleBindingRequest { if (roleCodes == null) roleCodes = List.of(); }
+}

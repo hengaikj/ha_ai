@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ha_auth_audit_event (id BIGINT PRIMARY KEY AUTO_INCREMENT, actor_user_id BIGINT NOT NULL, target_user_id BIGINT NULL, action VARCHAR(64) NOT NULL, detail VARCHAR(512) NULL, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, INDEX idx_audit_target(target_user_id), INDEX idx_audit_created(created_at));
