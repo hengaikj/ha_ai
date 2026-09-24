@@ -1,10 +1,10 @@
 # M02 Baseline Approval Checklist v0.1 Draft
 
-状态：DRAFT / OWNER DEFAULTS CONFIRMED; AWAITING CROSS-FUNCTIONAL BASELINE APPROVAL
+状态：APPROVED FOR IMPLEMENTATION / OWNER AND CROSS-FUNCTIONAL SIGN-OFF RECORDED（2026-09-24）
 
-基线候选：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)
+基线候选：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)；批准 Contract：[M02 API Contract v0.3](../../../contracts/m02-api-contract-v0.3.md)
 
-本清单把已确认的范围和仍需决策的默认建议压缩为一次审批入口。勾选/回复前保持 DRAFT；任何代码、数据库、API 或部署实现均需正式 Baseline/Contract 审批后授权。
+本清单把已确认的范围和仍需决策的默认建议压缩为一次审批入口。勾选/回复前保持 DRAFT；Contract v0.3 与 Baseline 已批准；后续代码、数据库和部署变更仍必须按 feature 分支、PR、审查和验证 Gate 执行。
 
 ## 已确认范围
 
@@ -31,13 +31,25 @@
 
 | 责任领域 | 审批人 | 状态 |
 | --- | --- | --- |
-| Product：目标、分母、优先级与角色 UI 深度 | TBD | PENDING |
-| Architecture/Security：API 语义、fail-closed、Laya 边界/隐私/降级 | TBD | PENDING |
-| Backend：Controller/DTO/迁移/真实 MySQL HTTP | PR #49/#50/#51 记录与 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/` | EVIDENCE RECORDED；正式签署 PENDING |
-| Frontend：页面和 API 对接/浏览器证据 | PR #52 代码审查评论 | EVIDENCE RECORDED；正式签署 PENDING |
-| Integration/QA：端到端证据、发布和回滚门槛 | PR #52 浏览器证据与合并后复核 | EVIDENCE RECORDED；正式签署 PENDING |
+| Product：目标、分母、优先级与角色 UI 深度 | 本次交互式 Owner 签署 | SIGNED PASS |
+| Architecture/Security：API 语义、fail-closed、Laya 边界/隐私/降级 | 本次交互式 Owner 签署 | SIGNED PASS |
+| Backend：Controller/DTO/迁移/真实 MySQL HTTP | 本次交互式 Owner 签署；PR #49/#50/#51 与真实证据 | SIGNED PASS；实现 follow-up 仍需按 Contract v0.3 完成 |
+| Frontend：页面和 API 对接/浏览器证据 | 本次交互式 Owner 签署；PR #52 | SIGNED PASS；实现 follow-up 仍需按 Contract v0.3 完成 |
+| Integration/QA：端到端证据、发布和回滚门槛 | 本次交互式 Owner 签署；PR #52 浏览器证据 | SIGNED PASS；新实现仍需重新验收 |
 
 ## 当前证据对账（2026-09-24）
+
+## 交互式签署记录（2026-09-24）
+
+本次维护会话逐题记录了 Owner 对 C-01 至 C-15 的确认，并分别完成 Product、Architecture/Security、Backend、Frontend、Integration/QA 的 PASS 选择。该记录是范围与 Gate 决策记录，不伪造 GitHub Approve；代码完成度仍以各实现 PR 的独立审查、测试和真实验收为准。
+
+| 责任领域 | 签署结果 | 后续约束 |
+| --- | --- | --- |
+| Product | PASS | IAM/RBAC + 管理 UI 为 P0；Laya 为独立 P1 POC；角色 CRUD/权限树排除 |
+| Architecture/Security | PASS | fail-closed、统一错误与 Request ID、Laya 白名单/脱敏/回退/供应链边界 |
+| Backend | PASS | 按 Contract v0.3 实现分页、可绑定角色、解绑、不变量、审计和错误 envelope |
+| Frontend | PASS | 按 Contract v0.3 更新 UI/API adapter，并提供真实浏览器证据 |
+| Integration/QA | PASS | 在现有 5173/18080 环境重新执行真实 HTTP、浏览器、回滚和 M01 回归验收 |
 
 | 项目 | 当前事实 | 证据 |
 | --- | --- | --- |
@@ -47,6 +59,6 @@
 | M02 IAM UI | 用户查询/创建/启停、角色读取/绑定、ACTIVE 企业选项已真实操作验证 | `output/playwright/pr52-m02-users-roles-active.png` |
 | M01 AI 管理页 | API Key 创建、一次性 Secret、列表脱敏、disable/enable/revoke、Usage 已真实操作验证 | `output/playwright/pr52-ai-api-keys-*.png`、`pr52-ai-usage.png` |
 
-以上是证据状态更新，不等同于 Baseline APPROVED；Product、Architecture/Security、Backend、Frontend、Integration、QA 仍需正式签署。
+以上是证据状态更新；Product、Architecture/Security、Backend、Frontend、Integration、QA 的交互式签署已记录。后续实现仍需独立 PR 验收，不得把本签署当作代码完成声明。
 
-以上六项产品范围与推荐默认设计已按用户“按建议推进”及后续 UI 范围确认记录。Baseline 仍为 DRAFT：Product、Architecture/Security、Backend、Frontend、Integration 和 QA 的正式审批/签署尚未齐备；在审批完成前，不授权 M02 功能实现。审批后再更新 Baseline 与 Contract 版本，并按已批准的 [Backend 工作包](./m02-backend-iam-work-package-v0.1-draft.md)、[Frontend 工作包](./m02-frontend-iam-work-package-v0.1-draft.md) 和独立 Laya Gate 授权实施。
+以上六项产品范围与推荐默认设计已按用户“按建议推进”及后续 UI 范围确认记录。Baseline 已批准进入实现阶段；但现有代码尚未满足 Contract v0.3 的新增分页、角色可绑定目录、解绑、不变量、审计和统一错误语义。按已批准的 [Backend 工作包](./m02-backend-iam-work-package-v0.1-draft.md)、[Frontend 工作包](./m02-frontend-iam-work-package-v0.1-draft.md) 和独立 Laya Gate 授权实施。

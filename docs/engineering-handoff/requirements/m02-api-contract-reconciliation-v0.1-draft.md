@@ -1,6 +1,6 @@
 # M02 API Contract 对齐提案 v0.1
 
-状态：DRAFT / PENDING BACKEND, FRONTEND, ARCHITECTURE AND PRODUCT REVIEW
+状态：RECONCILED / SUPERSEDED BY APPROVED CONTRACT v0.3（2026-09-24）
 
 适用基线：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)
 
@@ -8,7 +8,7 @@
 
 后端运行时证据基准：`89aa6021c38d693d75e73225317b8c313b6e5018`（Backend 镜像/真实 HTTP 验收）；该 SHA 与当前 `develop` 文档主线提交分开记录。
 
-本文对照现有 Contract 草案与主线 M02 Controller/DTO，提出统一 API 表面。它不替换 `contracts/m02-api-contract-v0.2.md`，也不是实现授权。Owner 已按建议选择 `/api/auth/**` 为 canonical 路径；此决策仍需 Backend、Frontend、Architecture/Contract 评审，并更新 Contract 后才能作为实现依据。
+本文记录审查差异；批准后的目标 Contract 为 [M02 API Contract v0.3](../../../contracts/m02-api-contract-v0.3.md)。它不替换历史 `contracts/m02-api-contract-v0.2.md`，实现必须以 v0.3 为依据。Owner 已确认 `/api/auth/**` 为 canonical 路径，相关签署已记录。
 
 ## 差异摘要
 

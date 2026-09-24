@@ -1,6 +1,6 @@
 # M02 Requirement Baseline v0.2 Candidate
 
-状态：DRAFT / SCOPE AND OWNER DEFAULTS CONFIRMED; PENDING CROSS-FUNCTIONAL BASELINE APPROVAL
+状态：APPROVED BASELINE / IMPLEMENTATION FOLLOW-UP REQUIRED（2026-09-24）
 
 日期：2026-09-23（Asia/Shanghai）
 
@@ -10,7 +10,7 @@
 
 合并对账：[M02 合并后状态对账 v0.1](./m02-post-merge-reconciliation-v0.1.md)
 
-本文把已合并的 M02-A/B 能力整理成需求基线候选，并记录已确认的产品范围决定。`IMPLEMENTED` 只表示代码已在主线，不表示验收完成。本文不授权新的代码、数据库、API Contract 或部署工作；优先级、技术边界、验收责任和正式审批完成前维持 DRAFT。
+本文把已合并的 M02-A/B 能力整理成需求基线候选，并记录已确认的产品范围决定。`IMPLEMENTED` 只表示代码已在主线，不表示验收完成。本文已授权按批准范围进入实现；具体代码、数据库、API 和部署变更仍必须通过独立 feature 分支、PR、审查与验收。
 
 待定事项的单页审批入口：[M02 Baseline Approval Checklist v0.1 Draft](./m02-baseline-approval-checklist-v0.1-draft.md)。
 
@@ -28,7 +28,7 @@
 | M02-IAM-006 | 角色创建、编辑、停用和权限配置 | 当前 M02 不纳入；若后续纳入，需新增 Requirement、角色生命周期/API、平台/企业范围、审计与迁移兼容 | NOT IMPLEMENTED；主线没有对应 M02 API | EXCLUDED FROM CURRENT M02 SCOPE BY OWNER DEFAULT; future change request required |
 | M02-LAYA-001 | 以独立工作流把 Laya 语义模型路由作为 M02 能力进行评估和集成 | 按独立候选文档完成目标与边界、路由决策/API、数据隐私、失败降级、评估指标、运行目标、审计与发布/回滚验收 | PROPOSAL ONLY | SCOPE / P1 CONFIRMED BY OWNER；生产启用另设 Gate；跨职能验收待签署 |
 
-上述 P0/P1 与角色 UI 深度按用户“按建议推进”记录为 Owner 决策：M02 包含独立的用户/角色 UI，范围为用户管理、角色目录读取和用户现有角色绑定；角色 CRUD/权限树暂不纳入；Laya 是独立 P1 工作流，生产自动路由另设 Gate。其他责任职能的 Baseline 审批尚未完成。
+上述 P0/P1 与角色 UI 深度按用户“按建议推进”记录为 Owner 决策：M02 包含独立的用户/角色 UI，范围为用户管理、角色目录读取和用户现有角色绑定；角色 CRUD/权限树暂不纳入；Laya 是独立 P1 工作流，生产自动路由另设 Gate。Product、Architecture/Security、Backend、Frontend、Integration 和 QA 的交互式签署已记录。
 
 ### 候选接口清单（以主线实现为事实）
 
@@ -41,9 +41,9 @@
 
 当前创建用户字段为 `username`、`password`（12–128 字符）、`displayName`、可选 `enterpriseId` 和 `roleCodes`；平台管理员创建时必须提供有效企业，企业管理员只能创建到自身企业。状态更新请求为 `{"status":"ACTIVE"|"DISABLED"}`；角色绑定请求为 `{"roleCodes":[...]}` 且语义是替换全量全局绑定，空列表当前不合法。现有 M02 API 只读角色目录并绑定角色，不提供角色 CRUD。
 
-上述路由和字段是代码核对结果，不是已批准的外部 API Contract。Contract 文件 [m02-api-contract-v0.2.md](../../../contracts/m02-api-contract-v0.2.md) 的早期路径与主线 `/api/auth/**` 不一致；PR #52 已按当前 Backend canonical 路径完成适配并合并。仍需在 Contract 审查记录中固化路径、字段、响应 envelope、状态码、权限失败与角色绑定替换语义，不能以实现事实替代 Contract 审批。
+上述路由和字段是代码核对结果；批准的目标 Contract 为 [m02-api-contract-v0.3.md](../../../contracts/m02-api-contract-v0.3.md)。早期 v0.2 路径与主线 `/api/auth/**` 不一致；PR #52 已按当前 Backend canonical 路径完成适配并合并。实现必须继续以 v0.3 的字段、响应 envelope、状态码、权限失败与角色绑定语义为准。
 
-逐项差异及建议验收见 [M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliation-v0.1-draft.md)。
+逐项差异及已批准目标见 [M02 API Contract v0.3](../../../contracts/m02-api-contract-v0.3.md)；旧对齐提案保留为审查记录。
 
 已确认的前端用户/角色界面范围和验收拆解见 [M02 Frontend IAM 工作包 v0.1 Draft](./m02-frontend-iam-work-package-v0.1-draft.md)。
 
@@ -67,7 +67,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 ## 审批与验收门槛
 
-本候选转为 APPROVED 前，负责人须在 PR 或基线审批记录中逐项确认：
+本基线已 APPROVED；以下内容作为实现 PR 的逐项验收清单：
 
 1. 将 Owner 已确认范围/默认优先级（IAM/RBAC 与独立管理 UI P0；Laya 独立 P1）固化为正式 Requirement 分母；确认责任人及 M02-IAM-006 当前排除决定，或提交替代 Change Request。
 2. 表中验收条件是否满足业务预期，尤其是平台级/企业级角色范围、项目角色绑定边界和数据隔离。
@@ -108,4 +108,4 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 
 | 版本 | 说明 |
 | --- | --- |
-| v0.2 candidate | 记录 Owner 对 IAM/RBAC、独立管理 UI、Laya 独立工作流和推荐默认范围/优先级的确认；补充 PR #49 修复状态；跨职能审批、Contract 发布和验收证据仍待完成 |
+| v0.2 candidate | 记录 Owner 对 IAM/RBAC、独立管理 UI、Laya 独立工作流和推荐默认范围/优先级的确认；补充 PR #49 修复状态；跨职能审批已完成；Contract v0.3 已批准，代码实现和验收 follow-up 仍待完成 |

@@ -1,6 +1,6 @@
 # M02 Frontend IAM 工作包 v0.1 Draft
 
-状态：DRAFT / OWNER SCOPE AND PRIORITY CONFIRMED; PENDING CROSS-FUNCTIONAL CONTRACT APPROVAL
+状态：APPROVED WORK PACKAGE / IMPLEMENTATION FOLLOW-UP REQUIRED（Contract v0.3）
 
 适用基线：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)
 
@@ -8,7 +8,7 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 
 代码核对基准：`develop` `09b0353e9899b95c16a7e0b7720724785bad4223`
 
-此工作包把已确认的“用户和角色管理必须有界面”拆成前端交付范围。它不是开发授权；API Contract、优先级和实现任务获批前不得据此改变生产代码。
+此工作包把已批准的“用户和角色管理必须有界面”拆成前端交付范围。实现必须遵循 Contract v0.3，并通过独立 feature 分支、PR、审查和真实浏览器验收。
 
 ## 主线现状与差距
 
