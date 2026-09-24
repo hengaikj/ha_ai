@@ -1,12 +1,12 @@
 # M02 Frontend Integration Request v0.1
 
-状态：ACTION REQUEST / PENDING FRONTEND REVIEW
+状态：COMPLETED / EVIDENCE RECORDED；BASELINE SIGN-OFF PENDING
 
-基线：`origin/develop` `89aa6021c38d693d75e73225317b8c313b6e5018`
+基线：Backend `89aa6021c38d693d75e73225317b8c313b6e5018`；Frontend PR #52 merge `69f8dc7f4360754023a6acdd2830cadf7f032e68`
 
 ## 目标
 
-在不修改 M01 已发布业务 Contract 的前提下，完成 M02 独立用户与角色管理界面，并与后端 `/api/auth/**` canonical API 对齐。M02 页面必须使用当前 `127.0.0.1:18081` 运行环境进行真实浏览器验收。
+在不修改 M01 已发布业务 Contract 的前提下，完成 M02 独立用户与角色管理界面，并与后端 `/api/auth/**` canonical API 对齐。M02 页面必须使用当前 `127.0.0.1:18080` 运行环境进行真实浏览器验收。
 
 ## 前端执行项
 
@@ -24,9 +24,9 @@
 - `pnpm exec vue-tsc -b` 与 `pnpm run build` 日志。
 - 浏览器页面截图、Network 导出或等价记录，包含用户查询/创建/状态、角色读取/绑定、企业选项。
 - 每个请求的 method、URL、status、`x-request-id`，并记录 401/403/404 负例。
-- 使用真实 JWT、当前 18081、真实 MySQL/Redis；不得启动第二套验收环境。
+- 使用真实 JWT、当前 18080、真实 MySQL/Redis；不得启动第二套验收环境。
 - 脱敏后的响应样本，证明没有密码、JWT、Bearer、API Key `secret` 或 `keyHash` 泄露。
 
 ## 完成门槛
 
-前端 PR 必须基于 `89aa6021` 或其后端已审阅主线，列出实际调用路径与旧路径清理结果。仅有构建通过不能关闭工作包；必须同时提供真实浏览器 Network 证据。完成后由 Frontend、Integration、QA 在 M02 Baseline Approval Checklist 上登记结论。
+前端 PR 必须基于 `89aa6021` 或其后端已审阅主线，列出实际调用路径与旧路径清理结果。仅有构建通过不能关闭工作包；必须同时提供真实浏览器 Network 证据。已由 PR #52 完成代码审查、测试、构建和真实浏览器验收，并合并至 develop。剩余动作是由 Frontend、Integration、QA 在 M02 Baseline Approval Checklist 上登记结论；本文不单独把 M02 Baseline 标记为 APPROVED。

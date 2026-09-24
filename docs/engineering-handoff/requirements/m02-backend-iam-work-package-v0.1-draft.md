@@ -6,13 +6,13 @@
 
 API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliation-v0.1-draft.md)
 
-代码核对基准：`develop` `c5db6b7dea9867c466f91180d6a81c69acec3559`
+代码核对基准：`develop` `69f8dc7f4360754023a6acdd2830cadf7f032e68`
 
 此工作包把已确认的 IAM/RBAC 与用户/角色 API 范围拆成可评审任务。它不授权实现或数据库变更；Contract、安全风险和优先级批准后才可建立实施分支。
 
 ## 主线现状
 
-主线已提供 `AuthController.getInfo` 角色/权限码、M02 用户/角色 Controller、Service、V2–V4 数据迁移和项目范围过滤。实际路由与 `contracts/m02-api-contract-v0.2.md` 不一致。当前 `UserRoleManagementHttpTest` 是 `@WebMvcTest`，mock 了 Service/Authz 并关闭 Security filters；它不能证明真实认证、权限 Mapper、数据库范围或 Flyway 种子行为。真实 MySQL 项目成员 HTTP 记录来自 PR #46 head，尚未在合并 SHA `c5db6b7` 重跑。
+主线已提供 `AuthController.getInfo` 角色/权限码、M02 用户/角色 Controller、Service、V2–V4 数据迁移和项目范围过滤。实际路由与 `contracts/m02-api-contract-v0.2.md` 不一致。当前 `UserRoleManagementHttpTest` 是 `@WebMvcTest`，mock 了 Service/Authz 并关闭 Security filters；它不能证明真实认证、权限 Mapper、数据库范围或 Flyway 种子行为。真实 MySQL 项目成员 HTTP 记录来自 PR #46 head，尚未在合并 SHA `69f8dc7` 重跑。
 
 ## 建议任务顺序
 
@@ -44,7 +44,7 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 
 ## 当前明确的技术风险与未决业务语义
 
-- develop `c5db6b7` 的 `AuthzService` 可选 `AuthPermissionMapper` 在为 `null` 时会使 `requirePermission` / 项目列表权限检查直接返回；PR #49 已提出移除所有缺省构造路径，但尚未合并/复验。
+- develop `69f8dc7` 的 `AuthzService` 可选 `AuthPermissionMapper` 在为 `null` 时会使 `requirePermission` / 项目列表权限检查直接返回；PR #49 已提出移除所有缺省构造路径，但尚未合并/复验。
 - 停用用户会使后续受保护请求因用户状态检查返回 401，但当前状态更新未撤销持久化的 session；是否需即时撤销 session 要产品/安全确认并纳入测试。
 - 当前角色目录返回所有角色，但企业管理员写入仅接受 `enterprise-admin`；角色 API 需过滤可分配项或显式返回可分配能力。
 - 平台管理员创建用户需要有效的企业选项，但当前 M02 Controller 未暴露企业列表 API；必须先确定安全且稳定的数据源。

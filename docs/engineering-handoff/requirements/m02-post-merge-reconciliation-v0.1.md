@@ -2,7 +2,7 @@
 
 状态：EVIDENCE RECORD / PENDING PRODUCT AND ARCHITECTURE REVIEW
 日期：2026-09-23（Asia/Shanghai）
-核对主线：`develop` `c5db6b7dea9867c466f91180d6a81c69acec3559`
+核对主线：`develop` `69f8dc7f4360754023a6acdd2830cadf7f032e68`
 
 本文记录 M02-A、M02-B 合并后的代码与验证事实，并列出继续推进前的基线差异。它不是已批准的 M02 Requirement Baseline，不追认未签字的业务需求，也不授权新的 M02 实现。
 
@@ -12,13 +12,14 @@
 | --- | --- | --- | --- |
 | [#45](https://github.com/hengaikj/ha_ai/pull/45) | M02-A：RBAC 权限、角色与用户授权上下文 | `2d195035c36bf05e6969f1f62b81c109d092e225` | MERGED |
 | [#46](https://github.com/hengaikj/ha_ai/pull/46) | M02-B：用户管理、角色绑定、企业范围及项目成员访问 | `4eb8882210c4e9e76e7a109a0ea108c2b27f1c84` | MERGED |
-| [#47](https://github.com/hengaikj/ha_ai/pull/47) | 前端：后端任务中心未接入时关闭轮询 | `c5db6b7dea9867c466f91180d6a81c69acec3559` | MERGED |
+| [#47](https://github.com/hengaikj/ha_ai/pull/47) | 前端：后端任务中心未接入时关闭轮询 | `c5db6b7` | MERGED |
+| [#52](https://github.com/hengaikj/ha_ai/pull/52) | M02 前端用户与角色管理 UI、`/api/auth/**` 适配与真实浏览器证据 | `69f8dc7f4360754023a6acdd2830cadf7f032e68` | MERGED |
 
-PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面已经完成。M02-B 是后端能力；前端用户/角色管理界面是否属于 M02 范围仍待 Requirement 决定。
+PR #47 是前端开发行为修复；PR #52 已完成并合并 M02 用户与角色管理界面及真实 `/api/auth/**` 联调。M02 Baseline 仍需跨职能审批，合并事实不等同于 Requirement PASS。
 
 ## 主线验证证据
 
-验证命令均在合并主线 `c5db6b7dea9867c466f91180d6a81c69acec3559` 的干净 worktree 执行。
+验证命令均在合并主线 `69f8dc7f4360754023a6acdd2830cadf7f032e68` 的干净 worktree 执行。
 
 | 层级 | 命令或证据 | 结果 | 限制 |
 | --- | --- | --- | --- |
@@ -26,21 +27,16 @@ PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面�
 | Spring Context | `SpringContextStartupTest`（包含于上述构建） | PASS | 证明测试上下文启动，不等同于部署环境验收 |
 | Frontend | `pnpm exec vue-tsc -b` | PASS，退出码 0 | 无 |
 | Frontend | `pnpm run build` | PASS，退出码 0 | 有既有 Vue CSS 弃用、Rolldown 注释及大 chunk 警告 |
-| Real MySQL HTTP | PR #46 head `00e4cb4fee582f720cedc4e6fb617ac727f5bfd6` 的验收记录 | PR 中记录 MySQL 8 + MyBatis 项目成员 HTTP 验收 1/1 PASS | 未在合并提交 `c5db6b7` 上重跑 |
-| Live Frontend + Backend | 合并提交上的浏览器端到端验收 | NOT_RUN | 当次核验没有 Frontend `5173` 监听；现有 Backend 进程未证明运行的是合并提交构建；未启动第二套环境 |
+| Real MySQL HTTP | PR #46 head `00e4cb4fee582f720cedc4e6fb617ac727f5bfd6` 的验收记录 | PR 中记录 MySQL 8 + MyBatis 项目成员 HTTP 验收 1/1 PASS | 未在合并提交 `69f8dc7` 上重跑 |
+| Live Frontend + Backend | PR #52 合并前后现有 5173/18080 环境的真实浏览器验收 | PASS（证据已记录） | 需由 Baseline Approval Checklist 完成跨职能签署；未启动第二套环境 |
 
-### 2026-09-24 运行实例只读探测
+### 2026-09-24 合并后运行实例复核
 
-本次未重启或替换任何服务，仅对当前监听端口发起未认证 GET 请求，并记录端口与实例差异：
+未启动第二套环境。当前单机运行实例为 Frontend `127.0.0.1:5173`、Backend Docker `127.0.0.1:18080`、真实 MySQL 8.4 与 Redis。Frontend Vite 进程来自 PR #52 工作树，`VITE_ENABLE_AI_MOCK=false`，代理目标为 `http://127.0.0.1:18080`；Frontend 根页面 HTTP 200。
 
-| 实例 | 探测 | 结果 | 结论 |
-| --- | --- | --- | --- |
-| Docker Backend `127.0.0.1:18080` | `GET /api/auth/users`、`GET /api/auth/roles` | `404`，均带 `x-request-id` | 该实例不是可用于 M02 IAM 验收的当前 Backend，不能据此判定 Controller 缺失于合并代码 |
-| Docker Backend `127.0.0.1:18080` | `GET /api/captchaImage`、`GET /api/usage` | `200` | 旧实例仍提供 M01/基础接口 |
-| Java `127.0.0.1:18081` | `GET /api/auth/users`、`GET /api/auth/roles`、`GET /api/usage` | `401`；认证过滤器生效 | 路径已进入认证保护层，但尚未完成已认证 HTTP 验收 |
-| Java `127.0.0.1:18081` | `GET /api/captchaImage` | `200` | 开放探针正常 |
+PR #52 浏览器证据已覆盖用户查询/创建/启停、角色读取/绑定、企业选项、API Key 创建及一次性 Secret 展示、列表脱敏、disable/enable/revoke、Usage 页面。证据文件保存在本地 `output/playwright/pr52-*.png`，Secret 未写入截图或文档。
 
-该探测没有提供登录凭证，也没有执行创建、状态变更、角色绑定或其他写操作；因此仍不能作为 M02 UI/API PASS 证据。当前两个实例的构建 SHA 未由进程信息证明，后续必须在目标 SHA 上使用已授权测试身份完成真实 HTTP 和浏览器验收。
+Backend 启动日志确认 RedisTemplate JSON serializer + JavaTimeModule、Tomcat 8080；`mvn clean package` 与前端 Vitest/build 证据已分别记录在 PR #51/#52。
 
 ## Baseline 差异
 
@@ -61,7 +57,7 @@ PR #47 是前端开发行为修复，不代表 M02 用户与角色管理界面�
 
 | Evidence | Finding | Path |
 | --- | --- | --- |
-| PR #45/#46 已合并，`develop` 为 `c5db6b7` | M02-A/B 已成为当前代码事实 | GitHub PR 页面及本文件“已合并内容” |
+| PR #45/#46/#52 已合并，`develop` 为 `69f8dc7` | M02 后端与前端 IAM 能力已成为当前代码事实 | GitHub PR 页面及本文件“已合并内容” |
 | Backend `mvn clean package` 全量结果 | 合并主线 Maven 构建通过；MySQL 专项验收被跳过 | 主线 worktree `backend/target/surefire-reports/` 与 Maven 输出 |
 | Frontend 类型检查和构建退出码均为 0 | 合并主线前端可通过类型检查与生产构建 | 主线 worktree `frontend/` 构建输出 |
-| 主线 M02 Draft 与 v0.2 范围决定记录 | 范围已确认，正式审批及技术细化仍待完成；旧 Laya 基线引用已在 PR 文档副本中修正 | `docs/engineering-handoff/requirements/requirement-baseline-m02-v0.2-candidate.md`；`requirements/laya/` |
+| PR #52 真实浏览器证据与合并后运行时复核 | 前端 IAM 联调已完成；正式 Baseline 审批及 Laya 技术细化仍待完成 | `docs/engineering-handoff/requirements/requirement-baseline-m02-v0.2-candidate.md`；`requirements/laya/` |

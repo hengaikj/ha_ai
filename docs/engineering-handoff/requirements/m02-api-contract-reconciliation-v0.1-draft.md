@@ -113,4 +113,4 @@ PR #51 已实现 `GET /api/auth/enterprises/options`：要求 `user:create` 权�
 
 ## 2026-09-24 后端基线更新
 
-PR #49、#50、#51 已合并，当前主线构建为 83 tests、0 failures、0 errors、3 conditional skips。后端团队提交当前 18081 上 73/73 真实 JWT/MySQL HTTP 验收；证据位于 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/`。该证据不等同于前端浏览器验收，也不覆盖所有尚未决定的产品规则。角色目录仍没有 `assignable` 字段；不得将提案字段当作响应事实。创建用户时非空角色列表额外要求 `user:role:manage`。角色绑定 PUT 的空列表仍被 DTO 校验拒绝。
+PR #49、#50、#51 已合并，当前主线构建为 83 tests、0 failures、0 errors、3 conditional skips。后端团队提交当前 18080 上 73/73 真实 JWT/MySQL HTTP 验收；证据位于 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/`。该证据不等同于前端浏览器验收，也不覆盖所有尚未决定的产品规则。角色目录仍没有 `assignable` 字段；不得将提案字段当作响应事实。创建用户时非空角色列表额外要求 `user:role:manage`。角色绑定 PUT 的空列表仍被 DTO 校验拒绝。
