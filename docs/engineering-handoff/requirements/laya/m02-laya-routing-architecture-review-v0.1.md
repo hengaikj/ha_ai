@@ -79,3 +79,16 @@ Laya 适配器、Python 基础镜像、模型权重和上游 revision 必须固�
 - 不把本审查记录当作 POC 开发授权。
 
 批准后再拆分独立 feature 分支和 PR，并要求真实 HTTP、故障注入、隐私扫描、资源测量和可回滚证据。
+
+## 上游仓库快照与新增评估风险（2026-09-24）
+
+本节依据上游 [Laya GitHub 仓库](https://github.com/NandhaKishorM/laya) 当前 README 的公开信息整理，只用于风险评估，不锁定本项目依赖版本。
+
+- 上游当前文档同时提供 `laya`、`laya-multilingual` 和 `laya-typed-decisions` 三类 checkpoint，并由 `Router` 按请求选择；HA AI 仍必须把候选逻辑模型和最终授权放在后端策略层。
+- `Router` 首次使用会下载 checkpoint；服务部署必须预下载或提供可审计的模型缓存/离线启动方案，不能让生产首请求隐式联网下载。
+- 上游文档提示长文本需要显式设置 `max_len`，并给出不同输入长度的准确率变化；POC 必须在 HA AI 的中文、英文和混合语料上重新测量，不能直接采用上游基准。
+- 上游公开结果显示英文 checkpoint 在非拉丁文本上可能出现高置信度错误；因此不能用 confidence 单项作为安全兜底，必须先做脚本/语言覆盖验证并设置确定性白名单和回退。
+- `max_loaded`、预加载和多 checkpoint 切换会改变内存占用与重载延迟；资源预算、并发、P95/P99 和冷启动行为必须作为 POC Gate，而不是部署后再观察。
+- 上游安装要求 Python 3.10+，并提供 HTTP server 可选依赖；本项目若采用独立服务，必须固定 Python、包版本、镜像摘要、模型 revision 和权重摘要，并单独执行供应链审查。
+
+这些事实强化了现有结论：Laya 只能作为默认关闭、可回滚的独立 POC；在 Contract、隐私、质量阈值、资源 SLO 和发布 Gate 获批前，不得进入 Backend/Frontend 代码或 Compose 默认服务。
