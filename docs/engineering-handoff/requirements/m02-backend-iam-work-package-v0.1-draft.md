@@ -1,6 +1,6 @@
 # M02 Backend IAM 工作包 v0.1 Draft
 
-状态：DRAFT / OWNER SCOPE AND DEFAULTS CONFIRMED; PENDING CROSS-FUNCTIONAL CONTRACT AND SECURITY APPROVAL
+状态：APPROVED WORK PACKAGE / IMPLEMENTATION FOLLOW-UP REQUIRED（Contract v0.3）
 
 适用基线：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)
 
@@ -8,7 +8,7 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 
 代码核对基准：`develop` `09b0353e9899b95c16a7e0b7720724785bad4223`
 
-此工作包把已确认的 IAM/RBAC 与用户/角色 API 范围拆成可评审任务。它不授权实现或数据库变更；Contract、安全风险和优先级批准后才可建立实施分支。
+此工作包把已批准的 IAM/RBAC 与用户/角色 API 范围拆成实施任务。实现仍必须在独立 feature 分支、PR 和验收中完成，不得把当前证据当作新增条目已实现。
 
 ## 主线现状
 
