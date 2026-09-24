@@ -8,6 +8,7 @@ const legacyDashboardFiles = [
 
 const apiPassthroughPrefixes = [
   "/api/captchaImage",
+  "/api/auth",
   "/api/projects",
   "/api/api-keys",
   "/api/usage",

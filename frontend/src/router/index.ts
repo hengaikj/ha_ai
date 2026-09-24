@@ -29,6 +29,7 @@ const PurchaseDashboardPage = () =>
   import("@/pages/legacy-dashboard/PurchaseDashboardPage.vue");
 const UserProfilePage = () => import("@/pages/user/UserProfilePage.vue");
 const SystemUserPage = () => import("@/pages/system/SystemUserPage.vue");
+const M02UserRolePage = () => import("@/pages/m02/M02UserRolePage.vue");
 const SystemUserDataPermissionPage = () =>
   import("@/pages/system/SystemUserDataPermissionPage.vue");
 const SystemUserAuthRolePage = () =>
@@ -589,6 +590,16 @@ export const routes: RouteRecordRaw[] = [
           title: "上会快照详情",
           permission: "committee:snapshot:view",
           hidden: true,
+        },
+      },
+      {
+        path: "m02/users-roles",
+        name: "m02UserRoleManagement",
+        component: M02UserRolePage,
+        meta: {
+          title: "M02 用户与角色",
+          permission: "user:read",
+          menuAccessExempt: true,
         },
       },
       {
@@ -2390,9 +2401,10 @@ router.beforeEach(async (to) => {
     authStore.menus,
     menuAccessPaths,
   );
+  const menuAccessExempt = to.meta.menuAccessExempt === true;
   const hasLocalHiddenRouteFallback = to.meta.hidden === true;
   if (
-    !to.meta.menuAccessExempt &&
+    !menuAccessExempt &&
     !hasBackendMenuAccess &&
     !hasLocalHiddenRouteFallback
   ) {
