@@ -4,7 +4,7 @@
 
 日期：2026-09-23（Asia/Shanghai）
 
-主线证据基准：`develop` `69f8dc7f4360754023a6acdd2830cadf7f032e68`
+主线证据基准：`develop` `60d816f5a5814266ea115977588e15737b4ea564`
 
 上游草案：[M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md)
 
