@@ -2,7 +2,7 @@
 
 状态：EVIDENCE RECORD / PENDING PRODUCT AND ARCHITECTURE REVIEW
 日期：2026-09-23（Asia/Shanghai）
-核对主线：`develop` `69f8dc7f4360754023a6acdd2830cadf7f032e68`
+核对主线：`develop` `61b3ae484c972bf6054e27da2f605bae4728451d`
 
 本文记录 M02-A、M02-B 合并后的代码与验证事实，并列出继续推进前的基线差异。它不是已批准的 M02 Requirement Baseline，不追认未签字的业务需求，也不授权新的 M02 实现。
 
@@ -13,21 +13,24 @@
 | [#45](https://github.com/hengaikj/ha_ai/pull/45) | M02-A：RBAC 权限、角色与用户授权上下文 | `2d195035c36bf05e6969f1f62b81c109d092e225` | MERGED |
 | [#46](https://github.com/hengaikj/ha_ai/pull/46) | M02-B：用户管理、角色绑定、企业范围及项目成员访问 | `4eb8882210c4e9e76e7a109a0ea108c2b27f1c84` | MERGED |
 | [#47](https://github.com/hengaikj/ha_ai/pull/47) | 前端：后端任务中心未接入时关闭轮询 | `c5db6b7` | MERGED |
+| [#49](https://github.com/hengaikj/ha_ai/pull/49) | 授权缺失组件 fail-closed | `158f317452821b3250447a43069b247eb8197065` | MERGED |
+| [#50](https://github.com/hengaikj/ha_ai/pull/50) | API Key 状态变更先认证再查询 | `bd70341d50f740980810dafa899d1205a0b9b36f` | MERGED |
+| [#51](https://github.com/hengaikj/ha_ai/pull/51) | ACTIVE 企业选项及 M02 安全边界修复 | `89aa6021c38d693d75e73225317b8c313b6e5018` | MERGED |
 | [#52](https://github.com/hengaikj/ha_ai/pull/52) | M02 前端用户与角色管理 UI、`/api/auth/**` 适配与真实浏览器证据 | `69f8dc7f4360754023a6acdd2830cadf7f032e68` | MERGED |
 
 PR #47 是前端开发行为修复；PR #52 已完成并合并 M02 用户与角色管理界面及真实 `/api/auth/**` 联调。M02 Baseline 仍需跨职能审批，合并事实不等同于 Requirement PASS。
 
 ## 主线验证证据
 
-验证命令均在合并主线 `69f8dc7f4360754023a6acdd2830cadf7f032e68` 的干净 worktree 执行。
+验证命令均针对合并主线及其对应运行实例复核；当前 `develop` 为 `61b3ae484c972bf6054e27da2f605bae4728451d`。
 
 | 层级 | 命令或证据 | 结果 | 限制 |
 | --- | --- | --- | --- |
-| Backend | `mvn clean package` | PASS；76 tests，0 failures，0 errors，3 skipped；`BUILD SUCCESS` | 标准包测试跳过了真实 MySQL Mapper HTTP 测试 |
+| Backend | `mvn clean package` | PASS；83 tests，0 failures，0 errors，3 conditional skips；`BUILD SUCCESS` | 真实 MySQL/JWT HTTP 验收另存为独立证据 |
 | Spring Context | `SpringContextStartupTest`（包含于上述构建） | PASS | 证明测试上下文启动，不等同于部署环境验收 |
 | Frontend | `pnpm exec vue-tsc -b` | PASS，退出码 0 | 无 |
 | Frontend | `pnpm run build` | PASS，退出码 0 | 有既有 Vue CSS 弃用、Rolldown 注释及大 chunk 警告 |
-| Real MySQL HTTP | PR #46 head `00e4cb4fee582f720cedc4e6fb617ac727f5bfd6` 的验收记录 | PR 中记录 MySQL 8 + MyBatis 项目成员 HTTP 验收 1/1 PASS | 未在合并提交 `69f8dc7` 上重跑 |
+| Real MySQL HTTP | Backend runtime SHA `89aa6021c38d693d75e73225317b8c313b6e5018` | 真实 JWT/SecurityFilterChain/MySQL 验收 73/73 PASS，含 Request ID、数据库读回和安全扫描 | 正式 Baseline/Contract 签署仍待完成 |
 | Live Frontend + Backend | PR #52 合并前后现有 5173/18080 环境的真实浏览器验收 | PASS（证据已记录） | 需由 Baseline Approval Checklist 完成跨职能签署；未启动第二套环境 |
 
 ### 2026-09-24 合并后运行实例复核
@@ -57,7 +60,7 @@ Backend 启动日志确认 RedisTemplate JSON serializer + JavaTimeModule、Tomc
 
 | Evidence | Finding | Path |
 | --- | --- | --- |
-| PR #45/#46/#52 已合并，`develop` 为 `69f8dc7` | M02 后端与前端 IAM 能力已成为当前代码事实 | GitHub PR 页面及本文件“已合并内容” |
+| PR #45/#46/#49/#50/#51/#52 已合并，`develop` 为 `61b3ae4` | M02 后端与前端 IAM 能力已成为当前代码事实 | GitHub PR 页面及本文件“已合并内容” |
 | Backend `mvn clean package` 全量结果 | 合并主线 Maven 构建通过；MySQL 专项验收被跳过 | 主线 worktree `backend/target/surefire-reports/` 与 Maven 输出 |
 | Frontend 类型检查和构建退出码均为 0 | 合并主线前端可通过类型检查与生产构建 | 主线 worktree `frontend/` 构建输出 |
 | PR #52 真实浏览器证据与合并后运行时复核 | 前端 IAM 联调已完成；正式 Baseline 审批及 Laya 技术细化仍待完成 | `docs/engineering-handoff/requirements/requirement-baseline-m02-v0.2-candidate.md`；`requirements/laya/` |

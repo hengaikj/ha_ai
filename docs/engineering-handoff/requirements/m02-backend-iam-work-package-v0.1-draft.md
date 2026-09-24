@@ -6,23 +6,23 @@
 
 API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliation-v0.1-draft.md)
 
-代码核对基准：`develop` `69f8dc7f4360754023a6acdd2830cadf7f032e68`
+代码核对基准：`develop` `61b3ae484c972bf6054e27da2f605bae4728451d`
 
 此工作包把已确认的 IAM/RBAC 与用户/角色 API 范围拆成可评审任务。它不授权实现或数据库变更；Contract、安全风险和优先级批准后才可建立实施分支。
 
 ## 主线现状
 
-主线已提供 `AuthController.getInfo` 角色/权限码、M02 用户/角色 Controller、Service、V2–V4 数据迁移和项目范围过滤。实际路由与 `contracts/m02-api-contract-v0.2.md` 不一致。当前 `UserRoleManagementHttpTest` 是 `@WebMvcTest`，mock 了 Service/Authz 并关闭 Security filters；它不能证明真实认证、权限 Mapper、数据库范围或 Flyway 种子行为。真实 MySQL 项目成员 HTTP 记录来自 PR #46 head，尚未在合并 SHA `69f8dc7` 重跑。
+主线已提供 `AuthController.getInfo` 角色/权限码、M02 用户/角色 Controller、Service、V2–V4 数据迁移和项目范围过滤。实际路由与 `contracts/m02-api-contract-v0.2.md` 不一致。当前 `UserRoleManagementHttpTest` 是 `@WebMvcTest`，mock 了 Service/Authz 并关闭 Security filters；它不能单独证明真实认证、权限 Mapper、数据库范围或 Flyway 种子行为。后端已归档真实 MySQL/JWT/Filter HTTP 验收（73/73）及 Spring、Flyway、Redis/MySQL 启动证据；Contract 与跨职能签署仍待完成。
 
 ## 建议任务顺序
 
 | 工作项 | 工作范围 | 完成条件 / 证据 | 依赖 |
 | --- | --- | --- | --- |
 | BE-IAM-01 Contract 对齐 | 与 Frontend/架构确认 canonical path、DTO、envelope/error、状态码、权限码、角色替换与列表语义；更新 Contract/OpenAPI 或实现路由，禁止文档和代码双轨 | 批准的单一 Contract；契约测试覆盖所有方法/字段/错误；Frontend 可按该版本接入 | Baseline/Contract 审批 |
-| BE-IAM-02 授权 fail-closed | 删除所有构造路径中缺少权限 Mapper 时放行的路径；启动时缺少授权组件应失败 | PR #49（head `b6e9751`）强制 AuthPermissionMapper、拒绝直接 null 注入，并测试缺 Bean 启动失败/null 构造拒绝；77 项全量测试通过（3 项 MySQL 条件测试跳过）。Review/合并后仍需在目标 develop SHA 复验，再以真实 HTTP 验证缺少权限码返回 403 和角色矩阵 | BE-IAM-01；安全评审；PR #49 Review |
+| BE-IAM-02 授权 fail-closed | 删除所有构造路径中缺少权限 Mapper 时放行的路径；启动时缺少授权组件应失败 | PR #49 已合并，强制 `AuthPermissionMapper`、拒绝直接 null 注入，并测试缺 Bean 启动失败/null 构造拒绝；目标运行实例已确认 Spring 启动成功，真实 HTTP 安全矩阵已归档。正式安全/基线签署仍待完成 | BE-IAM-01；安全评审；PR #49 Review |
 | BE-IAM-03 用户生命周期 API | 覆盖用户 list/create/status 的真实鉴权、字段校验、企业作用域、有效企业、用户名唯一冲突、状态限制、响应脱敏 | 真正数据库 HTTP 创建/查询/状态读回；平台管理员、同企业、跨企业、无权、未认证、禁用用户、无效状态、重复用户名等正负路径 | BE-IAM-01、BE-IAM-02 |
 | BE-IAM-04 角色读取与绑定 | 明确全量目录与可分配选项；处理企业管理员与平台管理员各自可分配角色；防止项目角色通过全局绑定写入；明确替换和解绑语义 | 真实 HTTP 读取角色、绑定、刷新读回；未授权角色被拒绝；项目角色经项目成员 API 管理；角色替换失败时原绑定保持完整；角色结果与 Contract 一致 | BE-IAM-01、BE-IAM-02 |
-| BE-IAM-05 项目数据范围 | 验证平台/企业管理员/项目成员项目列表和项目操作按 `projectIds`、企业及角色范围隔离；Key 状态变更必须先认证再做对象查询 | 合并目标 SHA 的 MySQL HTTP 数据夹具覆盖授权与跨租户拒绝，保留请求/响应、Request ID 和查询结果；PR #50（head `467ac79`）增加未认证状态变更不得触发 Key 查询的回归测试 | BE-IAM-02；PR #50 Review |
+| BE-IAM-05 项目数据范围 | 验证平台/企业管理员/项目成员项目列表和项目操作按 `projectIds`、企业及角色范围隔离；Key 状态变更必须先认证再做对象查询 | PR #50 已合并并增加未认证状态变更不得触发 Key 查询的回归测试；真实 HTTP 证据覆盖授权、跨企业拒绝和 Request ID | BE-IAM-02；PR #50 Review |
 | BE-IAM-06 Migration 与部署 | 对 V2–V4 执行空库迁移、旧库升级、重复运行/种子幂等和唯一约束冲突验证；检查权限码正确授予角色 | MySQL 8 clean install + upgrade logs、种子行查询、第二次启动或重放无副作用；回滚/备份方案已评审 | Contract/schema approval |
 | BE-IAM-07 审计与管理员不变量决定 | 与产品/安全决定是否要求用户变更审计、自我停用保护、最后平台管理员保护、分页/检索、停用用户的现有 session 是否撤销；仅批准的项目进入实现 | 每一项有明确纳入/排除记录；纳入者由持久化审计/负向 HTTP 用例证明 | 产品/安全决策 |
 | BE-IAM-08 平台管理员企业选项数据源 | 新增经授权的 ACTIVE 企业选项 API；创建接口仍校验有效企业，不复用项目列表、不硬编码 ID | UI 从批准的数据源选择企业；后端独立校验企业状态/范围；真实 HTTP 正负向验证 | Contract/Backend 审批及实现 |
@@ -44,7 +44,7 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 
 ## 当前明确的技术风险与未决业务语义
 
-- PR #49 已合并到 develop `69f8dc7`；缺失 `AuthPermissionMapper` 时启动失败，授权路径不再 fail-open。PR #51 同步提供 ACTIVE 企业选项；后端真实 HTTP 证据已在 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/` 归档。
+- PR #49/#50/#51 已合并到 develop `61b3ae4`；缺失 `AuthPermissionMapper` 时启动失败，授权路径不再 fail-open。PR #51 提供 ACTIVE 企业选项；后端真实 HTTP 证据已在 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/` 归档。
 - 停用用户会使后续受保护请求因用户状态检查返回 401，但当前状态更新未撤销持久化的 session；是否需即时撤销 session 要产品/安全确认并纳入测试。
 - 当前角色目录返回所有角色，但企业管理员写入仅接受 `enterprise-admin`；角色 API 需过滤可分配项或显式返回可分配能力。
 - 平台管理员创建用户使用经授权的 ACTIVE 企业选项 API；PR #51 已提供该端点，前端 PR #52 已接入，后端仍需独立校验企业状态。
