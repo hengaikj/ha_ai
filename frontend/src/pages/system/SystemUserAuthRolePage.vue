@@ -3,8 +3,8 @@ import { computed, nextTick, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Back, Search } from "@element-plus/icons-vue";
 import type { TableInstance } from "element-plus";
-import { fetchUserAuthRoles, updateUserAuthRoles } from "@/api/system/user";
-import { ApiBusinessError } from "@/api/http";
+import { fetchUserAuthRoles } from "@/api/system/user";
+import { fetchM02Roles, replaceM02UserRoles, normalizeM02Error } from "@/api/system/m02-auth";
 import BaseDateTime from "@/components/base/BaseDateTime.vue";
 import QueryTable from "@/components/business/QueryTable.vue";
 import BaseStatusTag from "@/components/base/BaseStatusTag.vue";
@@ -62,11 +62,17 @@ async function loadUserAuthRoles() {
   loading.value = true;
   error.value = null;
   try {
-    const response = (await fetchUserAuthRoles(
-      userId.value,
-    )) as UserAuthRoleResponse;
-    user.value = response.user ?? {};
-    roles.value = response.roles ?? [];
+    const [response, m02Roles] = await Promise.all([
+      fetchUserAuthRoles(userId.value),
+      fetchM02Roles(),
+    ]);
+    const legacy = response as UserAuthRoleResponse;
+    user.value = legacy.user ?? {};
+    const selected = new Set((legacy.roles ?? []).filter((item) => item.flag).map((item) => String(item.roleId)));
+    roles.value = m02Roles.map((item) => ({
+      roleId: Number(item.id) || undefined, roleName: item.name, roleKey: item.code,
+      status: item.status === "DISABLED" ? "1" : "0", flag: selected.has(String(item.id)),
+    }));
     selectedRoleIds.value = roles.value
       .filter((role) => role.flag)
       .map((role) => role.roleId)
@@ -134,10 +140,11 @@ async function submitAuthRoles() {
   saving.value = true;
   error.value = null;
   try {
-    await updateUserAuthRoles({
-      userId: user.value.userId,
-      roleIds: selectedRoleIds.value,
-    });
+    const selectedRoleCodes = roles.value
+      .filter((role) => role.roleId !== undefined && selectedRoleIds.value.some((id) => String(id) === String(role.roleId)))
+      .map((role) => role.roleKey)
+      .filter((code): code is string => Boolean(code));
+    await replaceM02UserRoles(user.value.userId, selectedRoleCodes);
     BaseToast.success("授权成功");
     goBack();
   } catch (unknownError) {
@@ -176,18 +183,7 @@ function statusTagType(status?: string) {
 }
 
 function normalizeError(unknownError: unknown) {
-  if (unknownError instanceof ApiBusinessError) {
-    return {
-      code: unknownError.code,
-      message: unknownError.message,
-      traceId: unknownError.traceId,
-    };
-  }
-  return {
-    code: "FRONTEND-SYSTEM-USER-AUTH-ROLE",
-    message: "用户角色授权数据加载失败，请检查后端服务。",
-    traceId: "unknown",
-  };
+  return normalizeM02Error(unknownError);
 }
 </script>
 

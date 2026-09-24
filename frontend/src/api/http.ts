@@ -18,7 +18,7 @@ export type BqRequestConfig = AxiosRequestConfig & {
 const WRITE_METHODS = new Set(["post", "put", "patch", "delete"]);
 const SUCCESS_CODES = new Set(["0", "200", "SUCCESS"]);
 const ERROR_TOAST_DEDUPE_MS = 1200;
-const TRACE_HEADER_NAMES = ["x-trace-id", "trace-id", "traceid", "bq-trace-id"];
+const TRACE_HEADER_NAMES = ["x-request-id", "x-trace-id", "trace-id", "traceid", "bq-trace-id"];
 let lastErrorToastKey = "";
 let lastErrorToastAt = 0;
 
