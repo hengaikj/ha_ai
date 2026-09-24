@@ -28,6 +28,7 @@ import com.hengaikj.ai.usage.UsageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -50,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 })
 @AutoConfigureMockMvc
 class ManagementScopeHttpTest {
+    @MockBean com.hengaikj.ai.auth.mapper.AuthAuditEventMapper auditEventMapper;
     @Autowired MockMvc mvc;
     @Autowired JwtSessionService jwtSessions;
     @MockBean AuthBootstrapRunner bootstrapRunner;

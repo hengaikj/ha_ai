@@ -23,7 +23,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -48,7 +47,7 @@ public class UserRoleManagementService {
     }
     @Autowired
     public UserRoleManagementService(AuthUserMapper users, AuthRoleMapper roles, AuthUserRoleMapper userRoles,
-                                     EnterpriseMapper enterprises, PasswordEncoder passwords, AuthzService authz, @Nullable AuthAuditEventMapper audit) {
+                                     EnterpriseMapper enterprises, PasswordEncoder passwords, AuthzService authz, AuthAuditEventMapper audit) {
         this.users = users;
         this.roles = roles;
         this.userRoles = userRoles;
@@ -157,7 +156,6 @@ public class UserRoleManagementService {
         return summary(user);
     }
     private void recordAudit(AuthUserContext actor, Long target, String action) {
-        if (audit == null) return;
         AuthAuditEventEntity e = new AuthAuditEventEntity(); e.actorUserId = actor.userId(); e.targetUserId = target; e.action = action; audit.insert(e);
     }
 

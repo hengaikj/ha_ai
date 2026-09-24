@@ -12,6 +12,7 @@ import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserRoleMapper;
 import com.hengaikj.ai.auth.mapper.EnterpriseMapper;
+import com.hengaikj.ai.auth.mapper.AuthAuditEventMapper;
 import com.hengaikj.ai.auth.service.AuthUserContext;
 import com.hengaikj.ai.auth.service.AuthzService;
 import com.hengaikj.ai.auth.service.UserRoleManagementService;
@@ -34,8 +35,9 @@ class UserRoleManagementServiceTest {
     private final AuthUserRoleMapper userRoles = mock(AuthUserRoleMapper.class);
     private final EnterpriseMapper enterprises = mock(EnterpriseMapper.class);
     private final AuthzService authz = mock(AuthzService.class);
+    private final AuthAuditEventMapper audit = mock(AuthAuditEventMapper.class);
     private final UserRoleManagementService service = new UserRoleManagementService(
-            users, roles, userRoles, enterprises, new BCryptPasswordEncoder(), authz);
+            users, roles, userRoles, enterprises, new BCryptPasswordEncoder(), authz, audit);
 
     @Test
     void enterpriseListUsesActorEnterpriseAndNeverMapsPasswordHash() {
