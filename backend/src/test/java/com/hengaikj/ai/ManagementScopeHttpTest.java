@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.hengaikj.ai.auth.entity.AuthSessionEntity;
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
 import com.hengaikj.ai.auth.entity.EnterpriseEntity;
+import com.hengaikj.ai.auth.mapper.AuthPermissionMapper;
 import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
 import com.hengaikj.ai.auth.mapper.AuthSessionMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
@@ -52,6 +53,7 @@ class ManagementScopeHttpTest {
     @Autowired MockMvc mvc;
     @Autowired JwtSessionService jwtSessions;
     @MockBean AuthBootstrapRunner bootstrapRunner;
+    @MockBean AuthPermissionMapper permissions;
     @MockBean AuthUserMapper authUsers;
     @MockBean AuthRoleMapper authRoles;
     @MockBean AuthUserRoleMapper authUserRoles;

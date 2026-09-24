@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hengaikj.ai.auth.entity.AuthSessionEntity;
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
 import com.hengaikj.ai.auth.entity.EnterpriseEntity;
+import com.hengaikj.ai.auth.mapper.AuthPermissionMapper;
 import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
 import com.hengaikj.ai.auth.mapper.AuthSessionMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
@@ -49,6 +50,7 @@ class ProjectHttpTest {
     @Autowired MockMvc mvc;
     @Autowired JwtSessionService jwtSessions;
     @MockBean AuthBootstrapRunner bootstrapRunner;
+    @MockBean AuthPermissionMapper permissions;
     @MockBean AuthUserMapper authUsers;
     @MockBean AuthRoleMapper authRoles;
     @MockBean AuthUserRoleMapper authUserRoles;
@@ -165,6 +167,10 @@ class ProjectHttpTest {
         user.status = "ACTIVE";
         when(authUsers.selectById(userId)).thenReturn(user);
         when(authRoles.selectRoleCodesByUserId(userId)).thenReturn(roles);
+        when(permissions.selectPermissionCodesByUserId(userId)).thenReturn(
+                roles.stream().anyMatch(role -> role.equals("platform-admin") || role.equals("enterprise-admin"))
+                        ? List.of("project:read", "project:create", "project:update", "api-key:read", "api-key:manage")
+                        : List.of());
         when(projectMembers.selectProjectRolesByUserId(userId)).thenReturn(projectRoles);
         return issued.accessToken();
     }
