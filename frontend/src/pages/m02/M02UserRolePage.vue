@@ -52,7 +52,12 @@ async function toggleStatus(user: M02UserSummary) {
 }
 
 async function bindRoles(user: M02UserSummary) {
-  await bindM02UserRoles(user.userId, { roleCodes: roleDrafts.value[user.userId] ?? [] });
+  const selected = roleDrafts.value[user.userId] ?? [];
+  if (!selected.length) {
+    ElMessage.warning("至少选择一个全局角色；项目角色请通过项目成员关系绑定");
+    return;
+  }
+  await bindM02UserRoles(user.userId, { roleCodes: selected });
   ElMessage.success("角色已更新");
   await load();
 }
