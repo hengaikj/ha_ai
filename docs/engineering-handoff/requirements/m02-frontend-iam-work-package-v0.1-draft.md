@@ -6,7 +6,7 @@
 
 API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliation-v0.1-draft.md)
 
-代码核对基准：`develop` `61b3ae484c972bf6054e27da2f605bae4728451d`
+代码核对基准：`develop` `09b0353e9899b95c16a7e0b7720724785bad4223`
 
 此工作包把已确认的“用户和角色管理必须有界面”拆成前端交付范围。它不是开发授权；API Contract、优先级和实现任务获批前不得据此改变生产代码。
 

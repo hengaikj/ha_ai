@@ -6,7 +6,7 @@
 
 API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliation-v0.1-draft.md)
 
-代码核对基准：`develop` `61b3ae484c972bf6054e27da2f605bae4728451d`
+代码核对基准：`develop` `09b0353e9899b95c16a7e0b7720724785bad4223`
 
 此工作包把已确认的 IAM/RBAC 与用户/角色 API 范围拆成可评审任务。它不授权实现或数据库变更；Contract、安全风险和优先级批准后才可建立实施分支。
 
@@ -44,7 +44,7 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 
 ## 当前明确的技术风险与未决业务语义
 
-- PR #49/#50/#51 已合并到 develop `61b3ae4`；缺失 `AuthPermissionMapper` 时启动失败，授权路径不再 fail-open。PR #51 提供 ACTIVE 企业选项；后端真实 HTTP 证据已在 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/` 归档。
+- PR #49/#50/#51 已合并到 develop；缺失 `AuthPermissionMapper` 时启动失败，授权路径不再 fail-open。PR #51 提供 ACTIVE 企业选项；后端真实 HTTP 证据已在 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/` 归档。当前文档证据刷新由 PR #57 合并到 develop `09b0353`。
 - 停用用户会使后续受保护请求因用户状态检查返回 401，但当前状态更新未撤销持久化的 session；是否需即时撤销 session 要产品/安全确认并纳入测试。
 - 当前角色目录返回所有角色，但企业管理员写入仅接受 `enterprise-admin`；角色 API 需过滤可分配项或显式返回可分配能力。
 - 平台管理员创建用户使用经授权的 ACTIVE 企业选项 API；PR #51 已提供该端点，前端 PR #52 已接入，后端仍需独立校验企业状态。
