@@ -50,6 +50,13 @@ public class UserRoleManagementController {
         return SuccessEnvelope.of(requestId(request), service.roles(authz.currentUser(authentication)));
     }
 
+    @GetMapping("/enterprises/options")
+    public SuccessEnvelope<List<EnterpriseOption>> enterpriseOptions(Authentication authentication,
+                                                                       HttpServletRequest request) {
+        return SuccessEnvelope.of(requestId(request),
+                service.activeEnterpriseOptions(authz.currentUser(authentication)));
+    }
+
     @PutMapping("/users/{userId}/roles")
     public SuccessEnvelope<UserSummary> bindRoles(Authentication authentication, HttpServletRequest request,
                                                    @PathVariable long userId, @Valid @RequestBody UserRoleBindingRequest body) {

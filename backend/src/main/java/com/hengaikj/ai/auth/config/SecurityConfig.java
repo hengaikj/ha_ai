@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.server.resource.web.DefaultBearerToke
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Configuration
 public class SecurityConfig {
@@ -42,8 +43,14 @@ public class SecurityConfig {
                         .bearerTokenResolver(HUMAN_JWT_RESOLVER)
                         .jwt(Customizer.withDefaults()))
                 .exceptionHandling(errors -> errors
-                        .authenticationEntryPoint((request, response, exception) -> writeError(response, objectMapper, 401, "未登录或认证失效"))
-                        .accessDeniedHandler((request, response, exception) -> writeError(response, objectMapper, 403, "无权执行该操作")));
+                        .authenticationEntryPoint((request, response, exception) -> {
+                            ensureRequestId(request, response);
+                            writeError(response, objectMapper, 401, "未登录或认证失效");
+                        })
+                        .accessDeniedHandler((request, response, exception) -> {
+                            ensureRequestId(request, response);
+                            writeError(response, objectMapper, 403, "无权执行该操作");
+                        }));
         http.addFilterAfter(new JwtSessionFilter(sessions, users, objectMapper), BearerTokenAuthenticationFilter.class);
         return http.build();
     }
@@ -58,5 +65,13 @@ public class SecurityConfig {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         objectMapper.writeValue(response.getOutputStream(), Map.of("code", status, "msg", message));
+    }
+
+    private static void ensureRequestId(jakarta.servlet.http.HttpServletRequest request,
+                                        HttpServletResponse response) {
+        if (response.getHeader("x-request-id") != null) return;
+        String requestId = request.getHeader("x-request-id");
+        response.setHeader("x-request-id", requestId == null || requestId.isBlank()
+                ? UUID.randomUUID().toString() : requestId);
     }
 }

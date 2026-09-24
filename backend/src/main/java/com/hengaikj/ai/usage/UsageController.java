@@ -27,6 +27,7 @@ public class UsageController {
     @GetMapping
     public SuccessEnvelope<List<UsageSummary>> list(Authentication authentication, HttpServletRequest request) {
         var user = authz.currentUser(authentication);
+        authz.requireProjectListAccess(user);
         return SuccessEnvelope.of(String.valueOf(request.getAttribute(ATTRIBUTE)), service.recent(user));
     }
 }

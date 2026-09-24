@@ -2,6 +2,7 @@ package com.hengaikj.ai;
 
 import com.hengaikj.ai.auth.controller.AuthExceptionHandler;
 import com.hengaikj.ai.auth.dto.RoleSummary;
+import com.hengaikj.ai.auth.dto.EnterpriseOption;
 import com.hengaikj.ai.auth.dto.UserSummary;
 import com.hengaikj.ai.auth.service.AuthUserContext;
 import com.hengaikj.ai.auth.service.AuthzService;
@@ -68,6 +69,24 @@ class UserRoleManagementHttpTest {
         when(authz.currentUser(isNull())).thenThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "未登录"));
         mvc.perform(get("/api/auth/users"))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void platformEnterpriseOptionsReturnsActiveChoices() throws Exception {
+        when(authz.currentUser(any())).thenReturn(new AuthUserContext(1L, "platform", "Platform", null,
+                Set.of("platform-admin"), List.of(), Map.of(), Set.of("user:create")));
+        when(service.activeEnterpriseOptions(any())).thenReturn(List.of(new EnterpriseOption(100L, "企业 A")));
+        mvc.perform(get("/api/auth/enterprises/options").with(user("1")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].enterpriseId").value(100));
+    }
+
+    @Test
+    void enterpriseOptionsWithoutPlatformScopeReturns403() throws Exception {
+        when(authz.currentUser(any())).thenReturn(actor());
+        when(service.activeEnterpriseOptions(any())).thenThrow(new AccessDeniedException("只有平台管理员可以选择企业"));
+        mvc.perform(get("/api/auth/enterprises/options").with(user("7")))
+                .andExpect(status().isForbidden());
     }
 
     private static AuthUserContext actor() {

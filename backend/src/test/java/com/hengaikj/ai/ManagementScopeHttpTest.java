@@ -130,6 +130,14 @@ class ManagementScopeHttpTest {
         mvc.perform(get("/api/usage")).andExpect(status().isUnauthorized());
     }
 
+    @Test
+    void usageWithoutProjectPermissionReturns403() throws Exception {
+        String token = tokenFor(6L, 100L, List.of());
+        mvc.perform(get("/api/usage").header("Authorization", bearer(token)))
+                .andExpect(status().isForbidden());
+        verifyNoInteractions(usages);
+    }
+
     private String tokenFor(long userId, Long enterpriseId, List<String> roles) {
         when(authSessions.insert(any(AuthSessionEntity.class))).thenReturn(1);
         var issued = jwtSessions.issue(userId);
@@ -146,6 +154,10 @@ class ManagementScopeHttpTest {
         user.status = "ACTIVE";
         when(authUsers.selectById(userId)).thenReturn(user);
         when(authRoles.selectRoleCodesByUserId(userId)).thenReturn(roles);
+        when(permissions.selectPermissionCodesByUserId(userId)).thenReturn(
+                roles.stream().anyMatch(role -> role.equals("platform-admin") || role.equals("enterprise-admin"))
+                        ? List.of("project:read", "project:create", "project:update", "api-key:read", "api-key:manage")
+                        : List.of());
         when(projectMembers.selectProjectRolesByUserId(userId)).thenReturn(List.of());
         return issued.accessToken();
     }
