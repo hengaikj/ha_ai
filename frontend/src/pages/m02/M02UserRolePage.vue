@@ -19,11 +19,13 @@ const enterprises = ref<M02EnterpriseOption[]>([]);
 const loading = ref(false);
 const createVisible = ref(false);
 const draft = ref({ username: "", password: "", displayName: "", enterpriseId: undefined as number | undefined });
+const roleDrafts = ref<Record<number, string[]>>({});
 
 async function load() {
   loading.value = true;
   try {
     [users.value, roles.value] = await Promise.all([fetchM02Users(), fetchM02Roles()]);
+    roleDrafts.value = Object.fromEntries(users.value.map((user) => [user.userId, [...user.roleCodes]]));
     try {
       enterprises.value = await fetchM02EnterpriseOptions();
     } catch {
@@ -50,8 +52,7 @@ async function toggleStatus(user: M02UserSummary) {
 }
 
 async function bindRoles(user: M02UserSummary) {
-  const selected = roles.value.filter((role) => user.roleCodes.includes(role.roleCode)).map((role) => role.roleCode);
-  await bindM02UserRoles(user.userId, { roleCodes: selected });
+  await bindM02UserRoles(user.userId, { roleCodes: roleDrafts.value[user.userId] ?? [] });
   ElMessage.success("角色已更新");
   await load();
 }
@@ -75,8 +76,12 @@ onMounted(load);
         <el-table-column prop="displayName" label="显示名" />
         <el-table-column prop="enterpriseId" label="企业" />
         <el-table-column prop="status" label="状态" />
-        <el-table-column label="角色">
-          <template #default="{ row }">{{ row.roleCodes.join(", ") || "—" }}</template>
+        <el-table-column label="角色" min-width="240">
+          <template #default="{ row }">
+            <el-select v-model="roleDrafts[row.userId]" multiple collapse-tags collapse-tags-tooltip placeholder="选择角色">
+              <el-option v-for="role in roles" :key="role.roleCode" :label="role.displayName" :value="role.roleCode" />
+            </el-select>
+          </template>
         </el-table-column>
         <el-table-column label="操作" width="260">
           <template #default="{ row }">
@@ -89,9 +94,9 @@ onMounted(load);
 
     <el-dialog v-model="createVisible" title="创建用户" width="480px">
       <el-form label-width="90px" @submit.prevent="submitCreate">
-        <el-form-item label="用户名"><el-input v-model="draft.username" /></el-form-item>
-        <el-form-item label="显示名"><el-input v-model="draft.displayName" /></el-form-item>
-        <el-form-item label="密码"><el-input v-model="draft.password" type="password" show-password /></el-form-item>
+        <el-form-item label="用户名" required><el-input v-model="draft.username" /></el-form-item>
+        <el-form-item label="显示名" required><el-input v-model="draft.displayName" /></el-form-item>
+        <el-form-item label="密码" required><el-input v-model="draft.password" type="password" show-password /></el-form-item>
         <el-form-item label="企业"><el-select v-model="draft.enterpriseId" clearable placeholder="平台管理员请选择"><el-option v-for="item in enterprises" :key="item.enterpriseId" :label="item.displayName" :value="item.enterpriseId" /></el-select></el-form-item>
       </el-form>
       <template #footer><el-button @click="createVisible = false">取消</el-button><el-button type="primary" @click="submitCreate">创建</el-button></template>
