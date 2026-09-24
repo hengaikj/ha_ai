@@ -4,7 +4,7 @@
 
 适用基线：[M02 Requirement Baseline v0.2 Candidate](./requirement-baseline-m02-v0.2-candidate.md)
 
-代码核对基准：`develop` `c5db6b7dea9867c466f91180d6a81c69acec3559`
+代码核对基准：`develop` `89aa6021c38d693d75e73225317b8c313b6e5018`
 
 本文对照现有 Contract 草案与主线 M02 Controller/DTO，提出统一 API 表面。它不替换 `contracts/m02-api-contract-v0.2.md`，也不是实现授权。Owner 已按建议选择 `/api/auth/**` 为 canonical 路径；此决策仍需 Backend、Frontend、Architecture/Contract 评审，并更新 Contract 后才能作为实现依据。
 
@@ -79,7 +79,7 @@
 
 主线 `GET /api/auth/roles` 会返回角色表中的全部角色；企业管理员的写入路径却只允许绑定 `enterprise-admin`，且项目角色必须由项目成员关系单独授予。若直接把全量目录作为可选项，UI 会提供不可提交的角色选择。推荐 Contract 增加调用者可分配角色表达（例如每项 `assignable` 或区分 catalog 与 assignable options），并在真实 HTTP 中验证企业管理员、平台管理员和项目角色边界。该字段是提案，不是当前响应事实。Owner 已确认本 M02 UI 限目录读取和现有角色绑定，角色 CRUD/权限树排除。
 
-Owner 已确认新增受权限保护的 ACTIVE 企业选项 API，供平台管理员创建用户时选择企业；端点路径、响应 DTO、权限码及是否可复用现有稳定端点仍须在 Contract Review 中固定。Backend 必须独立校验目标企业 ACTIVE，不能信任 UI 选择。
+PR #51 已实现 `GET /api/auth/enterprises/options`：要求 `user:create` 权限且调用者具有 `platform-admin` 角色；返回标准成功 envelope，`data` 为 `EnterpriseOption[]`，每项仅包含 `enterpriseId` 和 `displayName`。结果仅包含 ACTIVE 企业并按 ID 升序；企业管理员访问被拒绝。创建用户时 Backend 另行检查目标企业 ACTIVE，不存在或停用返回 404。上述为当前实现事实，正式 Contract 仍需同步评审。
 
 还需产品/安全评审是否禁止停用自身或最后一个有效平台管理员，以及用户/角色变更是否必须生成审计事件。当前代码和此提案均不能假设这些业务规则已实现。
 
@@ -95,7 +95,7 @@ Owner 已确认新增受权限保护的 ACTIVE 企业选项 API，供平台管�
 ## 待签署的 Contract 决定
 
 - 更新 M02 Contract 以采用主线 `/api/auth/...`；确认旧 v0.2 路径是文档过时还是供其他模块使用。
-- 定义新增 ACTIVE 企业选项 API 的 path、DTO、权限码、企业范围和错误语义。
+- 将已实现的 ACTIVE 企业选项 API 路径、DTO、权限和错误语义纳入正式 Contract。
 - 采用已确认 UI 范围：用户管理、角色目录读取与现有角色绑定；角色 CRUD/权限树当前不纳入。
 - 角色目录响应是否只返回可绑定角色，或增加 `assignable` 能力字段。
 - 是否增加分页/筛选、角色清空/解绑流程、自我/最后管理员保护和审计记录。
@@ -110,3 +110,7 @@ Owner 已确认新增受权限保护的 ACTIVE 企业选项 API，供平台管�
 | M02 API Contract v0.2 | 文档路由与主线实现不一致 | `contracts/m02-api-contract-v0.2.md` |
 | 前端 `platform-system.ts` 与系统页面 | 当前用户/角色 UI 走旧 `/system/**` API | `frontend/src/api/platform-system.ts`、`frontend/src/pages/system/SystemUserPage.vue`、`SystemRolePage.vue` |
 | Backend M02 HTTP 测试 | 现有 Controller MockMvc 测试 mock service 且关闭过滤器；不能证明真实鉴权、数据库范围或迁移结果 | `backend/src/test/java/com/hengaikj/ai/UserRoleManagementHttpTest.java` |
+
+## 2026-09-24 后端基线更新
+
+PR #49、#50、#51 已合并，当前主线构建为 83 tests、0 failures、0 errors、3 conditional skips。后端团队提交当前 18081 上 73/73 真实 JWT/MySQL HTTP 验收；证据位于 `/tmp/ha-ai-evidence/m02-real-http/89aa6021/`。该证据不等同于前端浏览器验收，也不覆盖所有尚未决定的产品规则。角色目录仍没有 `assignable` 字段；不得将提案字段当作响应事实。创建用户时非空角色列表额外要求 `user:role:manage`。角色绑定 PUT 的空列表仍被 DTO 校验拒绝。
