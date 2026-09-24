@@ -22,7 +22,7 @@ API 提案：[M02 API Contract 对齐提案 v0.1](./m02-api-contract-reconciliat
 | BE-IAM-02 授权 fail-closed | 删除所有构造路径中缺少权限 Mapper 时放行的路径；启动时缺少授权组件应失败 | PR #49（head `b6e9751`）强制 AuthPermissionMapper、拒绝直接 null 注入，并测试缺 Bean 启动失败/null 构造拒绝；77 项全量测试通过（3 项 MySQL 条件测试跳过）。Review/合并后仍需在目标 develop SHA 复验，再以真实 HTTP 验证缺少权限码返回 403 和角色矩阵 | BE-IAM-01；安全评审；PR #49 Review |
 | BE-IAM-03 用户生命周期 API | 覆盖用户 list/create/status 的真实鉴权、字段校验、企业作用域、有效企业、用户名唯一冲突、状态限制、响应脱敏 | 真正数据库 HTTP 创建/查询/状态读回；平台管理员、同企业、跨企业、无权、未认证、禁用用户、无效状态、重复用户名等正负路径 | BE-IAM-01、BE-IAM-02 |
 | BE-IAM-04 角色读取与绑定 | 明确全量目录与可分配选项；处理企业管理员与平台管理员各自可分配角色；防止项目角色通过全局绑定写入；明确替换和解绑语义 | 真实 HTTP 读取角色、绑定、刷新读回；未授权角色被拒绝；项目角色经项目成员 API 管理；角色替换失败时原绑定保持完整；角色结果与 Contract 一致 | BE-IAM-01、BE-IAM-02 |
-| BE-IAM-05 项目数据范围 | 验证平台/企业管理员/项目成员项目列表和项目操作按 `projectIds`、企业及角色范围隔离 | 合并目标 SHA 的 MySQL HTTP 数据夹具覆盖授权与跨租户拒绝，保留请求/响应、Request ID 和查询结果 | BE-IAM-02 |
+| BE-IAM-05 项目数据范围 | 验证平台/企业管理员/项目成员项目列表和项目操作按 `projectIds`、企业及角色范围隔离；Key 状态变更必须先认证再做对象查询 | 合并目标 SHA 的 MySQL HTTP 数据夹具覆盖授权与跨租户拒绝，保留请求/响应、Request ID 和查询结果；PR #50（head `467ac79`）增加未认证状态变更不得触发 Key 查询的回归测试 | BE-IAM-02；PR #50 Review |
 | BE-IAM-06 Migration 与部署 | 对 V2–V4 执行空库迁移、旧库升级、重复运行/种子幂等和唯一约束冲突验证；检查权限码正确授予角色 | MySQL 8 clean install + upgrade logs、种子行查询、第二次启动或重放无副作用；回滚/备份方案已评审 | Contract/schema approval |
 | BE-IAM-07 审计与管理员不变量决定 | 与产品/安全决定是否要求用户变更审计、自我停用保护、最后平台管理员保护、分页/检索、停用用户的现有 session 是否撤销；仅批准的项目进入实现 | 每一项有明确纳入/排除记录；纳入者由持久化审计/负向 HTTP 用例证明 | 产品/安全决策 |
 | BE-IAM-08 平台管理员企业选项数据源 | 新增经授权的 ACTIVE 企业选项 API；创建接口仍校验有效企业，不复用项目列表、不硬编码 ID | UI 从批准的数据源选择企业；后端独立校验企业状态/范围；真实 HTTP 正负向验证 | Contract/Backend 审批及实现 |
