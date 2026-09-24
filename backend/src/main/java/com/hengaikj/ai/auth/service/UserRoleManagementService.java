@@ -7,6 +7,7 @@ import com.hengaikj.ai.auth.dto.UserCreateRequest;
 import com.hengaikj.ai.auth.dto.UserRoleBindingRequest;
 import com.hengaikj.ai.auth.dto.UserStatusRequest;
 import com.hengaikj.ai.auth.dto.UserSummary;
+import com.hengaikj.ai.auth.dto.UserPage;
 import com.hengaikj.ai.auth.entity.EnterpriseEntity;
 import com.hengaikj.ai.auth.entity.AuthRoleEntity;
 import com.hengaikj.ai.auth.entity.AuthUserEntity;
@@ -15,10 +16,14 @@ import com.hengaikj.ai.auth.mapper.AuthRoleMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserMapper;
 import com.hengaikj.ai.auth.mapper.AuthUserRoleMapper;
 import com.hengaikj.ai.auth.mapper.EnterpriseMapper;
+import com.hengaikj.ai.auth.mapper.AuthAuditEventMapper;
+import com.hengaikj.ai.auth.entity.AuthAuditEventEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,28 +40,45 @@ public class UserRoleManagementService {
     private final EnterpriseMapper enterprises;
     private final PasswordEncoder passwords;
     private final AuthzService authz;
+    private final AuthAuditEventMapper audit;
 
     public UserRoleManagementService(AuthUserMapper users, AuthRoleMapper roles, AuthUserRoleMapper userRoles,
                                      EnterpriseMapper enterprises, PasswordEncoder passwords, AuthzService authz) {
+        this(users, roles, userRoles, enterprises, passwords, authz, null);
+    }
+    @Autowired
+    public UserRoleManagementService(AuthUserMapper users, AuthRoleMapper roles, AuthUserRoleMapper userRoles,
+                                     EnterpriseMapper enterprises, PasswordEncoder passwords, AuthzService authz, @Nullable AuthAuditEventMapper audit) {
         this.users = users;
         this.roles = roles;
         this.userRoles = userRoles;
         this.enterprises = enterprises;
         this.passwords = passwords;
         this.authz = authz;
+        this.audit = audit;
     }
 
-    public List<UserSummary> list(AuthUserContext actor) {
+    public UserPage list(AuthUserContext actor, int page, int pageSize, String keyword, String status) {
         authz.requirePermission(actor, "user:read");
+        page = Math.max(1, page); pageSize = Math.min(100, Math.max(1, pageSize));
         QueryWrapper<AuthUserEntity> query = new QueryWrapper<>();
         if (!isPlatform(actor)) query.eq("enterprise_id", requireEnterprise(actor));
+        if (keyword != null && !keyword.isBlank()) query.and(q -> q.like("username", keyword.trim()).or().like("display_name", keyword.trim()));
+        if (status != null && !status.isBlank()) query.eq("status", status);
         query.orderByAsc("id");
-        return users.selectList(query).stream().map(this::summary).toList();
+        long total = users.selectCount(query);
+        query.last("LIMIT " + pageSize + " OFFSET " + ((long)(page - 1) * pageSize));
+        return new UserPage(total, page, pageSize, users.selectList(query).stream().map(this::summary).toList());
     }
+    /** Compatibility helper for existing service callers. */
+    public List<UserSummary> list(AuthUserContext actor) { return list(actor, 1, 100, null, null).items(); }
 
     public List<RoleSummary> roles(AuthUserContext actor) {
         authz.requirePermission(actor, "role:read");
-        return roles.selectList(new QueryWrapper<AuthRoleEntity>().orderByAsc("id")).stream()
+        QueryWrapper<AuthRoleEntity> q = new QueryWrapper<AuthRoleEntity>().orderByAsc("id");
+        q.notIn("role_code", PROJECT_ROLES);
+        if (!isPlatform(actor)) q.ne("role_code", PLATFORM_ADMIN);
+        return roles.selectList(q).stream()
                 .map(role -> new RoleSummary(role.id, role.roleCode, role.displayName)).toList();
     }
 
@@ -97,8 +119,12 @@ public class UserRoleManagementService {
         if (!Set.of("ACTIVE", "DISABLED").contains(request.status())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "用户状态不合法");
         }
+        if ("DISABLED".equals(request.status()) && user.id == actor.userId()) throw new ResponseStatusException(HttpStatus.CONFLICT, "不能停用自己");
+        if ("DISABLED".equals(request.status()) && roles.selectRoleCodesByUserId(user.id).contains(PLATFORM_ADMIN)
+                && users.countActivePlatformAdmins() <= 1) throw new ResponseStatusException(HttpStatus.CONFLICT, "不能停用最后一个平台管理员");
         user.status = request.status();
         users.updateById(user);
+        recordAudit(actor, user.id, "USER_STATUS_CHANGED");
         return summary(user);
     }
 
@@ -127,7 +153,12 @@ public class UserRoleManagementService {
             link.roleId = role.id;
             userRoles.insert(link);
         }
+        recordAudit(actor, user.id, "USER_ROLES_REPLACED");
         return summary(user);
+    }
+    private void recordAudit(AuthUserContext actor, Long target, String action) {
+        if (audit == null) return;
+        AuthAuditEventEntity e = new AuthAuditEventEntity(); e.actorUserId = actor.userId(); e.targetUserId = target; e.action = action; audit.insert(e);
     }
 
     private UserSummary summary(AuthUserEntity user) {
