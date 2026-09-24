@@ -4,7 +4,7 @@
 
 日期：2026-09-23（Asia/Shanghai）
 
-主线证据基准：`develop` `61b3ae484c972bf6054e27da2f605bae4728451d`
+主线证据基准：`develop` `09b0353e9899b95c16a7e0b7720724785bad4223`
 
 上游草案：[M02 Requirement Baseline v0.1 Draft](./requirement-baseline-m02-v0.1-draft.md)
 
@@ -52,7 +52,7 @@ Backend 安全、Contract、持久化和真实 MySQL 验收拆解见 [M02 Backen
 ## Contract、安全与数据迁移 Gate
 
 - **Contract 对齐**：Owner 已选定 Backend 现行 `/api/auth/**` 为 canonical path；PR #52 已按该路径完成真实 UI 适配并合并。`contracts/m02-api-contract-v0.2.md` 仍需由 Backend、Frontend、Architecture/Contract 评审后修订；后续新增实现仍须遵守正式 Contract Gate。
-- **授权失败关闭**：PR #49 已合并，缺失 `AuthPermissionMapper` 时 Spring 启动失败而不是 fail-open；PR #50/#51 也已合并。当前 develop `61b3ae4` 对应的运行实例已完成真实启动与 HTTP 验收，后端运行时 SHA 为 `89aa6021c38d693d75e73225317b8c313b6e5018`；正式 Baseline 审批仍待完成。
+- **授权失败关闭**：PR #49 已合并，缺失 `AuthPermissionMapper` 时 Spring 启动失败而不是 fail-open；PR #50/#51 也已合并。当前 develop `09b0353` 的文档证据与后端运行时 SHA `89aa6021c38d693d75e73225317b8c313b6e5018` 已完成真实启动与 HTTP 验收；正式 Baseline 审批仍待完成。
 - **角色可分配性**：`GET /api/auth/roles` 当前返回全部角色，而企业管理员绑定规则只允许 `enterprise-admin`。Contract/UI 需明确是否返回可分配过滤结果或增加可分配标记，并验证越权绑定被拒绝。
 - **平台管理员企业选项**：PR #51 已提供经授权的 ACTIVE 企业选项 API，PR #52 已接入真实 UI；Contract/Backend 仍需在 Baseline 记录中固化其路径和权限语义，后端继续独立校验企业状态，UI 不得硬编码企业 ID。
 - **角色管理深度**：Owner 默认决策为本 M02 UI 提供角色目录读取和用户角色绑定，不包含角色 CRUD/权限配置；主线 API 与此范围相符。未来如需 CRUD，须提交 Baseline Change Request 并增加 Requirement、Contract 与 Backend 工作项。

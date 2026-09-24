@@ -41,7 +41,7 @@
 
 | 项目 | 当前事实 | 证据 |
 | --- | --- | --- |
-| 主线 | `develop` = `61b3ae484c972bf6054e27da2f605bae4728451d`；PR #52 merge = `69f8dc7f4360754023a6acdd2830cadf7f032e68`；Laya architecture review PR #54/#55 已合并，证据刷新 PR #56 已合并 | GitHub PR #48/#52/#56 |
+| 主线 | `develop` = `09b0353e9899b95c16a7e0b7720724785bad4223`；PR #52 merge = `69f8dc7f4360754023a6acdd2830cadf7f032e68`；Laya architecture review PR #54/#55、证据刷新 PR #56/#57 已合并 | GitHub PR #48/#52/#56/#57 |
 | Backend 运行时 | `127.0.0.1:18080`；Spring 启动、RedisTemplate JSON + JavaTimeModule、Flyway、MySQL/Redis 正常 | `/tmp/ha-ai-evidence/backend-image-refresh`、`/tmp/ha-ai-evidence/m02-real-http/89aa6021/` |
 | Frontend 运行时 | `127.0.0.1:5173`；`VITE_ENABLE_AI_MOCK=false`；Vite 代理指向 18080 | PR #52 浏览器 Network 与截图 |
 | M02 IAM UI | 用户查询/创建/启停、角色读取/绑定、ACTIVE 企业选项已真实操作验证 | `output/playwright/pr52-m02-users-roles-active.png` |

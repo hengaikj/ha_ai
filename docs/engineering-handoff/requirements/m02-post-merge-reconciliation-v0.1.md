@@ -2,7 +2,7 @@
 
 状态：EVIDENCE RECORD / PENDING PRODUCT AND ARCHITECTURE REVIEW
 日期：2026-09-23（Asia/Shanghai）
-核对主线：`develop` `61b3ae484c972bf6054e27da2f605bae4728451d`
+核对主线：`develop` `09b0353e9899b95c16a7e0b7720724785bad4223`
 
 本文记录 M02-A、M02-B 合并后的代码与验证事实，并列出继续推进前的基线差异。它不是已批准的 M02 Requirement Baseline，不追认未签字的业务需求，也不授权新的 M02 实现。
 
@@ -22,7 +22,7 @@ PR #47 是前端开发行为修复；PR #52 已完成并合并 M02 用户与角�
 
 ## 主线验证证据
 
-验证命令均针对合并主线及其对应运行实例复核；当前 `develop` 为 `61b3ae484c972bf6054e27da2f605bae4728451d`。
+验证命令均针对合并主线及其对应运行实例复核；当前 `develop` 为 `09b0353e9899b95c16a7e0b7720724785bad4223`。
 
 | 层级 | 命令或证据 | 结果 | 限制 |
 | --- | --- | --- | --- |
@@ -60,7 +60,7 @@ Backend 启动日志确认 RedisTemplate JSON serializer + JavaTimeModule、Tomc
 
 | Evidence | Finding | Path |
 | --- | --- | --- |
-| PR #45/#46/#49/#50/#51/#52 已合并，`develop` 为 `61b3ae4` | M02 后端与前端 IAM 能力已成为当前代码事实 | GitHub PR 页面及本文件“已合并内容” |
+| PR #45/#46/#49/#50/#51/#52/#57 已合并，`develop` 为 `09b0353` | M02 后端与前端 IAM 能力及证据文档已成为当前代码事实 | GitHub PR 页面及本文件“已合并内容” |
 | Backend `mvn clean package` 全量结果 | 合并主线 Maven 构建通过；MySQL 专项验收被跳过 | 主线 worktree `backend/target/surefire-reports/` 与 Maven 输出 |
 | Frontend 类型检查和构建退出码均为 0 | 合并主线前端可通过类型检查与生产构建 | 主线 worktree `frontend/` 构建输出 |
 | PR #52 真实浏览器证据与合并后运行时复核 | 前端 IAM 联调已完成；正式 Baseline 审批及 Laya 技术细化仍待完成 | `docs/engineering-handoff/requirements/requirement-baseline-m02-v0.2-candidate.md`；`requirements/laya/` |
