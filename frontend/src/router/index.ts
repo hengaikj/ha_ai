@@ -596,7 +596,11 @@ export const routes: RouteRecordRaw[] = [
         path: "m02/users-roles",
         name: "m02UserRoleManagement",
         component: M02UserRolePage,
-        meta: { title: "M02 用户与角色", permission: "user:read" },
+        meta: {
+          title: "M02 用户与角色",
+          permission: "user:read",
+          menuAccessExempt: true,
+        },
       },
       {
         path: "system",
@@ -2397,9 +2401,10 @@ router.beforeEach(async (to) => {
     authStore.menus,
     menuAccessPaths,
   );
+  const menuAccessExempt = to.meta.menuAccessExempt === true;
   const hasLocalHiddenRouteFallback = to.meta.hidden === true;
   if (
-    !to.meta.menuAccessExempt &&
+    !menuAccessExempt &&
     !hasBackendMenuAccess &&
     !hasLocalHiddenRouteFallback
   ) {
