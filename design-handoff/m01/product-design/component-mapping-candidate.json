@@ -1,0 +1,13 @@
+{
+  "version": "m01-candidate-1",
+  "mode": "BROWNFIELD_UI",
+  "pages": {
+    "PAGE-PROJECTS": {"header":"BasePageHeader","table":"BaseDataTable","empty":"BaseEmpty","error":"TraceErrorAlert"},
+    "PAGE-API-KEYS": {"header":"BasePageHeader","table":"BaseDataTable","action":"PermissionButton","empty":"BaseEmpty","error":"TraceErrorAlert"},
+    "PAGE-MODEL-POLICY": {"header":"BasePageHeader","table":"BaseDataTable","action":"PermissionButton"},
+    "PAGE-USAGE": {"header":"BasePageHeader","table":"BaseDataTable"},
+    "PAGE-LOGICAL-MODELS": {"header":"BasePageHeader","table":"BaseDataTable"},
+    "PAGE-PROVIDERS": {"header":"BasePageHeader","table":"BaseDataTable"},
+    "PAGE-CHANNELS": {"header":"BasePageHeader","table":"BaseDataTable"}
+  }
+}

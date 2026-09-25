@@ -1,0 +1,14 @@
+{
+  "version": "m01-ui-v0.1",
+  "assets": [
+    {
+      "id": "ASSET-ZXG-BRAND-LOGO",
+      "file": "V1独立图形-彩色(5).svg",
+      "type": "svg",
+      "usage": "智行官主品牌Logo；Sidebar/Header/品牌区域",
+      "source": "USER_APPROVED_ORIGINAL",
+      "replaceable": false,
+      "rule": "禁止AI重绘或近似替代"
+    }
+  ]
+}

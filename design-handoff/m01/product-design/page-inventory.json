@@ -1,0 +1,15 @@
+{
+  "version": "m01-candidate-1",
+  "status": "DRAFT",
+  "pages": [
+    {"id":"PAGE-DASHBOARD","name":"工作台","side":"enterprise"},
+    {"id":"PAGE-PROJECTS","name":"项目/应用","side":"enterprise"},
+    {"id":"PAGE-PROJECT-DETAIL","name":"项目详情","side":"enterprise"},
+    {"id":"PAGE-API-KEYS","name":"API Key","side":"enterprise"},
+    {"id":"PAGE-MODEL-POLICY","name":"模型权限","side":"enterprise"},
+    {"id":"PAGE-USAGE","name":"调用记录","side":"enterprise"},
+    {"id":"PAGE-LOGICAL-MODELS","name":"Logical Model","side":"platform"},
+    {"id":"PAGE-PROVIDERS","name":"Provider","side":"platform"},
+    {"id":"PAGE-CHANNELS","name":"Channel","side":"platform"}
+  ]
+}

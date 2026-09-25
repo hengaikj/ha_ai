@@ -1,0 +1,24 @@
+# Wave 1 UI Acceptance Checklist
+
+- [ ] AppLayout复用
+- [ ] BasePageHeader复用
+- [ ] BaseDataTable复用
+- [ ] PermissionButton复用
+- [ ] BaseEmpty/TraceErrorAlert复用
+- [ ] 未改变全局主题
+- [ ] 项目字段无越界
+- [ ] API Key字段无越界
+- [ ] Usage字段无越界
+- [ ] Secret仅一次性展示
+- [ ] 普通列表仅keyPrefix
+- [ ] REVOKED未擅自提供enable
+- [ ] 400/401/403/404/409/500按规范
+- [ ] x-request-id可用于错误追踪
+- [ ] Desktop截图
+- [ ] 1366截图
+- [ ] 768窄屏截图
+- [ ] Build PASS
+- [ ] Type Check真实执行
+- [ ] Vitest真实执行
+- [ ] 未运行项标记NOT_RUN
+- [ ] 原始智行官SVG直接引用（Issue #15完成后）
